@@ -1,0 +1,38 @@
+{
+  "name": "prop-styles",
+  "version": "0.0.0",
+  "description": "usePropStyles in vue or react",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "eslint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx --fix",
+    "docs": "node scripts/docs.mjs",
+    "prepare": "husky"
+  },
+  "keywords": [],
+  "workspaces": [
+    "libs/*"
+  ],
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "@types/node": "^20.12.7",
+    "csstype": "^3.1.3",
+    "eslint": "^8.57.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.1.3",
+    "husky": "^9.0.11",
+    "inquirer": "^9.2.18",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^7.6.0",
+    "vite": "^5.2.8",
+    "vitest": "^1.5.0"
+  },
+  "author": "Capricorncd",
+  "license": "MIT",
+  "dependencies": {
+    "zx-sml": "^0.9.3"
+  }
+}

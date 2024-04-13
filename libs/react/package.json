@@ -1,0 +1,50 @@
+{
+  "name": "@prop-styles/react",
+  "version": "0.0.1",
+  "private": true,
+  "description": "",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js",
+      "types": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "dev": "vite --port 14286 --open",
+    "build": "vite build --emptyOutDir",
+    "eslint": "eslint . --fix --ext .js,.jsx,.cjs,.mjs,.ts,.tsx",
+    "test": "vitest"
+  },
+  "keywords": [
+    "libs",
+    "react",
+    "libs/react",
+    "usePropStyles",
+    "use-prop-styles",
+    "vue-hook",
+    "react-hook",
+    "front-end"
+  ],
+  "files": [],
+  "workspaces": [],
+  "lint-staged": {
+    "*.{js,ts,cjs,mjs,ts,tsx}": "eslint --fix"
+  },
+  "dependencies": {
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react-dom": "^18.2.25"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "homepage": "https://github.com/capricorncd/prop-styles#readme",
+  "author": "Capricorncd<capricorncd@qq.com>",
+  "license": "MIT"
+}

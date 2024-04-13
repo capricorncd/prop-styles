@@ -1,0 +1,38 @@
+{
+  "name": "@libs/style",
+  "version": "0.0.1",
+  "private": true,
+  "description": "",
+  "main": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "build": "vite build --emptyOutDir",
+    "eslint": "eslint . --fix --ext .js,.jsx,.cjs,.mjs,.ts,.tsx",
+    "test": "vitest"
+  },
+  "keywords": [
+    "libs",
+    "style",
+    "libs/style",
+    "createPropStyles",
+    "usePropStyles",
+    "use-prop-styles",
+    "vue-hook",
+    "react-hook",
+    "front-end"
+  ],
+  "files": [],
+  "workspaces": [],
+  "lint-staged": {
+    "*.{js,ts,cjs,mjs,ts,tsx}": "eslint --fix"
+  },
+  "devDependencies": {},
+  "dependencies": {},
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "homepage": "https://github.com/capricorncd/prop-styles#readme",
+  "author": "Capricorncd<capricorncd@qq.com>",
+  "license": "MIT"
+}

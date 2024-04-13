@@ -1,0 +1,40 @@
+{
+  "Typescript default React component": {
+    "prefix": "tsx",
+    "body": [
+      "/**",
+      " * Created by Capricorncd.",
+      " * https://github.com/capricorncd",
+      " */",
+      "import { type BaseProps, usePropStyles } from '@libs/hooks'",
+      "import { classNames } from '@libs/utils'",
+      "import React from 'react'",
+      "import \\$style from './${TM_FILENAME_BASE}.module.scss'",
+      "",
+      "export interface ${TM_FILENAME_BASE}Props extends BaseProps {",
+      "  $1",
+      "}",
+      "",
+      "export function ${TM_FILENAME_BASE}(props: ${TM_FILENAME_BASE}Props) {",
+      "  const { style } = usePropStyles(props)",
+      "  return (",
+      "     <div className={classNames(\\$style.host, props.className)} style={style}></div>",
+      "  )",
+      "}",
+      ""
+    ]
+  },
+  "file header": {
+    "prefix": "hd",
+    "body": [
+      "/**",
+      " * Created by Capricorncd.",
+      " * https://github.com/capricorncd",
+      " * Date: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND (GMT+0900)",
+      " */",
+      "$1",
+      ""
+    ],
+    "description": "Insert some information in the file header"
+  }
+}

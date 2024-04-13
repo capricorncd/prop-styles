@@ -1,0 +1,32 @@
+{
+  "file header": {
+    "prefix": "hd",
+    "body": [
+      "/**",
+      " * Created by Capricorncd.",
+      " * https://github.com/capricorncd",
+      " */",
+      "$1",
+      ""
+    ],
+    "description": "Insert some information in the file header"
+  },
+  "vite": {
+    "prefix": "vite",
+    "body": [
+      "import { resolve } from '@fd-libs/path'",
+      "import { defineConfig } from 'vite'",
+      "",
+      "export default defineConfig({",
+      "  base: './',",
+      "  build: {",
+      "    outDir:",
+      "      resolve(",
+      "        '../../../capricorncd.github.io/demos/${TM_DIRECTORY/.+\\/(.+\\/.+)$/$1/i}'",
+      "      ),",
+      "  }",
+      "})"
+    ],
+    "description": "Generate Vite basic configuration"
+  }
+}
