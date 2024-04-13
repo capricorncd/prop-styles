@@ -1,7 +1,6 @@
 {
   "name": "@prop-styles/react",
   "version": "0.0.1",
-  "private": true,
   "description": "",
   "type": "module",
   "main": "src/index.ts",
