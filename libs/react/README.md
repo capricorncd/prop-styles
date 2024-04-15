@@ -1,5 +1,11 @@
 # @prop-styles/react
 
+Process CSS-related properties in Props so that they can generate the element style.
+
+```bash
+npm i @prop-styles/react
+```
+
 ```js
 import { usePropStyles } from '@prop-styles/react'
 
@@ -10,6 +16,9 @@ export default App(props) {
     <div style={style}></div>
   )
 }
+
+<App width="100" radius="12 12 0 12" marginTop="20" />
+// <div style="width:100px;border-radius:12px 12px 0 12px;margin-top:20px;"></div>
 ```
 
 ## Methods
@@ -23,7 +32,9 @@ Param|Types|Required|Description
 props|`T`|yes|Component properties
 mappings|`PropMappings<T>`|no|[PropMappings](#PropMappings)
 
-- @returns `{style: {[key: string]: string}}`
+- @generic `T extends BaseProps`
+
+- @returns `UsePropStylesReturn`
 
 ## Types
 
@@ -162,47 +173,6 @@ type PropMappingHandler<T extends BaseProps> = (
 
 Prop|Types|Required|Description
 :--|:--|:--|:--
-style|`any`|no|style
-width|`number`/`string`|no|width
-minWidth|`number`/`string`|no|-
-maxWidth|`number`/`string`|no|-
-height|`number`/`string`|no|height
-minHeight|`number`/`string`|no|-
-maxHeight|`number`/`string`|no|-
-flex|`boolean`|no|display
-grid|`boolean`|no|-
-inlineFlex|`boolean`|no|-
-inlineBlock|`boolean`|no|-
-inline|`boolean`|no|-
-gap|`number`/`string`|no|flex/grid
-column|`boolean`|no|-
-align|`Property.AlignItems`|no|-
-justify|`Property.JustifyContent`|no|-
-wrap|`boolean`/`Property.FlexWrap`|no|-
-padding|`number`/`string`|no|padding
-paddingTop|`number`/`string`|no|-
-paddingBottom|`number`/`string`|no|-
-paddingLeft|`number`/`string`|no|-
-paddingRight|`number`/`string`|no|-
-paddingInline|`number`/`string`|no|-
-paddingBlock|`number`/`string`|no|-
-margin|`number`/`string`|no|margin
-marginTop|`number`/`string`|no|-
-marginBottom|`number`/`string`|no|-
-marginLeft|`number`/`string`|no|-
-marginRight|`number`/`string`|no|-
-marginInline|`number`/`string`|no|-
-marginBlock|`number`/`string`|no|-
-radius|`string`/`number`|no|border-radius
-fontSize|`string`/`number`|no|font
-lineHeight|`string`/`number`|no|-
-color|`string`|no|color
-background|`string`|no|-
-scroll|`boolean`/`'x'`/`'y'`|no|scroll direction
-breakWord|`boolean`|no|text
-bold|`boolean`|no|bold of font
-thin|`boolean`|no|thin of font
-border|`string`/`number`|no|border, border-width, border-color
 [key: keyof T]|`PropMappingHandler<T>`|yes|-
 
 <details>
@@ -211,6 +181,23 @@ border|`string`/`number`|no|border, border-width, border-color
 ```ts
 type PropMappings<T extends BaseProps> = {
   [key: keyof T]: PropMappingHandler<T>
+}
+```
+
+</details>
+
+### UsePropStylesReturn
+
+Prop|Types|Required|Description
+:--|:--|:--|:--
+style|`{ [key: string]: string }`|yes|-
+
+<details>
+<summary>Source Code</summary>
+
+```ts
+interface UsePropStylesReturn {
+  style: { [key: string]: string }
 }
 ```
 

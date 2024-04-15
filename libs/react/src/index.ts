@@ -5,6 +5,12 @@
  *
  * @document @prop-styles/react
  *
+ * Process CSS-related properties in Props so that they can generate the element style.
+ *
+ * ```bash
+ * npm i @prop-styles/react
+ * ```
+ *
  * ```js
  * import { usePropStyles } from '@prop-styles/react'
  *
@@ -15,6 +21,9 @@
  *     <div style={style}></div>
  *   )
  * }
+ *
+ * <App width="100" radius="12 12 0 12" marginTop="20" />
+ * // <div style="width:100px;border-radius:12px 12px 0 12px;margin-top:20px;"></div>
  * ```
  */
 import { createPropStyles } from '@libs/style'
@@ -24,20 +33,27 @@ import type { BaseProps, PropMappings } from '@libs/style'
 export * from '@libs/style'
 
 /**
- * @method usePropStyles(props, mappings)
+ * @method usePropStyles<T extends BaseProps>(props, mappings)
  *
  * Convert component properties to Style key-value pair objects
  *
  * @param props `T` Component properties
  * @param mappings? `PropMappings<T>` [PropMappings](#PropMappings)
- * @returns `{style: {[key: string]: string}}`
+ * @returns `UsePropStylesReturn`
  */
 export function usePropStyles<T extends BaseProps>(
   props: T,
   mappings?: PropMappings<T>
-) {
+): UsePropStylesReturn {
   const style = useMemo(() => createPropStyles(props, mappings), [props])
   return {
     style,
   }
+}
+
+/**
+ * @type UsePropStylesReturn
+ */
+export interface UsePropStylesReturn {
+  style: { [key: string]: string }
 }
