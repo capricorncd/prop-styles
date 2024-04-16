@@ -5,6 +5,12 @@
  *
  * @document @prop-styles/react
  *
+ * <p>
+ * <a href="https://npmcharts.com/compare/@prop-styles/react?minimal=true"><img src="https://img.shields.io/npm/dm/@prop-styles/react.svg?sanitize=true" alt="Downloads"></a>
+ * <a href="https://www.npmjs.com/package/@prop-styles/react"><img src="https://img.shields.io/npm/v/@prop-styles/react.svg?sanitize=true" alt="Version"></a>
+ * <a href="https://www.npmjs.com/package/@prop-styles/react"><img src="https://img.shields.io/npm/l/@prop-styles/react.svg?sanitize=true" alt="License"></a>
+ * </p>
+ *
  * Process CSS-related properties in Props so that they can generate the element style.
  *
  * ```bash
@@ -27,10 +33,17 @@
  * ```
  */
 import { createPropStyles } from '@libs/style'
-import { useMemo } from 'react'
+import { useMemo, type ReactNode } from 'react'
 import type { BaseProps, PropMappings } from '@libs/style'
 
-export * from '@libs/style'
+/**
+ * @type ReactBaseProps
+ */
+export interface ReactBaseProps extends BaseProps {
+  className?: string
+  children?: ReactNode
+  onClick?: (event: Event) => void
+}
 
 /**
  * @method usePropStyles<T extends BaseProps>(props, mappings)

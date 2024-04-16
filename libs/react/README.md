@@ -1,5 +1,11 @@
 # @prop-styles/react
 
+<p>
+<a href="https://npmcharts.com/compare/@prop-styles/react?minimal=true"><img src="https://img.shields.io/npm/dm/@prop-styles/react.svg?sanitize=true" alt="Downloads"></a>
+<a href="https://www.npmjs.com/package/@prop-styles/react"><img src="https://img.shields.io/npm/v/@prop-styles/react.svg?sanitize=true" alt="Version"></a>
+<a href="https://www.npmjs.com/package/@prop-styles/react"><img src="https://img.shields.io/npm/l/@prop-styles/react.svg?sanitize=true" alt="License"></a>
+</p>
+
 Process CSS-related properties in Props so that they can generate the element style.
 
 ```bash
@@ -181,6 +187,68 @@ Prop|Types|Required|Description
 ```ts
 type PropMappings<T extends BaseProps> = {
   [key: keyof T]: PropMappingHandler<T>
+}
+```
+
+</details>
+
+### ReactBaseProps
+
+Prop|Types|Required|Description
+:--|:--|:--|:--
+style|`any`|no|style
+width|`number`/`string`|no|width
+minWidth|`number`/`string`|no|-
+maxWidth|`number`/`string`|no|-
+height|`number`/`string`|no|height
+minHeight|`number`/`string`|no|-
+maxHeight|`number`/`string`|no|-
+flex|`boolean`|no|display
+grid|`boolean`|no|-
+inlineFlex|`boolean`|no|-
+inlineBlock|`boolean`|no|-
+inline|`boolean`|no|-
+gap|`number`/`string`|no|flex/grid
+column|`boolean`|no|-
+align|`Property.AlignItems`|no|-
+justify|`Property.JustifyContent`|no|-
+wrap|`boolean`/`Property.FlexWrap`|no|-
+padding|`number`/`string`|no|padding
+paddingTop|`number`/`string`|no|-
+paddingBottom|`number`/`string`|no|-
+paddingLeft|`number`/`string`|no|-
+paddingRight|`number`/`string`|no|-
+paddingInline|`number`/`string`|no|-
+paddingBlock|`number`/`string`|no|-
+margin|`number`/`string`|no|margin
+marginTop|`number`/`string`|no|-
+marginBottom|`number`/`string`|no|-
+marginLeft|`number`/`string`|no|-
+marginRight|`number`/`string`|no|-
+marginInline|`number`/`string`|no|-
+marginBlock|`number`/`string`|no|-
+radius|`string`/`number`|no|border-radius
+fontSize|`string`/`number`|no|font
+lineHeight|`string`/`number`|no|-
+color|`string`|no|color
+background|`string`|no|-
+scroll|`boolean`/`'x'`/`'y'`|no|scroll direction
+breakWord|`boolean`|no|text
+bold|`boolean`|no|bold of font
+thin|`boolean`|no|thin of font
+border|`string`/`number`|no|border, border-width, border-color
+className|`string`|no|-
+children|`ReactNode`|no|-
+onClick|`(event: Event) => void`|no|-
+
+<details>
+<summary>Source Code</summary>
+
+```ts
+interface ReactBaseProps extends BaseProps {
+  className?: string
+  children?: ReactNode
+  onClick?: (event: Event) => void
 }
 ```
 
