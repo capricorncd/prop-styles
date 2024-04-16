@@ -1,0 +1,49 @@
+{
+  "name": "@prop-styles/vue",
+  "version": "0.0.1",
+  "description": "Process CSS-related properties in Props so that they can generate the element style.",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "./dist/types.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/types.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "vite build --emptyOutDir && npm run docs",
+    "docs": "node scripts/docs.mjs",
+    "eslint": "eslint . --fix --ext .js,.jsx,.cjs,.mjs,.ts,.tsx",
+    "test": "vitest"
+  },
+  "keywords": [
+    "libs",
+    "vue",
+    "libs/vue",
+    "usePropStyles",
+    "use-prop-styles",
+    "vue-hook",
+    "front-end"
+  ],
+  "workspaces": [],
+  "lint-staged": {
+    "*.{js,ts,cjs,mjs,ts,tsx}": "eslint --fix"
+  },
+  "dependencies": {
+    "vue": "^3.4.22"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "homepage": "https://github.com/capricorncd/prop-styles#readme",
+  "author": "Capricorncd<capricorncd@qq.com>",
+  "license": "MIT"
+}
