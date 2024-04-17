@@ -32,9 +32,9 @@
  * // <div style="width:100px;border-radius:12px 12px 0 12px;margin-top:20px;"></div>
  * ```
  */
-import { createPropStyles } from '@libs/style'
+import { createPropStyles } from '@prop-styles/core'
 import { useMemo, type ReactNode } from 'react'
-import type { BaseProps, PropMappings } from '@libs/style'
+import type { BaseProps, PropMappings } from '@prop-styles/core'
 
 /**
  * @type ReactBaseProps
@@ -49,6 +49,8 @@ export interface ReactBaseProps extends BaseProps {
  * @method usePropStyles<T extends BaseProps>(props, mappings)
  *
  * Convert component properties to Style key-value pair objects
+ *
+ * @sort 1
  *
  * @param props `T` Component properties
  * @param mappings? `PropMappings<T>` [PropMappings](#PropMappings)
@@ -70,3 +72,8 @@ export function usePropStyles<T extends BaseProps>(
 export interface UsePropStylesReturn {
   style: { [key: string]: string }
 }
+
+/**
+ * export
+ */
+export { createPropStyles }

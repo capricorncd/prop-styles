@@ -1,9 +1,9 @@
 {
   "name": "@prop-styles/react",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Process CSS-related properties in Props so that they can generate the element style.",
   "type": "module",
-  "main": "./dist/index.es.js",
+  "main": "./src/index.ts",
   "types": "./dist/types.d.ts",
   "exports": {
     ".": {

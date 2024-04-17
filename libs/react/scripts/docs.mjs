@@ -30,7 +30,15 @@ const LIBS_DIR = [resolve('../style'), resolve('src')]
 
 function main() {
   // output docs
-  const res = outputFile(LIBS_DIR, resolve('./README.md'))
+  const res = outputFile(LIBS_DIR, resolve('./README.md'), {
+    lines: {
+      end: [
+        '## License',
+        '',
+        'MIT License © 2024-Present [Capricorncd](https://github.com/capricorncd).',
+      ],
+    },
+  })
 
   // output types.d.ts
   const libsReactTypeFile = resolve('./dist/types.d.ts')
@@ -40,7 +48,6 @@ function main() {
       lines.push(
         `export function ${item.name}${item.generics.length ? '<' + item.generics.join(', ') + '>' : ''}(${generateParams(item.params)}): ${item.returns[0]?.types.join(' | ') ?? 'void'};`
       )
-      console.log(item.params[0])
     } else if (item.type === 'type') {
       lines.push('export ' + item.codes[0], ...item.codes.slice(1))
     }
