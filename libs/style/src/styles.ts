@@ -4,7 +4,14 @@
  * Date: 2024/03/16 17:21:56 (GMT+0900)
  */
 import { toCssValue, isBoolean } from '@libs/utils'
-import { handleMappings, display, numerical, changeless, border } from './utils'
+import {
+  handleMappings,
+  display,
+  numerical,
+  changeless,
+  border,
+  format,
+} from './utils'
 import type { BaseProps, PropMappings } from './types'
 
 const NUMERICAL_PROP_KEYS = [
@@ -59,22 +66,31 @@ const CSS_PROP_MAPPINGS: PropMappings<BaseProps> = {
   // display
   ...display(DISPLAY_PROP_KEYS),
   // overflow
-  scroll: (value: BaseProps['scroll']) => [
-    `overflow${typeof value === 'string' ? value.toUpperCase() : ''}`,
-    'auto',
-  ],
+  scroll: (value: BaseProps['scroll']) =>
+    value
+      ? [
+          `overflow${typeof value === 'string' ? value.toUpperCase() : ''}`,
+          'auto',
+        ]
+      : null,
   ...numerical(NUMERICAL_PROP_KEYS),
   ...changeless(CHANGELESS_PROP_KEYS),
   // border
   border: (value: BaseProps['border']) => border(value),
+  fs: (value: BaseProps['fs']) => format('fontSize', value, toCssValue(value)),
+  bg: (value: BaseProps['bg']) => format('background', value),
+  fontWeight: (value: BaseProps['fontWeight']) => format('fontWeight', value),
+  fw: (value: BaseProps['fw']) => format('fontWeight', value),
 }
 
 /**
- * Create Prop Styles
+ * @method createPropStyles<T extends BaseProps>(props, mappings)
  *
- * @param props {@link BaseProps}
- * @param mappings {@link PartialPropMappingRecord}
- * @returns Record<string, string>
+ * Create Styles Object
+ *
+ * @param props `T` [BaseProps](#BaseProps)
+ * @param mappings? `PropMappings` [PropMappings](#PropMappings)
+ * @returns `Record<string, string>`
  */
 export function createPropStyles<T extends BaseProps>(
   props: T,

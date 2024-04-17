@@ -1,12 +1,25 @@
 {
-  "name": "@libs/style",
+  "name": "@prop-styles/core",
   "version": "0.0.1",
-  "private": true,
   "description": "",
   "main": "src/index.ts",
   "type": "module",
+  "types": "./dist/types.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/types.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ],
   "scripts": {
-    "build": "vite build --emptyOutDir",
+    "build": "vite build --emptyOutDir && npm run docs",
+    "docs": "node scripts/docs.mjs",
     "eslint": "eslint . --fix --ext .js,.jsx,.cjs,.mjs,.ts,.tsx",
     "test": "vitest"
   },
@@ -21,13 +34,13 @@
     "react-hook",
     "front-end"
   ],
-  "files": [],
   "workspaces": [],
   "lint-staged": {
     "*.{js,ts,cjs,mjs,ts,tsx}": "eslint --fix"
   },
-  "devDependencies": {},
-  "dependencies": {},
+  "devDependencies": {
+    "vitest": "^1.5.0"
+  },
   "engines": {
     "node": ">=20.0.0",
     "npm": ">=10.0.0"

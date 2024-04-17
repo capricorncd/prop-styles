@@ -51,10 +51,14 @@ export interface BaseProps {
   radius?: string | number
   // font
   fontSize?: string | number
+  // fontSize
+  fs?: string | number
   lineHeight?: string | number
   // color
   color?: string
-  background?: string
+  background?: Property.Background
+  // background
+  bg?: Property.Background
   // scroll direction
   scroll?: boolean | 'x' | 'y'
   // text
@@ -62,7 +66,10 @@ export interface BaseProps {
   // bold of font
   bold?: boolean
   // thin of font
-  thin?: boolean
+  thin?: boolean | string
+  fontWeight?: Property.FontWeight
+  // fontWeight
+  fw?: Property.FontWeight
   // border, border-width, border-color
   border?: string | number
 }
