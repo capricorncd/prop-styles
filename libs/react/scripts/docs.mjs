@@ -26,7 +26,7 @@ function generateParams(params) {
     .join(', ')
 }
 
-const LIBS_DIR = [resolve('../style'), resolve('src')]
+const LIBS_DIR = [resolve('../core'), resolve('src')]
 
 function main() {
   // output docs
