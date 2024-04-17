@@ -16,6 +16,7 @@
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
+      "@prop-styles/*": ["./libs/*"],
       "@libs/*": ["./libs/*"]
     }
   }

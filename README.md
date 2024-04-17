@@ -6,3 +6,4 @@ see
 
 - [@prop-styles/react](libs/react)
 - [@prop-styles/vue](libs/vue)
+- [@prop-styles/core](libs/core)
