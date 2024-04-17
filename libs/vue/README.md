@@ -38,6 +38,19 @@ export default {
 
 ## Methods
 
+### createPropStyles(props, mappings)
+
+Create Styles Object
+
+Param|Types|Required|Description
+:--|:--|:--|:--
+props|`T`|yes|[BaseProps](#BaseProps)
+mappings|`PropMappings`|no|[PropMappings](#PropMappings)
+
+- @generic `T extends BaseProps`
+
+- @returns `Record<string, string>`
+
 ### usePropStyles(props, mappings)
 
 Convert component properties to Style key-value pair objects
@@ -90,13 +103,17 @@ marginInline|`number`/`string`|no|-
 marginBlock|`number`/`string`|no|-
 radius|`string`/`number`|no|border-radius
 fontSize|`string`/`number`|no|font
+fs|`string`/`number`|no|fontSize
 lineHeight|`string`/`number`|no|-
 color|`string`|no|color
-background|`string`|no|-
+background|`Property.Background`|no|-
+bg|`Property.Background`|no|background
 scroll|`boolean`/`'x'`/`'y'`|no|scroll direction
 breakWord|`boolean`|no|text
 bold|`boolean`|no|bold of font
-thin|`boolean`|no|thin of font
+thin|`boolean`/`string`|no|thin of font
+fontWeight|`Property.FontWeight`|no|-
+fw|`Property.FontWeight`|no|fontWeight
 border|`string`/`number`|no|border, border-width, border-color
 
 <details>
@@ -146,10 +163,14 @@ interface BaseProps {
   radius?: string | number
   // font
   fontSize?: string | number
+  // fontSize
+  fs?: string | number
   lineHeight?: string | number
   // color
   color?: string
-  background?: string
+  background?: Property.Background
+  // background
+  bg?: Property.Background
   // scroll direction
   scroll?: boolean | 'x' | 'y'
   // text
@@ -157,7 +178,10 @@ interface BaseProps {
   // bold of font
   bold?: boolean
   // thin of font
-  thin?: boolean
+  thin?: boolean | string
+  fontWeight?: Property.FontWeight
+  // fontWeight
+  fw?: Property.FontWeight
   // border, border-width, border-color
   border?: string | number
 }
@@ -205,14 +229,14 @@ type PropMappings<T extends BaseProps> = {
 
 Prop|Types|Required|Description
 :--|:--|:--|:--
-style|`ComputedRef<any[]>`|yes|-
+style|`ComputedRef<StyleValue[]>`|yes|-
 
 <details>
 <summary>Source Code</summary>
 
 ```ts
 interface UsePropStylesReturn {
-  style: ComputedRef<any[]>
+  style: ComputedRef<StyleValue[]>
 }
 ```
 
@@ -255,13 +279,17 @@ marginInline|`number`/`string`|no|-
 marginBlock|`number`/`string`|no|-
 radius|`string`/`number`|no|border-radius
 fontSize|`string`/`number`|no|font
+fs|`string`/`number`|no|fontSize
 lineHeight|`string`/`number`|no|-
 color|`string`|no|color
-background|`string`|no|-
+background|`Property.Background`|no|-
+bg|`Property.Background`|no|background
 scroll|`boolean`/`'x'`/`'y'`|no|scroll direction
 breakWord|`boolean`|no|text
 bold|`boolean`|no|bold of font
-thin|`boolean`|no|thin of font
+thin|`boolean`/`string`|no|thin of font
+fontWeight|`Property.FontWeight`|no|-
+fw|`Property.FontWeight`|no|fontWeight
 border|`string`/`number`|no|border, border-width, border-color
 class|`any`|no|-
 
@@ -275,3 +303,7 @@ interface VueBaseProps extends BaseProps {
 ```
 
 </details>
+
+## License
+
+MIT License © 2024-Present [Capricorncd](https://github.com/capricorncd).

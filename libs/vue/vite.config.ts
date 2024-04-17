@@ -3,6 +3,7 @@
  * https://github.com/capricorncd
  */
 import path from 'node:path'
+import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
 
 export function resolve(_path: string) {
@@ -11,6 +12,7 @@ export function resolve(_path: string) {
 
 export default defineConfig({
   base: './',
+  plugins: [vue()],
   build: {
     lib: {
       entry: resolve('src/index.ts'),
@@ -21,5 +23,8 @@ export default defineConfig({
     rollupOptions: {
       external: ['vue'],
     },
+  },
+  test: {
+    environment: 'jsdom',
   },
 })

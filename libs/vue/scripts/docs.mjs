@@ -26,11 +26,19 @@ function generateParams(params) {
     .join(', ')
 }
 
-const LIBS_DIR = [resolve('../style'), resolve('src')]
+const LIBS_DIR = [resolve('../core'), resolve('src')]
 
 function main() {
   // output docs
-  const res = outputFile(LIBS_DIR, resolve('./README.md'))
+  const res = outputFile(LIBS_DIR, resolve('./README.md'), {
+    lines: {
+      end: [
+        '## License',
+        '',
+        'MIT License © 2024-Present [Capricorncd](https://github.com/capricorncd).',
+      ],
+    },
+  })
 
   // output types.d.ts
   const libsReactTypeFile = resolve('./dist/types.d.ts')

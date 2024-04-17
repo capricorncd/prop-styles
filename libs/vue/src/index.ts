@@ -41,9 +41,9 @@
  * // <div style="width:100px;border-radius:12px 12px 0 12px;margin-top:20px;"></div>
  * ```
  */
-import { createPropStyles } from '@libs/style'
+import { createPropStyles } from '@prop-styles/core'
 import { computed, type ComputedRef, type StyleValue } from 'vue'
-import type { BaseProps, PropMappings } from '@libs/style'
+import type { BaseProps, PropMappings } from '@prop-styles/core'
 
 /**
  * @type VueBaseProps
@@ -86,5 +86,10 @@ export function usePropStyles<T extends BaseProps>(
  * @type UsePropStylesReturn
  */
 export interface UsePropStylesReturn {
-  style: ComputedRef<any[]>
+  style: ComputedRef<StyleValue[]>
 }
+
+/**
+ * export
+ */
+export { createPropStyles }
