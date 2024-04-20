@@ -40,7 +40,7 @@ function main() {
         '<a href="https://www.npmjs.com/package/@prop-styles/core"><img src="https://img.shields.io/npm/l/@prop-styles/core.svg?sanitize=true" alt="License"></a>',
         '</p>',
         '',
-        'The library provides a static method [createPropStyles](#createPropStyles) to create Style objects.',
+        'The library provides a static method [createPropStyles](#createpropstylesprops-mappings) to create Style objects.',
         '',
         '```bash',
         'npm i @prop-styles/core',
