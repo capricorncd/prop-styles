@@ -48,7 +48,6 @@ function main() {
       lines.push(
         `export function ${item.name}${item.generics.length ? '<' + item.generics.join(', ') + '>' : ''}(${generateParams(item.params)}): ${item.returns[0]?.types.join(' | ') ?? 'void'};`
       )
-      console.log(item.params[0])
     } else if (item.type === 'type') {
       lines.push('export ' + item.codes[0], ...item.codes.slice(1))
     }

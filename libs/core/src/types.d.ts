@@ -75,7 +75,9 @@ export interface BaseProps {
 }
 
 /**
- * @PropMappingHandlerReturn
+ * @type PropMappingHandlerReturn
+ *
+ * [PropMappingHandler](#PropMappingHandler)'s returns
  */
 export type PropMappingHandlerReturn = [key: string, val: string] | null
 

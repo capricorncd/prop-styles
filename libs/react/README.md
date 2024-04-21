@@ -240,6 +240,19 @@ type PropMappingHandler<T extends BaseProps> = (
 
 </details>
 
+### PropMappingHandlerReturn
+
+[PropMappingHandler](#PropMappingHandler)'s returns
+
+<details>
+<summary>Source Code</summary>
+
+```ts
+type PropMappingHandlerReturn = [key: string, val: string] | null
+```
+
+</details>
+
 ### PropMappings
 
 [PropMappingHandler](#PropMappingHandler)
