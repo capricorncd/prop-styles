@@ -17,7 +17,7 @@
  * npm i @prop-styles/react
  * ```
  *
- * ```js
+ * ```jsx
  * import { usePropStyles } from '@prop-styles/react'
  *
  * export default App(props) {
@@ -27,7 +27,9 @@
  *     <div style={style}></div>
  *   )
  * }
+ * ```
  *
+ * ```jsx
  * <App width="100" radius="12 12 0 12" marginTop="20" />
  * // <div style="width:100px;border-radius:12px 12px 0 12px;margin-top:20px;"></div>
  * ```

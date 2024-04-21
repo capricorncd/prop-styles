@@ -12,8 +12,9 @@ Process CSS-related properties in Props so that they can generate the element st
 npm i @prop-styles/vue
 ```
 
-./App.vue
-```html
+App.vue
+
+```vue
 <script>
 import { usePropStyles } from '@prop-styles/vue'
 
@@ -31,7 +32,9 @@ export default {
 <template>
   <div :style="{style}"></div>
 </template>
+```
 
+```vue
 <App width="100" radius="12 12 0 12" marginTop="20" />
 // <div style="width:100px;border-radius:12px 12px 0 12px;margin-top:20px;"></div>
 ```
@@ -42,6 +45,17 @@ export default {
 
 Create Styles Object
 
+Example
+
+```js
+const props = { width: 100, color: '#fff' }
+
+createPropStyles(props, {
+  // custom mapping handler
+  color: (value) => ['--color', value]
+}) // { width: '100px', '--color', '#fff' }
+```
+
 Param|Types|Required|Description
 :--|:--|:--|:--
 props|`T`|yes|[BaseProps](#BaseProps)
@@ -50,6 +64,32 @@ mappings|`PropMappings`|no|[PropMappings](#PropMappings)
 - @generic `T extends BaseProps`
 
 - @returns `Record<string, string>`
+
+### formatReturn(key, value, strValue)
+
+Used for [PropMappingHandler](#PropMappingHandler) processing. When `value` is `null/undefined/''/false`, return null, otherwise return the specified value.
+
+Example
+
+```js
+formatReturn('width', 100) // ['width', '100']
+formatReturn('width', '100px') // ['width', '100px']
+formatReturn('width', 100, '100%') // ['width', '100%']
+
+formatReturn('key', false) // null
+formatReturn('key', '') // null
+formatReturn('key', undefined) // null
+formatReturn('key', null) // null
+formatReturn('key', null, 'stringValue') // null
+```
+
+Param|Types|Required|Description
+:--|:--|:--|:--
+key|`string`|yes|The PropMappingHandlerReturn `key` or customize `key`
+value|`V`|yes|The `props[prop]'s value`
+strValue|`string`|no|Customize the `value` of PropMappingHandlerReturn
+
+- @returns `PropMappingHandlerReturn` see [PropMappingHandlerReturn](#PropMappingHandlerReturn)
 
 ### usePropStyles(props, mappings)
 
@@ -191,6 +231,8 @@ interface BaseProps {
 
 ### PropMappingHandler
 
+PropMappings processing function, returns [PropMappingHandlerReturn](#PropMappingHandlerReturn)
+
 Prop|Types|Required|Description
 :--|:--|:--|:--
 value|`T[keyof T],`|yes|-
@@ -209,6 +251,8 @@ type PropMappingHandler<T extends BaseProps> = (
 </details>
 
 ### PropMappings
+
+[PropMappingHandler](#PropMappingHandler)
 
 Prop|Types|Required|Description
 :--|:--|:--|:--

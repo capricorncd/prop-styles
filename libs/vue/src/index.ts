@@ -17,8 +17,9 @@
  * npm i @prop-styles/vue
  * ```
  *
- * ./App.vue
- * ```html
+ * App.vue
+ *
+ * ```vue
  * <script>
  * import { usePropStyles } from '@prop-styles/vue'
  *
@@ -36,7 +37,9 @@
  * <template>
  *   <div :style="{style}"></div>
  * </template>
+ * ```
  *
+ * ```vue
  * <App width="100" radius="12 12 0 12" marginTop="20" />
  * // <div style="width:100px;border-radius:12px 12px 0 12px;margin-top:20px;"></div>
  * ```
