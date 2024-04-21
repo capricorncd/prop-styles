@@ -18,8 +18,9 @@
     "README.md"
   ],
   "scripts": {
-    "build": "vite build --emptyOutDir && npm run docs",
+    "build": "vite build --emptyOutDir",
     "docs": "node scripts/docs.mjs",
+    "pl": "npm run build && npm run docs && npm publish",
     "eslint": "eslint . --fix --ext .js,.jsx,.cjs,.mjs,.ts,.tsx",
     "test": "vitest"
   },
