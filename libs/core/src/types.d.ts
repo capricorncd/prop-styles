@@ -81,6 +81,8 @@ export type PropMappingHandlerReturn = [key: string, val: string] | null
 
 /**
  * @type PropMappingHandler
+ *
+ * PropMappings processing function, returns [PropMappingHandlerReturn](#PropMappingHandlerReturn)
  */
 export type PropMappingHandler<T extends BaseProps> = (
   value: T[keyof T],
@@ -89,6 +91,8 @@ export type PropMappingHandler<T extends BaseProps> = (
 
 /**
  * @type PropMappings
+ *
+ * [PropMappingHandler](#PropMappingHandler)
  */
 export type PropMappings<T extends BaseProps> = {
   [key: keyof T]: PropMappingHandler<T>

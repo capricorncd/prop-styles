@@ -10,7 +10,7 @@ import {
   numerical,
   changeless,
   border,
-  format,
+  formatReturn,
 } from './utils'
 import type { BaseProps, PropMappings } from './types'
 
@@ -77,16 +77,29 @@ const CSS_PROP_MAPPINGS: PropMappings<BaseProps> = {
   ...changeless(CHANGELESS_PROP_KEYS),
   // border
   border: (value: BaseProps['border']) => border(value),
-  fs: (value: BaseProps['fs']) => format('fontSize', value, toCssValue(value)),
-  bg: (value: BaseProps['bg']) => format('background', value),
-  fontWeight: (value: BaseProps['fontWeight']) => format('fontWeight', value),
-  fw: (value: BaseProps['fw']) => format('fontWeight', value),
+  fs: (value: BaseProps['fs']) =>
+    formatReturn('fontSize', value, toCssValue(value)),
+  bg: (value: BaseProps['bg']) => formatReturn('background', value),
+  fontWeight: (value: BaseProps['fontWeight']) =>
+    formatReturn('fontWeight', value),
+  fw: (value: BaseProps['fw']) => formatReturn('fontWeight', value),
 }
 
 /**
  * @method createPropStyles<T extends BaseProps>(props, mappings)
  *
  * Create Styles Object
+ *
+ * Example
+ *
+ * ```js
+ * const props = { width: 100, color: '#fff' }
+ *
+ * createPropStyles(props, {
+ *   // custom mapping handler
+ *   color: (value) => ['--color', value]
+ * }) // { width: '100px', '--color', '#fff' }
+ * ```
  *
  * @param props `T` [BaseProps](#BaseProps)
  * @param mappings? `PropMappings` [PropMappings](#PropMappings)

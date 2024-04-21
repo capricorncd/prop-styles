@@ -5,3 +5,4 @@
  */
 export * from './types.d'
 export * from './styles'
+export { formatReturn } from './utils'

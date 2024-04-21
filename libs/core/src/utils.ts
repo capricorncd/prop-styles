@@ -17,14 +17,36 @@ import type {
   BaseProps,
 } from './types.d'
 
-export function format<K extends string, V>(
+/**
+ * @method formatReturn(key, value, strValue)
+ *
+ * Used for [PropMappingHandler](#PropMappingHandler) processing. When `value` is `null/undefined/''/false`, return null, otherwise return the specified value.
+ *
+ * Example
+ *
+ * ```js
+ * formatReturn('width', 100) // ['width', '100']
+ * formatReturn('width', '100px') // ['width', '100px']
+ * formatReturn('width', 100, '100%') // ['width', '100%']
+ *
+ * formatReturn('key', false) // null
+ * formatReturn('key', '') // null
+ * formatReturn('key', undefined) // null
+ * formatReturn('key', null) // null
+ * formatReturn('key', null, 'stringValue') // null
+ * ```
+ *
+ * @param key `string` The PropMappingHandlerReturn `key` or customize `key`
+ * @param value `V` The `props[prop]'s value`
+ * @param strValue? `string` Customize the `value` of PropMappingHandlerReturn
+ * @returns `PropMappingHandlerReturn` see [PropMappingHandlerReturn](#PropMappingHandlerReturn)
+ */
+export function formatReturn<K extends string, V>(
   key: K,
   value: V,
-  str?: string
+  strValue?: string
 ): PropMappingHandlerReturn {
-  return isNullOrUndefined(value) || value === false
-    ? null
-    : [key, str ?? (value as string)]
+  return !value && value !== 0 ? null : [key, strValue ?? String(value)]
 }
 
 function generateStyleMapping<T extends BaseProps>(
@@ -40,13 +62,13 @@ function generateStyleMapping<T extends BaseProps>(
 
 export function display(keys: string[]) {
   return generateStyleMapping(keys, (prop, value?: boolean) =>
-    format('display', value, toSnakeCase(prop))
+    formatReturn('display', value, toSnakeCase(prop))
   )
 }
 
 export function numerical(keys: string[]) {
   return generateStyleMapping(keys, (prop, value?: number | string) =>
-    format(prop, value, toCssValue(value))
+    formatReturn(prop, value, toCssValue(value))
   )
 }
 
