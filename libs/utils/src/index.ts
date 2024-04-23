@@ -3,7 +3,7 @@
  * https://github.com/capricorncd
  * Date: 2024/03/16 17:27:22 (GMT+0900)
  */
-export * from 'zx-sml'
+export * from '@zx-libs/utils'
 
 export function isBoolean(value: unknown): value is boolean {
   return typeof value === 'boolean'

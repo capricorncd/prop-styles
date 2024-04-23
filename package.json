@@ -12,6 +12,7 @@
     "libs/*"
   ],
   "dependencies": {
+    "@zx-libs/utils": "^0.0.1",
     "zx-sml": "^0.9.4"
   },
   "devDependencies": {

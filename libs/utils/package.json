@@ -28,7 +28,7 @@
   },
   "devDependencies": {},
   "dependencies": {
-    "zx-sml": "^0.9.3"
+    "@zx-libs/utils": "^0.0.1"
   },
   "engines": {
     "node": ">=20.0.0",
