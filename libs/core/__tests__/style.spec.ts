@@ -232,6 +232,19 @@ describe('libs/style createPropStyles', () => {
     })
   })
 
+  it('nowrap', () => {
+    expect(createPropStyles({ nowrap: false })).toStrictEqual({})
+    expect(createPropStyles({ nowrap: true })).toStrictEqual({
+      whiteSpace: 'nowrap',
+    })
+  })
+
+  it('whiteSpace', () => {
+    expect(createPropStyles({ whiteSpace: 'nowrap' })).toStrictEqual({
+      whiteSpace: 'nowrap',
+    })
+  })
+
   it('fontWeight', () => {
     expect(createPropStyles({ fontWeight: '100' })).toStrictEqual({
       fontWeight: '100',

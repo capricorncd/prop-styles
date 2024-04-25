@@ -48,6 +48,10 @@ export interface BaseProps {
   justifyItems?: Property.JustifyItems
   // flex-wrap
   wrap?: boolean | Property.FlexWrap
+  // white-space: nowrap
+  nowrap?: boolean
+  // white-space
+  whiteSpace?: Property.WhiteSpace
   // padding
   padding?: number | string
   // padding

@@ -108,6 +108,8 @@ alignContent|`Property.AlignContent`|no|align-content
 justify|`Property.JustifyContent`|no|justify-content
 justifyItems|`Property.JustifyItems`|no|justify-items
 wrap|`boolean`/`Property.FlexWrap`|no|flex-wrap
+nowrap|`boolean`|no|white-space: nowrap
+whiteSpace|`Property.WhiteSpace`|no|white-space
 padding|`number`/`string`|no|padding
 p|`number`/`string`|no|padding
 paddingTop|`number`/`string`|no|padding-top
@@ -194,6 +196,10 @@ interface BaseProps {
   justifyItems?: Property.JustifyItems
   // flex-wrap
   wrap?: boolean | Property.FlexWrap
+  // white-space: nowrap
+  nowrap?: boolean
+  // white-space
+  whiteSpace?: Property.WhiteSpace
   // padding
   padding?: number | string
   // padding

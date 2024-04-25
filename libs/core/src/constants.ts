@@ -94,6 +94,8 @@ const CSS_PROP_MAPPINGS: PropMappings<BaseProps> = {
     f('gridTemplateColumns', toCssValue(v, 'fr')),
   tempRows: (v: BaseProps['tempRows']) =>
     f('gridTemplateRows', toCssValue(v, 'fr')),
+  whiteSpace: (v: BaseProps['whiteSpace']) => f('whiteSpace', v),
+  nowrap: (v: BaseProps['nowrap']) => f('whiteSpace', v, 'nowrap'),
 }
 
 for (const [abb, keyFullName] of Object.entries(ABBREVIATIONS)) {
