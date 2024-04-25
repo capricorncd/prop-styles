@@ -24,7 +24,7 @@ import type { BaseProps, PropMappings } from './types'
  * ```
  *
  * @param props `T` [BaseProps](#BaseProps)
- * @param mappings? `PropMappings` [PropMappings](#PropMappings)
+ * @param mappings? `PropMappings<T>` [PropMappings](#PropMappings)
  * @returns `Record<string, string>`
  */
 export function createPropStyles<T extends BaseProps>(

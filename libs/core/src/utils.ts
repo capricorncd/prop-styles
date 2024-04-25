@@ -36,7 +36,7 @@ import type {
  * formatReturn('key', null, 'stringValue') // null
  * ```
  *
- * @param key `string` The PropMappingHandlerReturn `key` or customize `key`
+ * @param key `K` The PropMappingHandlerReturn `key` or customize `key`
  * @param value `V` The `props[prop]'s value`
  * @param strValue? `string` Customize the `value` of PropMappingHandlerReturn
  * @returns `PropMappingHandlerReturn` see [PropMappingHandlerReturn](#PropMappingHandlerReturn)

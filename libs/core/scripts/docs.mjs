@@ -86,6 +86,7 @@ function main() {
     } else if (item.type === 'type') {
       lines.push('export ' + item.codes[0], ...item.codes.slice(1))
     }
+    lines.push('')
   })
   fs.writeFileSync(libsReactTypeFile, lines.join('\n'), 'utf8')
 }

@@ -47,7 +47,7 @@ createPropStyles(props, {
 Param|Types|Required|Description
 :--|:--|:--|:--
 props|`T`|yes|[BaseProps](#BaseProps)
-mappings|`PropMappings`|no|[PropMappings](#PropMappings)
+mappings|`PropMappings<T>`|no|[PropMappings](#PropMappings)
 
 - @generic `T extends BaseProps`
 
@@ -73,7 +73,7 @@ formatReturn('key', null, 'stringValue') // null
 
 Param|Types|Required|Description
 :--|:--|:--|:--
-key|`string`|yes|The PropMappingHandlerReturn `key` or customize `key`
+key|`K`|yes|The PropMappingHandlerReturn `key` or customize `key`
 value|`V`|yes|The `props[prop]'s value`
 strValue|`string`|no|Customize the `value` of PropMappingHandlerReturn
 
