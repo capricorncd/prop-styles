@@ -37,4 +37,47 @@ describe('vue usePropStyles', () => {
       'padding: 10em 10px 10px 10em; padding-inline: 10em; padding-block: 10px;'
     )
   })
+
+  test('p', () => {
+    const wrapper = mount(App, {
+      props: {
+        pt: '10em',
+        pb: 10,
+        pl: '10em',
+        pr: 10,
+        px: '10em',
+        py: 10,
+      },
+    })
+
+    expect(wrapper.attributes('style')).toBe(
+      'padding: 10em 10px 10px 10em; padding-inline: 10em; padding-block: 10px;'
+    )
+  })
+
+  test('fw/fs', () => {
+    const wrapper = mount(App, {
+      props: {
+        fw: '700',
+        fs: 10,
+      },
+    })
+
+    expect(wrapper.attributes('style')).toBe(
+      'font-weight: 700; font-size: 10px;'
+    )
+  })
+
+  test('tempColumns/tempRows', () => {
+    const wrapper = mount(App, {
+      props: {
+        tempColumns: '2',
+        tempRows: '10 auto 5',
+      },
+    })
+
+    expect(wrapper.attributes('style')).toBe(
+      'grid-template-columns: 2fr; grid-template-rows: 10fr auto 5fr;'
+    )
+  })
 })

@@ -4,7 +4,7 @@
  */
 import fs from 'node:fs'
 import path from 'node:path'
-import { outputFile } from 'zx-sml/docgen'
+import { outputFile } from '@zx-libs/docgen'
 
 const HEADER_LINES = [
   '/**',

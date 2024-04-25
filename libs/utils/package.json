@@ -27,9 +27,7 @@
     "*.{js,ts,cjs,mjs,ts,tsx}": "eslint --fix"
   },
   "devDependencies": {},
-  "dependencies": {
-    "@zx-libs/utils": "^0.0.1"
-  },
+  "dependencies": {},
   "engines": {
     "node": ">=20.0.0",
     "npm": ">=10.0.0"
