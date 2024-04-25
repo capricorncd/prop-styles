@@ -18,7 +18,7 @@ import type {
 } from './types.d'
 
 /**
- * @method formatReturn(key, value, strValue)
+ * @method formatReturn<K extends string, V>(key, value, strValue)
  *
  * Used for [PropMappingHandler](#PropMappingHandler) processing. When `value` is `null/undefined/''/false`, return null, otherwise return the specified value.
  *

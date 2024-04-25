@@ -42,7 +42,12 @@ function main() {
 
   // output types.d.ts
   const libsReactTypeFile = resolve('./dist/types.d.ts')
-  const lines = [...HEADER_LINES]
+  const lines = [
+    ...HEADER_LINES,
+    `import type { Property } from 'csstype';`,
+    `import type { ReactNode } from 'react';`,
+    '',
+  ]
   res.data.forEach((item) => {
     if (item.type === 'method') {
       lines.push(

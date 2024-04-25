@@ -79,6 +79,8 @@ key|`string`|yes|The PropMappingHandlerReturn `key` or customize `key`
 value|`V`|yes|The `props[prop]'s value`
 strValue|`string`|no|Customize the `value` of PropMappingHandlerReturn
 
+- @generic `K extends string, V`
+
 - @returns `PropMappingHandlerReturn` see [PropMappingHandlerReturn](#PropMappingHandlerReturn)
 
 ### usePropStyles(props, mappings)

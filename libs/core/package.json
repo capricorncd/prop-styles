@@ -1,6 +1,6 @@
 {
   "name": "@prop-styles/core",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "The library provides a static method createPropStyles to create Style objects.",
   "main": "src/index.ts",
   "type": "module",
@@ -40,6 +40,7 @@
     "*.{js,ts,cjs,mjs,ts,tsx}": "eslint --fix"
   },
   "devDependencies": {
+    "csstype": "^3.1.3",
     "vitest": "^1.5.0"
   },
   "engines": {
