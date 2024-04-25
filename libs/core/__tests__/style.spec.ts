@@ -79,6 +79,28 @@ describe('libs/style createPropStyles', () => {
     })
   })
 
+  it('p', () => {
+    expect(
+      createPropStyles({
+        p: 10,
+        pt: '10em',
+        pb: 10,
+        pl: '10em',
+        pr: 10,
+        px: '10em',
+        py: 10,
+      })
+    ).toStrictEqual({
+      padding: '10px',
+      paddingTop: '10em',
+      paddingBottom: '10px',
+      paddingLeft: '10em',
+      paddingRight: '10px',
+      paddingInline: '10em',
+      paddingBlock: '10px',
+    })
+  })
+
   it('margin', () => {
     expect(
       createPropStyles({
@@ -89,6 +111,28 @@ describe('libs/style createPropStyles', () => {
         marginRight: 10,
         marginInline: '10em',
         marginBlock: 10,
+      })
+    ).toStrictEqual({
+      margin: '10px',
+      marginTop: '10em',
+      marginBottom: '10px',
+      marginLeft: '10em',
+      marginRight: '10px',
+      marginInline: '10em',
+      marginBlock: '10px',
+    })
+  })
+
+  it('m', () => {
+    expect(
+      createPropStyles({
+        m: 10,
+        mt: '10em',
+        mb: 10,
+        ml: '10em',
+        mr: 10,
+        mx: '10em',
+        my: 10,
       })
     ).toStrictEqual({
       margin: '10px',
@@ -115,6 +159,16 @@ describe('libs/style createPropStyles', () => {
     })
   })
 
+  it('lh', () => {
+    expect(
+      createPropStyles({
+        lh: '1em',
+      })
+    ).toStrictEqual({
+      lineHeight: '1em',
+    })
+  })
+
   it('radius', () => {
     expect(createPropStyles({ radius: 20 })).toStrictEqual({
       borderRadius: '20px',
@@ -123,10 +177,17 @@ describe('libs/style createPropStyles', () => {
 
   it('align/justify', () => {
     expect(
-      createPropStyles({ align: 'center', justify: 'flex-end' })
+      createPropStyles({
+        align: 'center',
+        justify: 'flex-end',
+        alignContent: 'end',
+        justifyItems: 'start',
+      })
     ).toStrictEqual({
       alignItems: 'center',
       justifyContent: 'flex-end',
+      alignContent: 'end',
+      justifyItems: 'start',
     })
     expect(createPropStyles({ align: 'start' })).toStrictEqual({
       alignItems: 'start',
@@ -262,6 +323,28 @@ describe('libs/style createPropStyles', () => {
     })
     expect(createPropStyles({ border: '10px' })).toStrictEqual({
       borderWidth: '10px',
+    })
+  })
+
+  it('tempColumns', () => {
+    expect(
+      createPropStyles({
+        tempColumns: '1 2',
+        tempRows: '1',
+      })
+    ).toStrictEqual({
+      gridTemplateColumns: '1fr 2fr',
+      gridTemplateRows: '1fr',
+    })
+
+    expect(
+      createPropStyles({
+        tempColumns: '1 auto 2',
+        tempRows: '1 auto 2',
+      })
+    ).toStrictEqual({
+      gridTemplateColumns: '1fr auto 2fr',
+      gridTemplateRows: '1fr auto 2fr',
     })
   })
 })
