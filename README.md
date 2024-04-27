@@ -1,6 +1,6 @@
 # props-style
 
-usePropStyle in vue or react
+Quickly create style properties in Vue or React, or use [createPropStyles](#prop-stylescore) to generate style objects.
 
 see 
 
@@ -9,6 +9,18 @@ see
 - [@prop-styles/core](libs/core)
 
 ## @prop-styles/react
+
+<p>
+<a href="https://npmcharts.com/compare/@prop-styles/react?minimal=true"><img src="https://img.shields.io/npm/dm/@prop-styles/react.svg?sanitize=true" alt="Downloads"></a>
+<a href="https://www.npmjs.com/package/@prop-styles/react"><img src="https://img.shields.io/npm/v/@prop-styles/react.svg?sanitize=true" alt="Version"></a>
+<a href="https://www.npmjs.com/package/@prop-styles/react"><img src="https://img.shields.io/npm/l/@prop-styles/react.svg?sanitize=true" alt="License"></a>
+</p>
+
+```bash
+npm i @prop-styles/react
+```
+
+Used in React, see [@prop-styles/react](libs/react) for details.
 
 ```jsx
 import { usePropStyles } from '@prop-styles/react'
@@ -28,6 +40,18 @@ export default App(props) {
 ```
 
 ## @prop-styles/vue
+
+<p>
+<a href="https://npmcharts.com/compare/@prop-styles/vue?minimal=true"><img src="https://img.shields.io/npm/dm/@prop-styles/vue.svg?sanitize=true" alt="Downloads"></a>
+<a href="https://www.npmjs.com/package/@prop-styles/vue"><img src="https://img.shields.io/npm/v/@prop-styles/vue.svg?sanitize=true" alt="Version"></a>
+<a href="https://www.npmjs.com/package/@prop-styles/vue"><img src="https://img.shields.io/npm/l/@prop-styles/vue.svg?sanitize=true" alt="License"></a>
+</p>
+
+```bash
+npm i @prop-styles/vue
+```
+
+Used in Vue, see [@prop-styles/vue](libs/vue) for details.
 
 ```vue
 <script>
@@ -55,6 +79,18 @@ export default {
 ```
 
 ## @prop-styles/core
+
+<p>
+<a href="https://npmcharts.com/compare/@prop-styles/core?minimal=true"><img src="https://img.shields.io/npm/dm/@prop-styles/core.svg?sanitize=true" alt="Downloads"></a>
+<a href="https://www.npmjs.com/package/@prop-styles/core"><img src="https://img.shields.io/npm/v/@prop-styles/core.svg?sanitize=true" alt="Version"></a>
+<a href="https://www.npmjs.com/package/@prop-styles/core"><img src="https://img.shields.io/npm/l/@prop-styles/core.svg?sanitize=true" alt="License"></a>
+</p>
+
+```bash
+npm i @prop-styles/core
+```
+
+Create style object directly using static method createPropStyles, see [@prop-styles/core](libs/core) for details.
 
 ```js
 import { createPropStyles, formatReturn } from '@prop-styles/core'
