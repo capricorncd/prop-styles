@@ -93,16 +93,22 @@ npm i @prop-styles/core
 Create style object directly using static method createPropStyles, see [@prop-styles/core](libs/core) for details.
 
 ```js
-import { createPropStyles, formatReturn } from '@prop-styles/core'
+import { createPropStyles, f } from '@prop-styles/core'
 
-const style = createPropStyles({ color: 'red', width: 100 }, {
-  color: (value) => value ? ['--color-primary', value] : null
-  // or use formatReturn to make null judgment
-  // color: (value) => formatReturn('--color-primary', value)
-})
+const props = { width: 100, color: '#fff' }
 
-// style
-// { '--color-primary': 'red', width: '100px' }
+createPropStyles(props) // { width: '100px', color, '#fff' }
+
+// Use custom Mapping handler
+createPropStyles(props, {
+  // custom mapping handler
+  color: (v) => ['--color', v]
+}) // { width: '100px', '--color', '#fff' }
+
+// Use f function to remove null/undefined props
+createPropStyles(props, {
+  color: (v) => f('--color', v)
+}) // { width: '100px', '--color', '#fff' }
 ```
 
 ## License

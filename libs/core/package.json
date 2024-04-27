@@ -18,9 +18,9 @@
     "README.md"
   ],
   "scripts": {
-    "build": "vite build --emptyOutDir && node ../../node_modules/@zx-libs/header --dir=dist",
+    "build": "vite build --emptyOutDir && npm run docs && node ../../node_modules/@zx-libs/header --dir=dist",
     "docs": "node scripts/docs.mjs",
-    "pl": "npm run build && npm run docs && npm publish",
+    "pl": "npm run build && npm publish",
     "eslint": "eslint . --fix --ext .js,.jsx,.cjs,.mjs,.ts,.tsx",
     "test": "vitest"
   },

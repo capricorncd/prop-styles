@@ -17,11 +17,18 @@
  * npm i @prop-styles/react
  * ```
  *
- * ```jsx
- * import { usePropStyles } from '@prop-styles/react'
+ * ```tsx
+ * import { usePropStyles, f, type ReactBaseProps } from '@prop-styles/react'
  *
- * export default App(props) {
- *   const { style } = usePropStyles(props)
+ * interface Props extends ReactBaseProps {
+ *   customProp?: unknown
+ * }
+ *
+ * export default App(props: Props) {
+ *   const { style } = usePropStyles(props, {
+ *     // Custom prop mapping handler
+ *     customProp: (v: Props['customProp]) => f('custom-prop', v, 'default value used when v is null/false')
+ *   })
  *
  *   return (
  *     <div style={style}></div>
@@ -37,6 +44,8 @@
 import { createPropStyles } from '@prop-styles/core'
 import { useMemo, type ReactNode } from 'react'
 import type { BaseProps, PropMappings } from '@prop-styles/core'
+
+export * from '@prop-styles/core'
 
 /**
  * @type ReactBaseProps
@@ -74,8 +83,3 @@ export function usePropStyles<T extends BaseProps>(
 export interface UsePropStylesReturn {
   style: { [key: string]: string }
 }
-
-/**
- * export
- */
-export { createPropStyles }

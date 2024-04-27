@@ -20,18 +20,19 @@
  * App.vue
  *
  * ```vue
- * <script>
- * import { usePropStyles } from '@prop-styles/vue'
+ * <script setup lang="ts">
+ * import { usePropStyles, f, type VueBaseProps } from '@prop-styles/vue'
  *
- * export default {
- *   setup(props) {
- *     const { style } = usePropStyles(props)
- *
- *     return {
- *       style
- *     }
- *   }
+ * interface Props extends VueBaseProps {
+ *   customProp?: unknown
  * }
+ *
+ * const props = defineProps<Props>()
+ *
+ * const { style } = usePropStyles(props, {
+ *   // Custom prop mapping handler
+ *   customProp: (v: Props['customProp']) => f('custom-prop', v, 'default value used when v is null/false')
+ * })
  * </script>
  *
  * <template>
@@ -47,6 +48,8 @@
 import { createPropStyles } from '@prop-styles/core'
 import { computed, type ComputedRef, type StyleValue } from 'vue'
 import type { BaseProps, PropMappings } from '@prop-styles/core'
+
+export * from '@prop-styles/core'
 
 /**
  * @type VueBaseProps
@@ -91,8 +94,3 @@ export function usePropStyles<T extends BaseProps>(
 export interface UsePropStylesReturn {
   style: ComputedRef<StyleValue[]>
 }
-
-/**
- * export
- */
-export { createPropStyles }

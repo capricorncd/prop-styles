@@ -6,13 +6,6 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { outputFile } from '@zx-libs/docgen'
 
-const HEADER_LINES = [
-  '/**',
-  ' * Created by Capricorncd.',
-  ' * https://github.com/capricorncd',
-  ' */',
-]
-
 export function resolve(_path) {
   return path.join(process.cwd(), _path)
 }
@@ -73,20 +66,16 @@ function main() {
 
   // output types.d.ts
   const libsReactTypeFile = resolve('./dist/types.d.ts')
-  const lines = [
-    ...HEADER_LINES,
-    `import type { Property } from 'csstype';`,
-    '',
-  ]
+  const lines = [`import type { Property } from 'csstype';`, '']
   res.data.forEach((item) => {
     if (item.type === 'method') {
       lines.push(
-        `export function ${item.name}${item.generics.length ? '<' + item.generics.join(', ') + '>' : ''}(${generateParams(item.params)}): ${item.returns[0]?.types.join(' | ') ?? 'void'};`
+        `export function ${item.name}${item.generics.length ? '<' + item.generics.join(', ') + '>' : ''}(${generateParams(item.params)}): ${item.returns[0]?.types.join(' | ') ?? 'void'};`,
+        ''
       )
     } else if (item.type === 'type') {
-      lines.push('export ' + item.codes[0], ...item.codes.slice(1))
+      lines.push('export ' + item.codes[0], ...item.codes.slice(1), '')
     }
-    lines.push('')
   })
   fs.writeFileSync(libsReactTypeFile, lines.join('\n'), 'utf8')
 }

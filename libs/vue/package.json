@@ -1,6 +1,6 @@
 {
   "name": "@prop-styles/vue",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Process CSS-related properties in Props so that they can generate the element style.",
   "type": "module",
   "main": "src/index.ts",
@@ -18,9 +18,9 @@
     "README.md"
   ],
   "scripts": {
-    "build": "vite build --emptyOutDir && node ../../node_modules/@zx-libs/header --dir=dist",
+    "build": "vite build --emptyOutDir && npm run docs && node ../../node_modules/@zx-libs/header --dir=dist",
     "docs": "node scripts/docs.mjs",
-    "pl": "npm run build && npm run docs && npm publish",
+    "pl": "npm run build && npm publish",
     "eslint": "eslint . --fix --ext .js,.jsx,.cjs,.mjs,.ts,.tsx",
     "test": "vitest"
   },
