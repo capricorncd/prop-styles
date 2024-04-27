@@ -34,6 +34,7 @@ import type {
  * formatReturn('key', undefined) // null
  * formatReturn('key', null) // null
  * formatReturn('key', null, 'stringValue') // null
+ * formatReturn('key', true, 'stringValue') // ['key', 'stringValue']
  * ```
  *
  * @param key `K` The PropMappingHandlerReturn `key` or customize `key`
@@ -48,6 +49,18 @@ export function formatReturn<K extends string, V>(
 ): PropMappingHandlerReturn {
   return !value && value !== 0 ? null : [key, strValue ?? String(value)]
 }
+
+/**
+ * @method f<K extends string, V>(key, value, strValue)
+ *
+ * Alias and abbreviation of [formatReturn](#formatreturnkey-value-strvalue).
+ *
+ * @param key `K` The PropMappingHandlerReturn `key` or customize `key`
+ * @param value `V` The `props[prop]'s value`
+ * @param strValue? `string` Customize the `value` of PropMappingHandlerReturn
+ * @returns `PropMappingHandlerReturn` see [PropMappingHandlerReturn](#PropMappingHandlerReturn)
+ */
+export const f = formatReturn
 
 function generateStyleMapping<T extends BaseProps>(
   keys: string[],

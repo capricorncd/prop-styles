@@ -128,6 +128,10 @@ export interface BaseProps {
   tempColumns?: string
   // grid-template-rows
   tempRows?: string
+  // text-align
+  textAlign?: Property.TextAlign
+  // text-align
+  ta?: Property.TextAlign
 }
 
 /**

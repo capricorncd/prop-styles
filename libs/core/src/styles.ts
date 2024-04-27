@@ -15,11 +15,21 @@ import type { BaseProps, PropMappings } from './types'
  * Example
  *
  * ```js
+ * import { createPropStyles, f } from '@prop-styles/core'
+ *
  * const props = { width: 100, color: '#fff' }
  *
+ * createPropStyles(props) // { width: '100px', color, '#fff' }
+ *
+ * // Use custom Mapping handler
  * createPropStyles(props, {
  *   // custom mapping handler
  *   color: (v) => ['--color', v]
+ * }) // { width: '100px', '--color', '#fff' }
+ *
+ * // Use f function to remove null/undefined props
+ * createPropStyles(props, {
+ *   color: (v) => f('--color', v)
  * }) // { width: '100px', '--color', '#fff' }
  * ```
  *

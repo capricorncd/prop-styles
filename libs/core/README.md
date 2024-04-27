@@ -36,11 +36,21 @@ Create Styles Object
 Example
 
 ```js
+import { createPropStyles, f } from '@prop-styles/core'
+
 const props = { width: 100, color: '#fff' }
 
+createPropStyles(props) // { width: '100px', color, '#fff' }
+
+// Use custom Mapping handler
 createPropStyles(props, {
   // custom mapping handler
   color: (v) => ['--color', v]
+}) // { width: '100px', '--color', '#fff' }
+
+// Use f function to remove null/undefined props
+createPropStyles(props, {
+  color: (v) => f('--color', v)
 }) // { width: '100px', '--color', '#fff' }
 ```
 
@@ -52,6 +62,20 @@ mappings|`PropMappings<T>`|no|[PropMappings](#PropMappings)
 - @generic `T extends BaseProps`
 
 - @returns `Record<string, string>`
+
+### f(key, value, strValue)
+
+Alias and abbreviation of [formatReturn](#formatreturnkey-value-strvalue).
+
+Param|Types|Required|Description
+:--|:--|:--|:--
+key|`K`|yes|The PropMappingHandlerReturn `key` or customize `key`
+value|`V`|yes|The `props[prop]'s value`
+strValue|`string`|no|Customize the `value` of PropMappingHandlerReturn
+
+- @generic `K extends string, V`
+
+- @returns `PropMappingHandlerReturn` see [PropMappingHandlerReturn](#PropMappingHandlerReturn)
 
 ### formatReturn(key, value, strValue)
 
@@ -69,6 +93,7 @@ formatReturn('key', '') // null
 formatReturn('key', undefined) // null
 formatReturn('key', null) // null
 formatReturn('key', null, 'stringValue') // null
+formatReturn('key', true, 'stringValue') // ['key', 'stringValue']
 ```
 
 Param|Types|Required|Description
@@ -157,6 +182,8 @@ fw|`Property.FontWeight`|no|fontWeight
 border|`string`/`number`|no|border, border-width, border-color
 tempColumns|`string`|no|grid-template-columns
 tempRows|`string`|no|grid-template-rows
+textAlign|`Property.TextAlign`|no|text-align
+ta|`Property.TextAlign`|no|text-align
 
 <details>
 <summary>Source Code</summary>
@@ -278,6 +305,10 @@ interface BaseProps {
   tempColumns?: string
   // grid-template-rows
   tempRows?: string
+  // text-align
+  textAlign?: Property.TextAlign
+  // text-align
+  ta?: Property.TextAlign
 }
 ```
 

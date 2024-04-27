@@ -1,11 +1,5 @@
 import { toCssValue, isBoolean } from '@libs/utils'
-import {
-  display,
-  numerical,
-  changeless,
-  border,
-  formatReturn as f,
-} from './utils'
+import { display, numerical, changeless, border, f } from './utils'
 import type { BaseProps, PropMappings } from './types'
 
 export const ABBREVIATIONS = {
@@ -27,6 +21,7 @@ export const ABBREVIATIONS = {
   lh: 'lineHeight',
   bg: 'background',
   fw: 'fontWeight',
+  ta: 'textAlign',
 }
 
 export const NUMERICAL_PROP_KEYS = [
@@ -96,6 +91,7 @@ const CSS_PROP_MAPPINGS: PropMappings<BaseProps> = {
     f('gridTemplateRows', toCssValue(v, 'fr')),
   whiteSpace: (v: BaseProps['whiteSpace']) => f('whiteSpace', v),
   nowrap: (v: BaseProps['nowrap']) => f('whiteSpace', v, 'nowrap'),
+  textAlign: (v: BaseProps['textAlign']) => f('textAlign', v),
 }
 
 for (const [abb, keyFullName] of Object.entries(ABBREVIATIONS)) {

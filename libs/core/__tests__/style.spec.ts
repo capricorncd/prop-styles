@@ -360,4 +360,22 @@ describe('libs/style createPropStyles', () => {
       gridTemplateRows: '1fr auto 2fr',
     })
   })
+
+  it('textAlign/ta', () => {
+    expect(
+      createPropStyles({
+        textAlign: 'right',
+      })
+    ).toStrictEqual({
+      textAlign: 'right',
+    })
+
+    expect(
+      createPropStyles({
+        ta: 'center',
+      })
+    ).toStrictEqual({
+      textAlign: 'center',
+    })
+  })
 })
