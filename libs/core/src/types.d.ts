@@ -27,12 +27,15 @@ export interface BaseProps {
   minHeight?: number | string
   // max-height
   maxHeight?: number | string
-  // display flex
+  // display: flex
   flex?: boolean
-  // display grid
+  // display: grid
   grid?: boolean
+  // display: inline-flex
   inlineFlex?: boolean
+  // display: inline-block
   inlineBlock?: boolean
+  // display: inline
   inline?: boolean
   // flex/grid's gap
   gap?: number | string
@@ -72,18 +75,23 @@ export interface BaseProps {
   paddingTop?: number | string
   // padding-top
   pt?: number | string
+  // padding-bottom
   paddingBottom?: number | string
   // padding-bottom
   pb?: number | string
+  // padding-left
   paddingLeft?: number | string
   // padding-left
   pl?: number | string
+  // padding-right
   paddingRight?: number | string
   // padding-right
   pr?: number | string
+  // padding-inline
   paddingInline?: number | string
   // padding-inline
   px?: number | string
+  // padding-block
   paddingBlock?: number | string
   // padding-block
   py?: number | string
@@ -91,21 +99,27 @@ export interface BaseProps {
   margin?: number | string
   // margin
   m?: number | string
+  // margin-top
   marginTop?: number | string
   // margin-top
   mt?: number | string
+  // margin-bottom
   marginBottom?: number | string
   // margin-bottom
   mb?: number | string
+  // margin-left
   marginLeft?: number | string
   // margin-left
   ml?: number | string
+  // margin-right
   marginRight?: number | string
   // margin-right
   mr?: number | string
+  // margin-inline
   marginInline?: number | string
   // margin-inline
   mx?: number | string
+  // margin-block
   marginBlock?: number | string
   // margin-block
   my?: number | string
@@ -115,11 +129,13 @@ export interface BaseProps {
   fontSize?: string | number
   // font-size
   fs?: string | number
+  // line-height
   lineHeight?: string | number
   // line-height
   lh?: string | number
   // color
   color?: string
+  // background
   background?: Property.Background
   // background
   bg?: Property.Background
@@ -131,19 +147,20 @@ export interface BaseProps {
   bold?: boolean
   // font-weight: 500
   thin?: boolean
+  // font-weight
   fontWeight?: Property.FontWeight
-  // fontWeight
+  // font-weight
   fw?: Property.FontWeight
   // border, border-width, border-color
   border?: string | number
   // grid-template-columns
-  tempColumns?: string
+  tempColumns?: string | number
   // grid-template-columns
-  gtc?: string
+  gtc?: string | number
   // grid-template-rows
-  tempRows?: string
+  tempRows?: string | number
   // grid-template-rows
-  gtr?: string
+  gtr?: string | number
   // text-align
   textAlign?: Property.TextAlign
   // text-align
@@ -153,12 +170,15 @@ export interface BaseProps {
   top?: string | number
   // top
   t?: string | number
+  // right
   right?: string | number
   // right
   r?: string | number
+  // bottom
   bottom?: string | number
   // bottom
   b?: string | number
+  // left
   left?: string | number
   // left
   l?: string | number

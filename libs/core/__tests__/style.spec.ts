@@ -352,11 +352,11 @@ describe('libs/style createPropStyles', () => {
     })
   })
 
-  it('tempColumns', () => {
+  it('tempColumns/tempRows/gtc/gtr', () => {
     expect(
       createPropStyles({
         tempColumns: '1 2',
-        tempRows: '1',
+        tempRows: 1,
       })
     ).toStrictEqual({
       gridTemplateColumns: '1fr 2fr',
@@ -365,11 +365,21 @@ describe('libs/style createPropStyles', () => {
 
     expect(
       createPropStyles({
-        tempColumns: '1 auto 2',
+        tempColumns: 1,
         tempRows: '1 auto 2',
       })
     ).toStrictEqual({
-      gridTemplateColumns: '1fr auto 2fr',
+      gridTemplateColumns: '1fr',
+      gridTemplateRows: '1fr auto 2fr',
+    })
+
+    expect(
+      createPropStyles({
+        gtc: 1,
+        gtr: '1 auto 2',
+      })
+    ).toStrictEqual({
+      gridTemplateColumns: '1fr',
       gridTemplateRows: '1fr auto 2fr',
     })
   })

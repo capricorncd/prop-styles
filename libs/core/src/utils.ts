@@ -3,13 +3,7 @@
  * https://github.com/capricorncd
  * Date: 2024/03/16 17:23:21 (GMT+0900)
  */
-import {
-  toSnakeCase,
-  toCssValue,
-  isNumberLike,
-  isColorLike,
-  isNullOrUndefined,
-} from '@libs/utils'
+import { toSnakeCase, toCssValue, isNumberLike, isColorLike } from '@libs/utils'
 import type {
   PropMappingHandlerReturn,
   PropMappingHandler,
@@ -37,16 +31,16 @@ import type {
  * f('key', true, 'stringValue') // ['key', 'stringValue']
  * ```
  *
- * @param key `K` The PropMappingHandlerReturn `key` or customize `key`
+ * @param key `K` The PropMappingHandler Return `key` or customize `key`
  * @param value `V` The `props[prop]'s value`
- * @param strValue? `string` Customize the `value` of PropMappingHandlerReturn
- * @returns `[key: string, val: string] | null` see [PropMappingHandlerReturn](#PropMappingHandlerReturn)
+ * @param strValue? `string` Customize the `value` of PropMappingHandler Return
+ * @returns `[key: string, val: string] | null`
  */
 export function formatReturn<K extends string, V>(
   key: K,
   value: V,
   strValue?: string
-): PropMappingHandlerReturn {
+): [key: string, val: string] | null {
   return !value && value !== 0 ? null : [key, strValue ?? String(value)]
 }
 
@@ -55,52 +49,59 @@ export function formatReturn<K extends string, V>(
  *
  * Alias and abbreviation of [formatReturn](#formatreturnkey-value-strvalue).
  *
- * @param key `K` The PropMappingHandlerReturn `key` or customize `key`
+ * @param key `K` The PropMappingHandler Return `key` or customize `key`
  * @param value `V` The `props[prop]'s value`
- * @param strValue? `string` Customize the `value` of PropMappingHandlerReturn
- * @returns `[key: string, val: string] | null` see [PropMappingHandlerReturn](#PropMappingHandlerReturn)
+ * @param strValue? `string` Customize the `value` of PropMappingHandler Return
+ * @returns `[key: string, val: string] | null`
  */
 export const f = formatReturn
 
-function generatePropMappings<T extends BaseProps>(
+function generatePropMappings(
   keys: string[],
-  handler: (prop: string, value: any) => PropMappingHandlerReturn
-): PropMappings<T> {
-  return keys.reduce((prev, prop) => {
+  handler: (prop: string, value: any) => PropMappingHandlerReturn,
+  mappings: PropMappings<BaseProps>
+) {
+  keys.forEach((prop) => {
     // @ts-ignore
-    prev[prop] = (value: any) => handler(prop, value)
-    return prev
-  }, {} as PropMappings<T>)
+    mappings[prop] = (value: any) => handler(prop, value)
+  })
 }
 
-export function display(keys: string[]) {
-  return generatePropMappings(keys, (prop, value?: boolean) =>
-    f('display', value, toSnakeCase(prop))
+export function display(keys: string[], mappings: PropMappings<BaseProps>) {
+  return generatePropMappings(
+    keys,
+    (prop, value?: boolean) => f('display', value, toSnakeCase(prop)),
+    mappings
   )
 }
 
-export function numerical(keys: string[]) {
-  return generatePropMappings(keys, (prop, value?: number | string) =>
-    f(prop, value, toCssValue(value))
+export function numerical(keys: string[], mappings: PropMappings<BaseProps>) {
+  return generatePropMappings(
+    keys,
+    (prop, value?: number | string) => f(prop, value, toCssValue(value)),
+    mappings
   )
 }
 
-export function changeless(keys: string[]) {
-  return generatePropMappings(keys, (prop, value: string) => f(prop, value))
+export function changeless(keys: string[], mappings: PropMappings<BaseProps>) {
+  return generatePropMappings(
+    keys,
+    (prop, value: string) => f(prop, value),
+    mappings
+  )
 }
 
-const cssNumericalValueReg = /^-?\d+(\.\d+)?[a-z]+$/i
+const REG_CSS_NUMERICAL_VALUE = /^-?\d+(\.\d+)?[a-z]+$/i
 
-function isCssNumericalValue(val: unknown) {
-  return typeof val === 'string' && cssNumericalValueReg.test(val)
+function isCssNumericalValueLike(val: unknown) {
+  return typeof val === 'string' && REG_CSS_NUMERICAL_VALUE.test(val)
 }
 
-export function border(value: unknown): PropMappingHandlerReturn {
-  if (isNullOrUndefined(value)) return null
-  if (isNumberLike(value) || isCssNumericalValue(value))
+export function border(value: unknown): [key: string, val: string] | null {
+  if (isNumberLike(value) || isCssNumericalValueLike(value))
     return ['borderWidth', toCssValue(value)]
   if (isColorLike(value)) return ['borderColor', value]
-  return ['border', String(value)]
+  return f('border', value)
 }
 
 export function handleMappings<T extends BaseProps>(

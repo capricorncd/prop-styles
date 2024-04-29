@@ -2,7 +2,7 @@ import { toCssValue, isBoolean } from '@libs/utils'
 import { display, numerical, changeless, border, f } from './utils'
 import type { BaseProps, PropMappings } from './types'
 
-export const ABBREVIATIONS = {
+const ABBREVIATIONS = {
   p: 'padding',
   pt: 'paddingTop',
   pb: 'paddingBottom',
@@ -38,7 +38,7 @@ export const ABBREVIATIONS = {
   tf: 'transform',
 }
 
-export const NUMERICAL_PROP_KEYS = [
+const NUMERICAL_PROP_KEYS = [
   'width',
   'minWidth',
   'maxWidth',
@@ -69,7 +69,7 @@ export const NUMERICAL_PROP_KEYS = [
   'inset',
 ]
 
-export const CHANGELESS_PROP_KEYS = [
+const CHANGELESS_PROP_KEYS = [
   'background',
   'color',
   'alignItems',
@@ -84,7 +84,7 @@ export const CHANGELESS_PROP_KEYS = [
   'transform',
 ]
 
-export const DISPLAY_PROP_KEYS = [
+const DISPLAY_PROP_KEYS = [
   'flex',
   'grid',
   'inline',
@@ -95,30 +95,28 @@ export const DISPLAY_PROP_KEYS = [
 const CSS_PROP_MAPPINGS: PropMappings<BaseProps> = {
   radius: (v: BaseProps['radius']) => f('borderRadius', v, toCssValue(v)),
   column: (v: BaseProps['column']) => f('flexDirection', v, 'column'),
-  wrap: (v: BaseProps['wrap']) =>
-    v ? ['flexWrap', isBoolean(v) ? 'wrap' : v] : null,
+  wrap: (v: BaseProps['wrap']) => f('flexWrap', v, isBoolean(v) ? 'wrap' : v),
   breakWord: (v: BaseProps['breakWord']) => f('overflowWrap', v, 'break-word'),
   // font
   bold: (v: BaseProps['bold']) => f('fontWeight', v, 'bold'),
   thin: (v: BaseProps['thin']) => f('fontWeight', v, '500'),
-  // display
-  ...display(DISPLAY_PROP_KEYS),
   // overflow
   scroll: (v: BaseProps['scroll']) =>
-    v
-      ? [`overflow${typeof v === 'string' ? v.toUpperCase() : ''}`, 'auto']
-      : null,
-  ...numerical(NUMERICAL_PROP_KEYS),
-  ...changeless(CHANGELESS_PROP_KEYS),
+    f(`overflow${typeof v === 'string' ? v.toUpperCase() : ''}`, v, 'auto'),
   // border
   border: (v: BaseProps['border']) => border(v),
   tempColumns: (v: BaseProps['tempColumns']) =>
-    f('gridTemplateColumns', toCssValue(v, 'fr')),
+    f('gridTemplateColumns', v, toCssValue(v, 'fr')),
   tempRows: (v: BaseProps['tempRows']) =>
-    f('gridTemplateRows', toCssValue(v, 'fr')),
+    f('gridTemplateRows', v, toCssValue(v, 'fr')),
   nowrap: (v: BaseProps['nowrap']) => f('whiteSpace', v, 'nowrap'),
 }
 
+display(DISPLAY_PROP_KEYS, CSS_PROP_MAPPINGS)
+numerical(NUMERICAL_PROP_KEYS, CSS_PROP_MAPPINGS)
+changeless(CHANGELESS_PROP_KEYS, CSS_PROP_MAPPINGS)
+
+// Abbreviation attribute handling
 for (const [abb, keyFullName] of Object.entries(ABBREVIATIONS)) {
   // @ts-ignore
   if (CSS_PROP_MAPPINGS[keyFullName]) {
