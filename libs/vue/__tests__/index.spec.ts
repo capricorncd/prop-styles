@@ -79,5 +79,32 @@ describe('vue usePropStyles', () => {
     expect(wrapper.attributes('style')).toBe(
       'grid-template-columns: 2fr; grid-template-rows: 10fr auto 5fr;'
     )
+
+    const wrapper2 = mount(App, {
+      props: {
+        gtc: '2',
+        gtr: '10 auto 5',
+      },
+    })
+
+    expect(wrapper2.attributes('style')).toBe(
+      'grid-template-columns: 2fr; grid-template-rows: 10fr auto 5fr;'
+    )
+  })
+
+  test('display', () => {
+    const flex = mount(App, {
+      props: {
+        flex: true,
+      },
+    })
+    expect(flex.attributes('style')).toBe('display: flex;')
+
+    const grid = mount(App, {
+      props: {
+        grid: true,
+      },
+    })
+    expect(grid.attributes('style')).toBe('display: grid;')
   })
 })
