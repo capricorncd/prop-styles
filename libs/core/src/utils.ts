@@ -40,7 +40,7 @@ import type {
  * @param key `K` The PropMappingHandlerReturn `key` or customize `key`
  * @param value `V` The `props[prop]'s value`
  * @param strValue? `string` Customize the `value` of PropMappingHandlerReturn
- * @returns `PropMappingHandlerReturn` see [PropMappingHandlerReturn](#PropMappingHandlerReturn)
+ * @returns `[key: string, val: string] | null` see [PropMappingHandlerReturn](#PropMappingHandlerReturn)
  */
 export function formatReturn<K extends string, V>(
   key: K,
@@ -58,11 +58,11 @@ export function formatReturn<K extends string, V>(
  * @param key `K` The PropMappingHandlerReturn `key` or customize `key`
  * @param value `V` The `props[prop]'s value`
  * @param strValue? `string` Customize the `value` of PropMappingHandlerReturn
- * @returns `PropMappingHandlerReturn` see [PropMappingHandlerReturn](#PropMappingHandlerReturn)
+ * @returns `[key: string, val: string] | null` see [PropMappingHandlerReturn](#PropMappingHandlerReturn)
  */
 export const f = formatReturn
 
-function generateStyleMapping<T extends BaseProps>(
+function generatePropMappings<T extends BaseProps>(
   keys: string[],
   handler: (prop: string, value: any) => PropMappingHandlerReturn
 ): PropMappings<T> {
@@ -74,19 +74,19 @@ function generateStyleMapping<T extends BaseProps>(
 }
 
 export function display(keys: string[]) {
-  return generateStyleMapping(keys, (prop, value?: boolean) =>
-    formatReturn('display', value, toSnakeCase(prop))
+  return generatePropMappings(keys, (prop, value?: boolean) =>
+    f('display', value, toSnakeCase(prop))
   )
 }
 
 export function numerical(keys: string[]) {
-  return generateStyleMapping(keys, (prop, value?: number | string) =>
-    formatReturn(prop, value, toCssValue(value))
+  return generatePropMappings(keys, (prop, value?: number | string) =>
+    f(prop, value, toCssValue(value))
   )
 }
 
 export function changeless(keys: string[]) {
-  return generateStyleMapping(keys, (prop, value: string) => [prop, value])
+  return generatePropMappings(keys, (prop, value: string) => f(prop, value))
 }
 
 const cssNumericalValueReg = /^-?\d+(\.\d+)?[a-z]+$/i

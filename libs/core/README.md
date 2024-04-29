@@ -75,7 +75,7 @@ strValue|`string`|no|Customize the `value` of PropMappingHandlerReturn
 
 - @generic `K extends string, V`
 
-- @returns `PropMappingHandlerReturn` see [PropMappingHandlerReturn](#PropMappingHandlerReturn)
+- @returns `[key: string, val: string] | null` see [PropMappingHandlerReturn](#PropMappingHandlerReturn)
 
 ### formatReturn(key, value, strValue)
 
@@ -104,7 +104,7 @@ strValue|`string`|no|Customize the `value` of PropMappingHandlerReturn
 
 - @generic `K extends string, V`
 
-- @returns `PropMappingHandlerReturn` see [PropMappingHandlerReturn](#PropMappingHandlerReturn)
+- @returns `[key: string, val: string] | null` see [PropMappingHandlerReturn](#PropMappingHandlerReturn)
 
 ## Types
 
@@ -131,9 +131,15 @@ inline|`boolean`|no|-
 gap|`number`/`string`|no|flex/grid's gap
 column|`boolean`|no|flex-direction
 align|`Property.AlignItems`|no|align-items
+alignItems|`Property.AlignItems`|no|align-items
+ai|`Property.AlignItems`|no|align-items
 alignContent|`Property.AlignContent`|no|align-content
+ac|`Property.AlignContent`|no|align-content
 justify|`Property.JustifyContent`|no|justify-content
+justifyContent|`Property.JustifyContent`|no|justify-content
+jc|`Property.JustifyContent`|no|justify-content
 justifyItems|`Property.JustifyItems`|no|justify-items
+ji|`Property.JustifyItems`|no|justify-items
 wrap|`boolean`/`Property.FlexWrap`|no|flex-wrap
 nowrap|`boolean`|no|white-space: nowrap
 whiteSpace|`Property.WhiteSpace`|no|white-space
@@ -175,15 +181,31 @@ background|`Property.Background`|no|-
 bg|`Property.Background`|no|background
 scroll|`boolean`/`'x'`/`'y'`|no|scroll direction
 breakWord|`boolean`|no|text
-bold|`boolean`|no|bold of font
-thin|`boolean`/`string`|no|thin of font
+bold|`boolean`|no|font-weight: bold
+thin|`boolean`|no|font-weight: 500
 fontWeight|`Property.FontWeight`|no|-
 fw|`Property.FontWeight`|no|fontWeight
 border|`string`/`number`|no|border, border-width, border-color
 tempColumns|`string`|no|grid-template-columns
+gtc|`string`|no|grid-template-columns
 tempRows|`string`|no|grid-template-rows
+gtr|`string`|no|grid-template-rows
 textAlign|`Property.TextAlign`|no|text-align
 ta|`Property.TextAlign`|no|text-align
+position|`Property.Position`|no|position
+top|`string`/`number`|no|-
+t|`string`/`number`|no|top
+right|`string`/`number`|no|-
+r|`string`/`number`|no|right
+bottom|`string`/`number`|no|-
+b|`string`/`number`|no|bottom
+left|`string`/`number`|no|-
+l|`string`/`number`|no|left
+zIndex|`Property.ZIndex`|no|z-index
+z|`Property.ZIndex`|no|z-index
+inset|`string`/`number`|no|inset
+transform|`Property.Transform`|no|transform
+tf|`Property.Transform`|no|transform
 
 <details>
 <summary>Source Code</summary>
@@ -217,12 +239,24 @@ interface BaseProps {
   column?: boolean
   // align-items
   align?: Property.AlignItems
+  // align-items
+  alignItems?: Property.AlignItems
+  // align-items
+  ai?: Property.AlignItems
   // align-content
   alignContent?: Property.AlignContent
+  // align-content
+  ac?: Property.AlignContent
   // justify-content
   justify?: Property.JustifyContent
+  // justify-content
+  justifyContent?: Property.JustifyContent
+  // justify-content
+  jc?: Property.JustifyContent
   // justify-items
   justifyItems?: Property.JustifyItems
+  // justify-items
+  ji?: Property.JustifyItems
   // flex-wrap
   wrap?: boolean | Property.FlexWrap
   // white-space: nowrap
@@ -292,10 +326,10 @@ interface BaseProps {
   scroll?: boolean | 'x' | 'y'
   // text
   breakWord?: boolean
-  // bold of font
+  // font-weight: bold
   bold?: boolean
-  // thin of font
-  thin?: boolean | string
+  // font-weight: 500
+  thin?: boolean
   fontWeight?: Property.FontWeight
   // fontWeight
   fw?: Property.FontWeight
@@ -303,12 +337,40 @@ interface BaseProps {
   border?: string | number
   // grid-template-columns
   tempColumns?: string
+  // grid-template-columns
+  gtc?: string
   // grid-template-rows
   tempRows?: string
+  // grid-template-rows
+  gtr?: string
   // text-align
   textAlign?: Property.TextAlign
   // text-align
   ta?: Property.TextAlign
+  // position
+  position?: Property.Position
+  top?: string | number
+  // top
+  t?: string | number
+  right?: string | number
+  // right
+  r?: string | number
+  bottom?: string | number
+  // bottom
+  b?: string | number
+  left?: string | number
+  // left
+  l?: string | number
+  // z-index
+  zIndex?: Property.ZIndex
+  // z-index
+  z?: Property.ZIndex
+  // inset
+  inset?: string | number
+  // transform
+  transform?: Property.Transform
+  // transform
+  tf?: Property.Transform
 }
 ```
 
@@ -316,7 +378,7 @@ interface BaseProps {
 
 ### PropMappingHandler
 
-PropMappings processing function, returns [PropMappingHandlerReturn](#PropMappingHandlerReturn)
+PropMappings processing function, returns `[key: string, val: string] | null`
 
 Prop|Types|Required|Description
 :--|:--|:--|:--

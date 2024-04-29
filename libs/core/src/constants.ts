@@ -22,6 +22,20 @@ export const ABBREVIATIONS = {
   bg: 'background',
   fw: 'fontWeight',
   ta: 'textAlign',
+  gtc: 'tempColumns',
+  gtr: 'tempRows',
+  align: 'alignItems',
+  ai: 'alignItems',
+  ac: 'alignContent',
+  ji: 'justifyItems',
+  justify: 'justifyContent',
+  jc: 'justifyContent',
+  t: 'top',
+  r: 'right',
+  l: 'left',
+  b: 'bottom',
+  z: 'zIndex',
+  tf: 'transform',
 }
 
 export const NUMERICAL_PROP_KEYS = [
@@ -48,9 +62,27 @@ export const NUMERICAL_PROP_KEYS = [
   'gap',
   'fontSize',
   'lineHeight',
+  'top',
+  'right',
+  'bottom',
+  'left',
+  'inset',
 ]
 
-export const CHANGELESS_PROP_KEYS = ['background', 'color']
+export const CHANGELESS_PROP_KEYS = [
+  'background',
+  'color',
+  'alignItems',
+  'alignContent',
+  'justifyContent',
+  'justifyItems',
+  'fontWeight',
+  'whiteSpace',
+  'textAlign',
+  'position',
+  'zIndex',
+  'transform',
+]
 
 export const DISPLAY_PROP_KEYS = [
   'flex',
@@ -62,10 +94,6 @@ export const DISPLAY_PROP_KEYS = [
 
 const CSS_PROP_MAPPINGS: PropMappings<BaseProps> = {
   radius: (v: BaseProps['radius']) => f('borderRadius', v, toCssValue(v)),
-  align: (v: BaseProps['align']) => f('alignItems', v),
-  alignContent: (v: BaseProps['alignContent']) => f('alignContent', v),
-  justify: (v: BaseProps['justify']) => f('justifyContent', v),
-  justifyItems: (v: BaseProps['justifyItems']) => f('justifyItems', v),
   column: (v: BaseProps['column']) => f('flexDirection', v, 'column'),
   wrap: (v: BaseProps['wrap']) =>
     v ? ['flexWrap', isBoolean(v) ? 'wrap' : v] : null,
@@ -84,14 +112,11 @@ const CSS_PROP_MAPPINGS: PropMappings<BaseProps> = {
   ...changeless(CHANGELESS_PROP_KEYS),
   // border
   border: (v: BaseProps['border']) => border(v),
-  fontWeight: (v: BaseProps['fontWeight']) => f('fontWeight', v),
   tempColumns: (v: BaseProps['tempColumns']) =>
     f('gridTemplateColumns', toCssValue(v, 'fr')),
   tempRows: (v: BaseProps['tempRows']) =>
     f('gridTemplateRows', toCssValue(v, 'fr')),
-  whiteSpace: (v: BaseProps['whiteSpace']) => f('whiteSpace', v),
   nowrap: (v: BaseProps['nowrap']) => f('whiteSpace', v, 'nowrap'),
-  textAlign: (v: BaseProps['textAlign']) => f('textAlign', v),
 }
 
 for (const [abb, keyFullName] of Object.entries(ABBREVIATIONS)) {

@@ -40,12 +40,24 @@ export interface BaseProps {
   column?: boolean
   // align-items
   align?: Property.AlignItems
+  // align-items
+  alignItems?: Property.AlignItems
+  // align-items
+  ai?: Property.AlignItems
   // align-content
   alignContent?: Property.AlignContent
+  // align-content
+  ac?: Property.AlignContent
   // justify-content
   justify?: Property.JustifyContent
+  // justify-content
+  justifyContent?: Property.JustifyContent
+  // justify-content
+  jc?: Property.JustifyContent
   // justify-items
   justifyItems?: Property.JustifyItems
+  // justify-items
+  ji?: Property.JustifyItems
   // flex-wrap
   wrap?: boolean | Property.FlexWrap
   // white-space: nowrap
@@ -115,10 +127,10 @@ export interface BaseProps {
   scroll?: boolean | 'x' | 'y'
   // text
   breakWord?: boolean
-  // bold of font
+  // font-weight: bold
   bold?: boolean
-  // thin of font
-  thin?: boolean | string
+  // font-weight: 500
+  thin?: boolean
   fontWeight?: Property.FontWeight
   // fontWeight
   fw?: Property.FontWeight
@@ -126,12 +138,40 @@ export interface BaseProps {
   border?: string | number
   // grid-template-columns
   tempColumns?: string
+  // grid-template-columns
+  gtc?: string
   // grid-template-rows
   tempRows?: string
+  // grid-template-rows
+  gtr?: string
   // text-align
   textAlign?: Property.TextAlign
   // text-align
   ta?: Property.TextAlign
+  // position
+  position?: Property.Position
+  top?: string | number
+  // top
+  t?: string | number
+  right?: string | number
+  // right
+  r?: string | number
+  bottom?: string | number
+  // bottom
+  b?: string | number
+  left?: string | number
+  // left
+  l?: string | number
+  // z-index
+  zIndex?: Property.ZIndex
+  // z-index
+  z?: Property.ZIndex
+  // inset
+  inset?: string | number
+  // transform
+  transform?: Property.Transform
+  // transform
+  tf?: Property.Transform
 }
 
 /**
@@ -144,7 +184,7 @@ export type PropMappingHandlerReturn = [key: string, val: string] | null
 /**
  * @type PropMappingHandler
  *
- * PropMappings processing function, returns [PropMappingHandlerReturn](#PropMappingHandlerReturn)
+ * PropMappings processing function, returns `[key: string, val: string] | null`
  */
 export type PropMappingHandler<T extends BaseProps> = (
   value: T[keyof T],

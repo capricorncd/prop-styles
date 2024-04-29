@@ -189,6 +189,19 @@ describe('libs/style createPropStyles', () => {
       alignContent: 'end',
       justifyItems: 'start',
     })
+    expect(
+      createPropStyles({
+        ai: 'center',
+        jc: 'flex-end',
+        ac: 'end',
+        ji: 'start',
+      })
+    ).toStrictEqual({
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      alignContent: 'end',
+      justifyItems: 'start',
+    })
     expect(createPropStyles({ align: 'start' })).toStrictEqual({
       alignItems: 'start',
     })
@@ -376,6 +389,71 @@ describe('libs/style createPropStyles', () => {
       })
     ).toStrictEqual({
       textAlign: 'center',
+    })
+  })
+
+  it('position', () => {
+    expect(
+      createPropStyles({
+        position: 'fixed',
+        zIndex: 10,
+        top: 20,
+        right: 10,
+        bottom: 39,
+        left: 20,
+      })
+    ).toStrictEqual({
+      position: 'fixed',
+      zIndex: '10',
+      top: '20px',
+      right: '10px',
+      bottom: '39px',
+      left: '20px',
+    })
+
+    expect(
+      createPropStyles({
+        position: 'fixed',
+        z: 10,
+        t: 20,
+        r: 10,
+        b: 39,
+        l: 20,
+      })
+    ).toStrictEqual({
+      position: 'fixed',
+      zIndex: '10',
+      top: '20px',
+      right: '10px',
+      bottom: '39px',
+      left: '20px',
+    })
+  })
+
+  it('inset', () => {
+    expect(
+      createPropStyles({
+        inset: 10,
+      })
+    ).toStrictEqual({
+      inset: '10px',
+    })
+  })
+
+  it('transform', () => {
+    expect(
+      createPropStyles({
+        transform: 'rotate(30deg)',
+      })
+    ).toStrictEqual({
+      transform: 'rotate(30deg)',
+    })
+    expect(
+      createPropStyles({
+        tf: 'rotate(30deg)',
+      })
+    ).toStrictEqual({
+      transform: 'rotate(30deg)',
     })
   })
 })
