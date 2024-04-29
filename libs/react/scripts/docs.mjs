@@ -37,7 +37,7 @@ function main() {
   const libsReactTypeFile = resolve('./dist/types.d.ts')
   const lines = [
     `import type { Property } from 'csstype';`,
-    `import type { ReactNode } from 'react';`,
+    `import type { ReactNode, JSX } from 'react';`,
     '',
   ]
   res.data.forEach((item) => {

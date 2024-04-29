@@ -25,16 +25,16 @@ import type {
  * Example
  *
  * ```js
- * formatReturn('width', 100) // ['width', '100']
- * formatReturn('width', '100px') // ['width', '100px']
- * formatReturn('width', 100, '100%') // ['width', '100%']
+ * f('width', 100) // ['width', '100']
+ * f('width', '100px') // ['width', '100px']
+ * f('width', 100, '100%') // ['width', '100%']
  *
- * formatReturn('key', false) // null
- * formatReturn('key', '') // null
- * formatReturn('key', undefined) // null
- * formatReturn('key', null) // null
- * formatReturn('key', null, 'stringValue') // null
- * formatReturn('key', true, 'stringValue') // ['key', 'stringValue']
+ * f('key', false) // null
+ * f('key', '') // null
+ * f('key', undefined) // null
+ * f('key', null) // null
+ * f('key', null, 'stringValue') // null
+ * f('key', true, 'stringValue') // ['key', 'stringValue']
  * ```
  *
  * @param key `K` The PropMappingHandlerReturn `key` or customize `key`

@@ -42,7 +42,7 @@
  * ```
  */
 import { createPropStyles } from '@prop-styles/core'
-import { useMemo, type ReactNode } from 'react'
+import { useMemo, type ReactNode, type JSX } from 'react'
 import type { BaseProps, PropMappings } from '@prop-styles/core'
 
 export * from '@prop-styles/core'
@@ -52,7 +52,7 @@ export * from '@prop-styles/core'
  */
 export interface ReactBaseProps extends BaseProps {
   className?: string
-  children?: ReactNode
+  children?: ReactNode | JSX.Element
   onClick?: (event: Event) => void
 }
 
