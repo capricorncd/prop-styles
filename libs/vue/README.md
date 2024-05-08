@@ -82,13 +82,13 @@ Alias and abbreviation of [formatReturn](#formatreturnkey-value-strvalue).
 
 Param|Types|Required|Description
 :--|:--|:--|:--
-key|`K`|yes|The PropMappingHandlerReturn `key` or customize `key`
+key|`K`|yes|The PropMappingHandler Return `key` or customize `key`
 value|`V`|yes|The `props[prop]'s value`
-strValue|`string`|no|Customize the `value` of PropMappingHandlerReturn
+strValue|`string`|no|Customize the `value` of PropMappingHandler Return
 
 - @generic `K extends string, V`
 
-- @returns `[key: string, val: string] | null` see [PropMappingHandlerReturn](#PropMappingHandlerReturn)
+- @returns `[key: string, val: string] | null`
 
 ### formatReturn(key, value, strValue)
 
@@ -111,13 +111,13 @@ f('key', true, 'stringValue') // ['key', 'stringValue']
 
 Param|Types|Required|Description
 :--|:--|:--|:--
-key|`K`|yes|The PropMappingHandlerReturn `key` or customize `key`
+key|`K`|yes|The PropMappingHandler Return `key` or customize `key`
 value|`V`|yes|The `props[prop]'s value`
-strValue|`string`|no|Customize the `value` of PropMappingHandlerReturn
+strValue|`string`|no|Customize the `value` of PropMappingHandler Return
 
 - @generic `K extends string, V`
 
-- @returns `[key: string, val: string] | null` see [PropMappingHandlerReturn](#PropMappingHandlerReturn)
+- @returns `[key: string, val: string] | null`
 
 ### usePropStyles(props, mappings)
 
@@ -149,11 +149,11 @@ maxWidth|`number`/`string`|no|max-width
 height|`number`/`string`|no|height
 minHeight|`number`/`string`|no|min-height
 maxHeight|`number`/`string`|no|max-height
-flex|`boolean`|no|display flex
-grid|`boolean`|no|display grid
-inlineFlex|`boolean`|no|-
-inlineBlock|`boolean`|no|-
-inline|`boolean`|no|-
+flex|`boolean`|no|display: flex
+grid|`boolean`|no|display: grid
+inlineFlex|`boolean`|no|display: inline-flex
+inlineBlock|`boolean`|no|display: inline-block
+inline|`boolean`|no|display: inline
 gap|`number`/`string`|no|flex/grid's gap
 column|`boolean`|no|flex-direction
 align|`Property.AlignItems`|no|align-items
@@ -173,59 +173,59 @@ padding|`number`/`string`|no|padding
 p|`number`/`string`|no|padding
 paddingTop|`number`/`string`|no|padding-top
 pt|`number`/`string`|no|padding-top
-paddingBottom|`number`/`string`|no|-
+paddingBottom|`number`/`string`|no|padding-bottom
 pb|`number`/`string`|no|padding-bottom
-paddingLeft|`number`/`string`|no|-
+paddingLeft|`number`/`string`|no|padding-left
 pl|`number`/`string`|no|padding-left
-paddingRight|`number`/`string`|no|-
+paddingRight|`number`/`string`|no|padding-right
 pr|`number`/`string`|no|padding-right
-paddingInline|`number`/`string`|no|-
+paddingInline|`number`/`string`|no|padding-inline
 px|`number`/`string`|no|padding-inline
-paddingBlock|`number`/`string`|no|-
+paddingBlock|`number`/`string`|no|padding-block
 py|`number`/`string`|no|padding-block
 margin|`number`/`string`|no|margin
 m|`number`/`string`|no|margin
-marginTop|`number`/`string`|no|-
+marginTop|`number`/`string`|no|margin-top
 mt|`number`/`string`|no|margin-top
-marginBottom|`number`/`string`|no|-
+marginBottom|`number`/`string`|no|margin-bottom
 mb|`number`/`string`|no|margin-bottom
-marginLeft|`number`/`string`|no|-
+marginLeft|`number`/`string`|no|margin-left
 ml|`number`/`string`|no|margin-left
-marginRight|`number`/`string`|no|-
+marginRight|`number`/`string`|no|margin-right
 mr|`number`/`string`|no|margin-right
-marginInline|`number`/`string`|no|-
+marginInline|`number`/`string`|no|margin-inline
 mx|`number`/`string`|no|margin-inline
-marginBlock|`number`/`string`|no|-
+marginBlock|`number`/`string`|no|margin-block
 my|`number`/`string`|no|margin-block
 radius|`string`/`number`|no|border-radius
 fontSize|`string`/`number`|no|font-size
 fs|`string`/`number`|no|font-size
-lineHeight|`string`/`number`|no|-
+lineHeight|`string`/`number`|no|line-height
 lh|`string`/`number`|no|line-height
 color|`string`|no|color
-background|`Property.Background`|no|-
+background|`Property.Background`|no|background
 bg|`Property.Background`|no|background
 scroll|`boolean`/`'x'`/`'y'`|no|scroll direction
 breakWord|`boolean`|no|text
 bold|`boolean`|no|font-weight: bold
 thin|`boolean`|no|font-weight: 500
-fontWeight|`Property.FontWeight`|no|-
-fw|`Property.FontWeight`|no|fontWeight
+fontWeight|`Property.FontWeight`|no|font-weight
+fw|`Property.FontWeight`|no|font-weight
 border|`string`/`number`|no|border, border-width, border-color
-tempColumns|`string`|no|grid-template-columns
-gtc|`string`|no|grid-template-columns
-tempRows|`string`|no|grid-template-rows
-gtr|`string`|no|grid-template-rows
+tempColumns|`string`/`number`|no|grid-template-columns
+gtc|`string`/`number`|no|grid-template-columns
+tempRows|`string`/`number`|no|grid-template-rows
+gtr|`string`/`number`|no|grid-template-rows
 textAlign|`Property.TextAlign`|no|text-align
 ta|`Property.TextAlign`|no|text-align
 position|`Property.Position`|no|position
 top|`string`/`number`|no|-
 t|`string`/`number`|no|top
-right|`string`/`number`|no|-
+right|`string`/`number`|no|right
 r|`string`/`number`|no|right
-bottom|`string`/`number`|no|-
+bottom|`string`/`number`|no|bottom
 b|`string`/`number`|no|bottom
-left|`string`/`number`|no|-
+left|`string`/`number`|no|left
 l|`string`/`number`|no|left
 zIndex|`Property.ZIndex`|no|z-index
 z|`Property.ZIndex`|no|z-index
@@ -252,12 +252,15 @@ interface BaseProps {
   minHeight?: number | string
   // max-height
   maxHeight?: number | string
-  // display flex
+  // display: flex
   flex?: boolean
-  // display grid
+  // display: grid
   grid?: boolean
+  // display: inline-flex
   inlineFlex?: boolean
+  // display: inline-block
   inlineBlock?: boolean
+  // display: inline
   inline?: boolean
   // flex/grid's gap
   gap?: number | string
@@ -297,18 +300,23 @@ interface BaseProps {
   paddingTop?: number | string
   // padding-top
   pt?: number | string
+  // padding-bottom
   paddingBottom?: number | string
   // padding-bottom
   pb?: number | string
+  // padding-left
   paddingLeft?: number | string
   // padding-left
   pl?: number | string
+  // padding-right
   paddingRight?: number | string
   // padding-right
   pr?: number | string
+  // padding-inline
   paddingInline?: number | string
   // padding-inline
   px?: number | string
+  // padding-block
   paddingBlock?: number | string
   // padding-block
   py?: number | string
@@ -316,21 +324,27 @@ interface BaseProps {
   margin?: number | string
   // margin
   m?: number | string
+  // margin-top
   marginTop?: number | string
   // margin-top
   mt?: number | string
+  // margin-bottom
   marginBottom?: number | string
   // margin-bottom
   mb?: number | string
+  // margin-left
   marginLeft?: number | string
   // margin-left
   ml?: number | string
+  // margin-right
   marginRight?: number | string
   // margin-right
   mr?: number | string
+  // margin-inline
   marginInline?: number | string
   // margin-inline
   mx?: number | string
+  // margin-block
   marginBlock?: number | string
   // margin-block
   my?: number | string
@@ -340,11 +354,13 @@ interface BaseProps {
   fontSize?: string | number
   // font-size
   fs?: string | number
+  // line-height
   lineHeight?: string | number
   // line-height
   lh?: string | number
   // color
   color?: string
+  // background
   background?: Property.Background
   // background
   bg?: Property.Background
@@ -356,19 +372,20 @@ interface BaseProps {
   bold?: boolean
   // font-weight: 500
   thin?: boolean
+  // font-weight
   fontWeight?: Property.FontWeight
-  // fontWeight
+  // font-weight
   fw?: Property.FontWeight
   // border, border-width, border-color
   border?: string | number
   // grid-template-columns
-  tempColumns?: string
+  tempColumns?: string | number
   // grid-template-columns
-  gtc?: string
+  gtc?: string | number
   // grid-template-rows
-  tempRows?: string
+  tempRows?: string | number
   // grid-template-rows
-  gtr?: string
+  gtr?: string | number
   // text-align
   textAlign?: Property.TextAlign
   // text-align
@@ -378,12 +395,15 @@ interface BaseProps {
   top?: string | number
   // top
   t?: string | number
+  // right
   right?: string | number
   // right
   r?: string | number
+  // bottom
   bottom?: string | number
   // bottom
   b?: string | number
+  // left
   left?: string | number
   // left
   l?: string | number
@@ -483,11 +503,11 @@ maxWidth|`number`/`string`|no|max-width
 height|`number`/`string`|no|height
 minHeight|`number`/`string`|no|min-height
 maxHeight|`number`/`string`|no|max-height
-flex|`boolean`|no|display flex
-grid|`boolean`|no|display grid
-inlineFlex|`boolean`|no|-
-inlineBlock|`boolean`|no|-
-inline|`boolean`|no|-
+flex|`boolean`|no|display: flex
+grid|`boolean`|no|display: grid
+inlineFlex|`boolean`|no|display: inline-flex
+inlineBlock|`boolean`|no|display: inline-block
+inline|`boolean`|no|display: inline
 gap|`number`/`string`|no|flex/grid's gap
 column|`boolean`|no|flex-direction
 align|`Property.AlignItems`|no|align-items
@@ -507,59 +527,59 @@ padding|`number`/`string`|no|padding
 p|`number`/`string`|no|padding
 paddingTop|`number`/`string`|no|padding-top
 pt|`number`/`string`|no|padding-top
-paddingBottom|`number`/`string`|no|-
+paddingBottom|`number`/`string`|no|padding-bottom
 pb|`number`/`string`|no|padding-bottom
-paddingLeft|`number`/`string`|no|-
+paddingLeft|`number`/`string`|no|padding-left
 pl|`number`/`string`|no|padding-left
-paddingRight|`number`/`string`|no|-
+paddingRight|`number`/`string`|no|padding-right
 pr|`number`/`string`|no|padding-right
-paddingInline|`number`/`string`|no|-
+paddingInline|`number`/`string`|no|padding-inline
 px|`number`/`string`|no|padding-inline
-paddingBlock|`number`/`string`|no|-
+paddingBlock|`number`/`string`|no|padding-block
 py|`number`/`string`|no|padding-block
 margin|`number`/`string`|no|margin
 m|`number`/`string`|no|margin
-marginTop|`number`/`string`|no|-
+marginTop|`number`/`string`|no|margin-top
 mt|`number`/`string`|no|margin-top
-marginBottom|`number`/`string`|no|-
+marginBottom|`number`/`string`|no|margin-bottom
 mb|`number`/`string`|no|margin-bottom
-marginLeft|`number`/`string`|no|-
+marginLeft|`number`/`string`|no|margin-left
 ml|`number`/`string`|no|margin-left
-marginRight|`number`/`string`|no|-
+marginRight|`number`/`string`|no|margin-right
 mr|`number`/`string`|no|margin-right
-marginInline|`number`/`string`|no|-
+marginInline|`number`/`string`|no|margin-inline
 mx|`number`/`string`|no|margin-inline
-marginBlock|`number`/`string`|no|-
+marginBlock|`number`/`string`|no|margin-block
 my|`number`/`string`|no|margin-block
 radius|`string`/`number`|no|border-radius
 fontSize|`string`/`number`|no|font-size
 fs|`string`/`number`|no|font-size
-lineHeight|`string`/`number`|no|-
+lineHeight|`string`/`number`|no|line-height
 lh|`string`/`number`|no|line-height
 color|`string`|no|color
-background|`Property.Background`|no|-
+background|`Property.Background`|no|background
 bg|`Property.Background`|no|background
 scroll|`boolean`/`'x'`/`'y'`|no|scroll direction
 breakWord|`boolean`|no|text
 bold|`boolean`|no|font-weight: bold
 thin|`boolean`|no|font-weight: 500
-fontWeight|`Property.FontWeight`|no|-
-fw|`Property.FontWeight`|no|fontWeight
+fontWeight|`Property.FontWeight`|no|font-weight
+fw|`Property.FontWeight`|no|font-weight
 border|`string`/`number`|no|border, border-width, border-color
-tempColumns|`string`|no|grid-template-columns
-gtc|`string`|no|grid-template-columns
-tempRows|`string`|no|grid-template-rows
-gtr|`string`|no|grid-template-rows
+tempColumns|`string`/`number`|no|grid-template-columns
+gtc|`string`/`number`|no|grid-template-columns
+tempRows|`string`/`number`|no|grid-template-rows
+gtr|`string`/`number`|no|grid-template-rows
 textAlign|`Property.TextAlign`|no|text-align
 ta|`Property.TextAlign`|no|text-align
 position|`Property.Position`|no|position
 top|`string`/`number`|no|-
 t|`string`/`number`|no|top
-right|`string`/`number`|no|-
+right|`string`/`number`|no|right
 r|`string`/`number`|no|right
-bottom|`string`/`number`|no|-
+bottom|`string`/`number`|no|bottom
 b|`string`/`number`|no|bottom
-left|`string`/`number`|no|-
+left|`string`/`number`|no|left
 l|`string`/`number`|no|left
 zIndex|`Property.ZIndex`|no|z-index
 z|`Property.ZIndex`|no|z-index
