@@ -3,122 +3,81 @@
  * https://github.com/capricorncd
  * Date: 2024/03/16 17:23:21 (GMT+0900)
  */
-import { toSnakeCase, toCssValue, isNumberLike, isColorLike } from '@libs/utils'
+import { toCssValue, isNumberLike, isColorLike } from '@libs/utils';
 import type {
-  PropMappingHandlerReturn,
   PropMappingHandler,
   PropMappings,
   BaseProps,
-} from './types.d'
+  PropMappingHandlerReturn,
+} from './types.d';
 
 /**
- * @method formatReturn<K extends string, V>(key, value, strValue)
+ * @method transform(key, value, strValue)
  *
  * Used for [PropMappingHandler](#PropMappingHandler) processing. When `value` is `null/undefined/''/false`, return null, otherwise return the specified value.
  *
  * Example
  *
  * ```js
- * f('width', 100) // ['width', '100']
- * f('width', '100px') // ['width', '100px']
- * f('width', 100, '100%') // ['width', '100%']
+ * transform('width', 100) // { key: 'width', value: '100' }
+ * transform('width', '100px') // { key: 'width', value: '100px' }
+ * transform('width', 100, '100%') // { key: 'width', value: '100%' }
  *
- * f('key', false) // null
- * f('key', '') // null
- * f('key', undefined) // null
- * f('key', null) // null
- * f('key', null, 'stringValue') // null
- * f('key', true, 'stringValue') // ['key', 'stringValue']
+ * transform('key', false) // null
+ * transform('key', '') // null
+ * transform('key', undefined) // null
+ * transform('key', null) // null
+ * transform('key', null, 'stringValue') // null
+ * transform('key', true, 'stringValue') // { key: 'key', value: 'stringValue' }
  * ```
  *
- * @param key `K` The PropMappingHandler Return `key` or customize `key`
- * @param value `V` The `props[prop]'s value`
+ * @param key `string` The PropMappingHandler Return `key` or customize `key`
+ * @param value `any` The `props[prop]'s value`
  * @param strValue? `string` Customize the `value` of PropMappingHandler Return
- * @returns `[key: string, val: string] | null`
+ * @returns `{ key: string, value: string } | null`
  */
-export function formatReturn<K extends string, V>(
-  key: K,
-  value: V,
+export const transform = (
+  key: string,
+  value: any,
   strValue?: string
-): [key: string, val: string] | null {
-  return !value && value !== 0 ? null : [key, strValue ?? String(value)]
-}
+): PropMappingHandlerReturn => {
+  if (!value && value !== 0) return null;
+  return { key, value: strValue ?? String(value) };
+};
 
-/**
- * @method f<K extends string, V>(key, value, strValue)
- *
- * Alias and abbreviation of [formatReturn](#formatreturnkey-value-strvalue).
- *
- * @param key `K` The PropMappingHandler Return `key` or customize `key`
- * @param value `V` The `props[prop]'s value`
- * @param strValue? `string` Customize the `value` of PropMappingHandler Return
- * @returns `[key: string, val: string] | null`
- */
-export const f = formatReturn
-
-function generatePropMappings(
-  keys: string[],
-  handler: (prop: string, value: any) => PropMappingHandlerReturn,
-  mappings: PropMappings<BaseProps>
-) {
-  keys.forEach((prop) => {
-    // @ts-ignore
-    mappings[prop] = (value: any) => handler(prop, value)
-  })
-}
-
-export function display(keys: string[], mappings: PropMappings<BaseProps>) {
-  return generatePropMappings(
-    keys,
-    (prop, value?: boolean) => f('display', value, toSnakeCase(prop)),
-    mappings
-  )
-}
-
-export function numerical(keys: string[], mappings: PropMappings<BaseProps>) {
-  return generatePropMappings(
-    keys,
-    (prop, value?: number | string) => f(prop, value, toCssValue(value)),
-    mappings
-  )
-}
-
-export function changeless(keys: string[], mappings: PropMappings<BaseProps>) {
-  return generatePropMappings(
-    keys,
-    (prop, value: string) => f(prop, value),
-    mappings
-  )
-}
-
-const REG_CSS_NUMERICAL_VALUE = /^-?\d+(\.\d+)?[a-z]+$/i
-
-function isCssNumericalValueLike(val: unknown) {
-  return typeof val === 'string' && REG_CSS_NUMERICAL_VALUE.test(val)
-}
-
-export function border(value: unknown): [key: string, val: string] | null {
-  if (isNumberLike(value) || isCssNumericalValueLike(value))
-    return ['borderWidth', toCssValue(value)]
-  if (isColorLike(value)) return ['borderColor', value]
-  return f('border', value)
-}
-
-export function handleMappings<T extends BaseProps>(
+export const handleMappings = <T extends BaseProps>(
   props: T,
-  mappings: PropMappings<T>,
-  target: any
-) {
-  let mappingHandler: PropMappingHandler<T>
+  mappings: PropMappings<T>
+) => {
+  const style: Record<string, string> = {};
+  let mappingHandler: PropMappingHandler<T> | undefined;
   for (const prop of Object.keys(props)) {
-    // @ts-ignore
-    mappingHandler = mappings[prop]
-    if (mappingHandler) {
-      const result = mappingHandler(props[prop as keyof T], props)
-      if (result) {
-        const [key, value] = result
-        target[key] = value
-      }
+    mappingHandler = mappings[prop as keyof T];
+    if (!mappingHandler) continue;
+    const result = mappingHandler(props[prop as keyof T], props);
+    if (!result) continue;
+    if (Array.isArray(result)) {
+      result.forEach((v) => {
+        if (v) style[v.key] = v.value;
+      });
+    } else {
+      const { key, value } = result;
+      style[key] = value;
     }
   }
-}
+  return style;
+};
+
+const REG_CSS_NUMERICAL_VALUE = /^-?\d+(\.\d+)?[a-z]+$/i;
+
+const isCssNumericalValueLike = (val: unknown) => {
+  return typeof val === 'string' && REG_CSS_NUMERICAL_VALUE.test(val);
+};
+
+export const border = (value: unknown) => {
+  if (isNumberLike(value) || isCssNumericalValueLike(value)) {
+    return { key: 'borderWidth', value: toCssValue(value) };
+  }
+  if (isColorLike(value)) return { key: 'borderColor', value };
+  return transform('border', value);
+};

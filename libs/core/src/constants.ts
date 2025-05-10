@@ -1,130 +1,95 @@
-import { toCssValue, isBoolean } from '@libs/utils'
-import { display, numerical, changeless, border, f } from './utils'
-import type { BaseProps, PropMappings } from './types'
+import { toCssValue } from '@libs/utils';
+import { transform, border } from './utils';
+import type {
+  BaseProps,
+  BooleanValueKeys,
+  PropMappings,
+  PropMappingHandler,
+} from './types';
 
-const ABBREVIATIONS = {
+const PROP_KEY_MAPPINGS: Record<
+  keyof Omit<BaseProps, BooleanValueKeys>,
+  string
+> = {
+  display: 'display',
+  width: 'width',
+  minWidth: 'minWidth',
+  maxWidth: 'maxWidth',
+  height: 'height',
+  minHeight: 'minHeight',
+  maxHeight: 'maxHeight',
+  flex: 'flex',
+  gap: 'gap',
+  fd: 'flexDirection',
+  ai: 'alignItems',
+  ac: 'alignContent',
+  ji: 'justifyItems',
+  jc: 'justifyContent',
+  ws: 'whiteSpace',
   p: 'padding',
   pt: 'paddingTop',
+  pr: 'paddingRight',
   pb: 'paddingBottom',
   pl: 'paddingLeft',
-  pr: 'paddingRight',
   px: 'paddingInline',
   py: 'paddingBlock',
   m: 'margin',
   mt: 'marginTop',
+  mr: 'marginRight',
   mb: 'marginBottom',
   ml: 'marginLeft',
-  mr: 'marginRight',
   mx: 'marginInline',
   my: 'marginBlock',
+  radius: 'borderRadius',
   fs: 'fontSize',
   lh: 'lineHeight',
+  color: 'color',
   bg: 'background',
   fw: 'fontWeight',
+  border: 'border',
+  gtc: 'gridTemplateColumns',
+  gtr: 'gridTemplateRows',
   ta: 'textAlign',
-  gtc: 'tempColumns',
-  gtr: 'tempRows',
-  align: 'alignItems',
-  ai: 'alignItems',
-  ac: 'alignContent',
-  ji: 'justifyItems',
-  justify: 'justifyContent',
-  jc: 'justifyContent',
-  t: 'top',
-  r: 'right',
-  l: 'left',
-  b: 'bottom',
-  z: 'zIndex',
-  tf: 'transform',
-}
-
-const NUMERICAL_PROP_KEYS = [
-  'width',
-  'minWidth',
-  'maxWidth',
-  'height',
-  'minHeight',
-  'maxHeight',
-  'padding',
-  'paddingTop',
-  'paddingBottom',
-  'paddingLeft',
-  'paddingRight',
-  'paddingInline',
-  'paddingBlock',
-  'margin',
-  'marginTop',
-  'marginBottom',
-  'marginLeft',
-  'marginRight',
-  'marginInline',
-  'marginBlock',
-  'gap',
-  'fontSize',
-  'lineHeight',
-  'top',
-  'right',
-  'bottom',
-  'left',
-  'inset',
-]
-
-const CHANGELESS_PROP_KEYS = [
-  'background',
-  'color',
-  'alignItems',
-  'alignContent',
-  'justifyContent',
-  'justifyItems',
-  'fontWeight',
-  'whiteSpace',
-  'textAlign',
-  'position',
-  'zIndex',
-  'transform',
-]
-
-const DISPLAY_PROP_KEYS = [
-  'flex',
-  'grid',
-  'inline',
-  'inlineFlex',
-  'inlineBlock',
-]
-
-const CSS_PROP_MAPPINGS: PropMappings<BaseProps> = {
-  radius: (v: BaseProps['radius']) => f('borderRadius', v, toCssValue(v)),
-  column: (v: BaseProps['column']) => f('flexDirection', v, 'column'),
-  wrap: (v: BaseProps['wrap']) => f('flexWrap', v, isBoolean(v) ? 'wrap' : v),
-  breakWord: (v: BaseProps['breakWord']) => f('overflowWrap', v, 'break-word'),
-  // font
-  bold: (v: BaseProps['bold']) => f('fontWeight', v, 'bold'),
-  thin: (v: BaseProps['thin']) => f('fontWeight', v, '500'),
+  position: 'position',
+  top: 'top',
+  right: 'right',
+  bottom: 'bottom',
+  left: 'left',
+  zIndex: 'zIndex',
+  inset: 'inset',
+  transform: 'transform',
+};
+const booleanValuePropMappings: Record<
+  BooleanValueKeys,
+  PropMappingHandler<Pick<BaseProps, BooleanValueKeys>>
+> = {
+  column: (v: BaseProps['column']) => transform('flexDirection', v, 'column'),
+  wrap: (v: BaseProps['wrap']) =>
+    transform('flexWrap', v, v === true ? 'wrap' : String(v)),
+  breakWord: (v: BaseProps['breakWord']) =>
+    transform('overflowWrap', v, 'break-word'),
   // overflow
   scroll: (v: BaseProps['scroll']) =>
-    f(`overflow${typeof v === 'string' ? v.toUpperCase() : ''}`, v, 'auto'),
-  // border
-  border: (v: BaseProps['border']) => border(v),
-  tempColumns: (v: BaseProps['tempColumns']) =>
-    f('gridTemplateColumns', v, toCssValue(v, 'fr')),
-  tempRows: (v: BaseProps['tempRows']) =>
-    f('gridTemplateRows', v, toCssValue(v, 'fr')),
-  nowrap: (v: BaseProps['nowrap']) => f('whiteSpace', v, 'nowrap'),
-}
+    transform(
+      `overflow${typeof v === 'string' ? v.toUpperCase() : ''}`,
+      v,
+      'auto'
+    ),
+};
 
-display(DISPLAY_PROP_KEYS, CSS_PROP_MAPPINGS)
-numerical(NUMERICAL_PROP_KEYS, CSS_PROP_MAPPINGS)
-changeless(CHANGELESS_PROP_KEYS, CSS_PROP_MAPPINGS)
-
-// Abbreviation attribute handling
-for (const [abb, keyFullName] of Object.entries(ABBREVIATIONS)) {
-  // @ts-ignore
-  if (CSS_PROP_MAPPINGS[keyFullName]) {
-    // @ts-ignore
-    CSS_PROP_MAPPINGS[abb] = CSS_PROP_MAPPINGS[keyFullName]
-  } else {
-    throw new Error(`The alias of ${abb} does not exist`)
-  }
-}
-
-export { CSS_PROP_MAPPINGS }
+export const CSS_PROP_MAPPINGS = {
+  ...Object.entries(PROP_KEY_MAPPINGS).reduce((result, [abb, cssFullKey]) => {
+    result[abb as keyof BaseProps] = (v: BaseProps[keyof BaseProps]) =>
+      transform(cssFullKey, v, toCssValue(v));
+    return result;
+  }, {} as PropMappings<BaseProps>),
+  ...booleanValuePropMappings,
+  flex: (v: BaseProps['flex']) => transform('flex', v),
+  border,
+  fw: (v: BaseProps['fw']) => transform('fontWeight', v, String(v)),
+  gtc: (v: BaseProps['gtc']) =>
+    transform('gridTemplateColumns', v, toCssValue(v, 'fr')),
+  gtr: (v: BaseProps['gtr']) =>
+    transform('gridTemplateRows', v, toCssValue(v, 'fr')),
+  zIndex: (v: BaseProps['zIndex']) => transform('zIndex', v, String(v)),
+} as PropMappings<BaseProps>;
