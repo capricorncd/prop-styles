@@ -1,0 +1,51 @@
+name: Build Libs Workspaces
+
+on:
+  push:
+    paths:
+      - 'libs/**'
+      - 'package.json'
+      - 'package-lock.json'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Get changed workspaces
+        id: changed-workspaces
+        run: |
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+          CHANGED_WORKSPACES=""
+          for file in $CHANGED_FILES; do
+            if [[ $file == libs/* ]]; then
+              WORKSPACE=$(echo $file | cut -d'/' -f2)
+              if [[ ! " $CHANGED_WORKSPACES " =~ " $WORKSPACE " ]]; then
+                CHANGED_WORKSPACES="$CHANGED_WORKSPACES $WORKSPACE"
+              fi
+            fi
+          done
+          echo "workspaces=$CHANGED_WORKSPACES" >> $GITHUB_OUTPUT
+        
+      - name: Build and publish changed workspaces
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          for workspace in ${{ steps.changed-workspaces.outputs.workspaces }}; do
+            echo "Building and publishing $workspace..."
+            npm run build -w libs/$workspace
+            npm run pl -w libs/$workspace
+          done 
+          
