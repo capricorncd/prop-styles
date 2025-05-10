@@ -1,6 +1,6 @@
-import { mount } from '@vue/test-utils'
-import { test, expect, describe } from 'vitest'
-import App from './App.vue'
+import { mount } from '@vue/test-utils';
+import { test, expect, describe } from 'vitest';
+import App from './App.vue';
 
 describe('vue usePropStyles', () => {
   test('width and height', () => {
@@ -13,12 +13,12 @@ describe('vue usePropStyles', () => {
         minHeight: 90,
         maxHeight: '50vh',
       },
-    })
-    expect(wrapper.text()).toBe('Hello world')
+    });
+    expect(wrapper.text()).toBe('Hello world');
     expect(wrapper.attributes('style')).toBe(
       'width: 200px; min-width: 150px; max-width: 500px; height: 100px; min-height: 90px; max-height: 50vh;'
-    )
-  })
+    );
+  });
 
   test('padding', () => {
     const wrapper = mount(App, {
@@ -31,12 +31,12 @@ describe('vue usePropStyles', () => {
         paddingInline: '10em',
         paddingBlock: 10,
       },
-    })
+    });
 
     expect(wrapper.attributes('style')).toBe(
       'padding: 10em 10px 10px 10em; padding-inline: 10em; padding-block: 10px;'
-    )
-  })
+    );
+  });
 
   test('p', () => {
     const wrapper = mount(App, {
@@ -48,12 +48,12 @@ describe('vue usePropStyles', () => {
         px: '10em',
         py: 10,
       },
-    })
+    });
 
     expect(wrapper.attributes('style')).toBe(
       'padding: 10em 10px 10px 10em; padding-inline: 10em; padding-block: 10px;'
-    )
-  })
+    );
+  });
 
   test('fw/fs', () => {
     const wrapper = mount(App, {
@@ -61,12 +61,12 @@ describe('vue usePropStyles', () => {
         fw: '700',
         fs: 10,
       },
-    })
+    });
 
     expect(wrapper.attributes('style')).toBe(
       'font-weight: 700; font-size: 10px;'
-    )
-  })
+    );
+  });
 
   test('tempColumns/tempRows', () => {
     const wrapper = mount(App, {
@@ -74,37 +74,37 @@ describe('vue usePropStyles', () => {
         tempColumns: '2',
         tempRows: '10 auto 5',
       },
-    })
+    });
 
     expect(wrapper.attributes('style')).toBe(
       'grid-template-columns: 2fr; grid-template-rows: 10fr auto 5fr;'
-    )
+    );
 
     const wrapper2 = mount(App, {
       props: {
         gtc: '2',
         gtr: '10 auto 5',
       },
-    })
+    });
 
     expect(wrapper2.attributes('style')).toBe(
       'grid-template-columns: 2fr; grid-template-rows: 10fr auto 5fr;'
-    )
-  })
+    );
+  });
 
   test('display', () => {
     const flex = mount(App, {
       props: {
         flex: true,
       },
-    })
-    expect(flex.attributes('style')).toBe('display: flex;')
+    });
+    expect(flex.attributes('style')).toBe('display: flex;');
 
     const grid = mount(App, {
       props: {
         grid: true,
       },
-    })
-    expect(grid.attributes('style')).toBe('display: grid;')
-  })
-})
+    });
+    expect(grid.attributes('style')).toBe('display: grid;');
+  });
+});

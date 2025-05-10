@@ -41,19 +41,19 @@
  * // <div style="width:100px;border-radius:12px 12px 0 12px;margin-top:20px;"></div>
  * ```
  */
-import { createPropStyles } from '@prop-styles/core'
-import { useMemo, type ReactNode, type JSX } from 'react'
-import type { BaseProps, PropMappings } from '@prop-styles/core'
+import { createPropStyles } from '@prop-styles/core';
+import { useMemo, type ReactNode, type JSX } from 'react';
+import type { BaseProps, PropMappings } from '@prop-styles/core';
 
-export * from '@prop-styles/core'
+export * from '@prop-styles/core';
 
 /**
  * @type ReactBaseProps
  */
 export interface ReactBaseProps extends BaseProps {
-  className?: string
-  children?: ReactNode | JSX.Element
-  onClick?: (event: Event) => void
+  className?: string;
+  children?: ReactNode | JSX.Element;
+  onClick?: (event: Event) => void;
 }
 
 /**
@@ -71,15 +71,15 @@ export function usePropStyles<T extends BaseProps>(
   props: T,
   mappings?: PropMappings<T>
 ): UsePropStylesReturn {
-  const style = useMemo(() => createPropStyles(props, mappings), [props])
+  const style = useMemo(() => createPropStyles(props, mappings), [props]);
   return {
     style,
-  }
+  };
 }
 
 /**
  * @type UsePropStylesReturn
  */
 export interface UsePropStylesReturn {
-  style: { [key: string]: string }
+  style: { [key: string]: string };
 }

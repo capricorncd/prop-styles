@@ -7,18 +7,20 @@ module.exports = {
   root: true,
   env: { browser: true, node: true },
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'prettier', 'import'],
+  plugins: ['@typescript-eslint', 'import', 'prettier'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:import/recommended',
     'plugin:import/typescript',
+    'prettier',
   ],
   rules: {
     'prettier/prettier': [
       'error',
       {
         singleQuote: true,
+        semi: true,
       },
     ],
     // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md

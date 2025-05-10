@@ -2,12 +2,12 @@
  * Created by Capricorncd.
  * https://github.com/capricorncd
  */
-import path from 'node:path'
-import vue from '@vitejs/plugin-vue'
-import { defineConfig } from 'vite'
+import path from 'node:path';
+import vue from '@vitejs/plugin-vue';
+import { defineConfig } from 'vite';
 
 export function resolve(_path: string) {
-  return path.join(process.cwd(), _path)
+  return path.join(process.cwd(), _path);
 }
 
 export default defineConfig({
@@ -27,4 +27,4 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
   },
-})
+});

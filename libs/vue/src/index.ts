@@ -45,17 +45,17 @@
  * // <div style="width:100px;border-radius:12px 12px 0 12px;margin-top:20px;"></div>
  * ```
  */
-import { createPropStyles } from '@prop-styles/core'
-import { computed, type ComputedRef, type StyleValue } from 'vue'
-import type { BaseProps, PropMappings } from '@prop-styles/core'
+import { createPropStyles } from '@prop-styles/core';
+import { computed, type ComputedRef, type StyleValue } from 'vue';
+import type { BaseProps, PropMappings } from '@prop-styles/core';
 
-export * from '@prop-styles/core'
+export * from '@prop-styles/core';
 
 /**
  * @type VueBaseProps
  */
 export interface VueBaseProps extends BaseProps {
-  class?: any
+  class?: any;
 }
 
 /**
@@ -72,25 +72,25 @@ export function usePropStyles<T extends BaseProps>(
   mappings?: PropMappings<T>
 ): UsePropStylesReturn {
   const style = computed(() => {
-    const _styles: StyleValue[] = [props.style].flat()
+    const _styles: StyleValue[] = [props.style].flat();
     const style = createPropStyles(
       {
         ...props,
         style: {},
       },
       mappings
-    )
-    _styles.push(style)
-    return _styles
-  })
+    );
+    _styles.push(style);
+    return _styles;
+  });
   return {
     style,
-  }
+  };
 }
 
 /**
  * @type UsePropStylesReturn
  */
 export interface UsePropStylesReturn {
-  style: ComputedRef<StyleValue[]>
+  style: ComputedRef<StyleValue[]>;
 }

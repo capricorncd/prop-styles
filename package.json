@@ -4,6 +4,7 @@
   "description": "usePropStyles in vue or react",
   "type": "module",
   "scripts": {
+    "test": "vitest",
     "eslint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx --fix",
     "prepare": "husky"
   },
@@ -21,13 +22,14 @@
     "@zx-libs/header": "^0.0.2",
     "csstype": "^3.1.3",
     "eslint": "^8.57.0",
+    "eslint-config-prettier": "^10.1.5",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-prettier": "^5.1.3",
     "husky": "^9.0.11",
     "inquirer": "^9.2.18",
     "prettier": "^3.2.5",
-    "typescript": "^5.4.5",
+    "typescript": "^5.8.3",
     "typescript-eslint": "^7.6.0",
     "vite": "^5.2.8",
     "vitest": "^1.5.0"
