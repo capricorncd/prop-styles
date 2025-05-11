@@ -47,10 +47,8 @@ jobs:
           done
           echo "workspaces=$CHANGED_WORKSPACES" >> $GITHUB_OUTPUT
 
-      - name: Install @allindevelopers/otpcli
-        run: |
-          npm install -g @allindevelopers/otpcli
-          which otpcli
+      - name: Install otpcli
+        run: npm install -g @allindevelopers/otpcli
         
       - name: Generate OTP
         id: otp
