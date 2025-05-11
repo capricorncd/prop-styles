@@ -13,6 +13,8 @@ jobs:
     
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -27,7 +29,13 @@ jobs:
       - name: Get changed workspaces
         id: changed-workspaces
         run: |
-          CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+          if [ -z "${{ github.event.before }}" ]; then
+            # 如果是第一次提交或无法获取之前的提交
+            CHANGED_FILES=$(git ls-files libs/)
+          else
+            CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+          fi
+          
           CHANGED_WORKSPACES=""
           for file in $CHANGED_FILES; do
             if [[ $file == libs/* ]]; then
