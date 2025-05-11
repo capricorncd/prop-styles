@@ -51,12 +51,12 @@ jobs:
         run: |
           npm install -g @allindevelopers/otpcli
           which otpcli
-          otpcli --version
         
-      - name: Generate OTP using oathtool
+      - name: Generate OTP
         id: otp
-        run: sudo apt-get update && sudo apt-get install -y oathtool
-          OTP=$(oathtool --totp -b ${{ secrets.NPM_OTP_SECRET }})
+        run: |
+          OTP=$(otpcli -k ${{ secrets.NPM_OTP_SECRET }})
+          echo "otp=$OTP"
           echo "otp=$OTP" >> $GITHUB_OUTPUT
         
       - name: Build and publish changed workspaces
