@@ -46,6 +46,15 @@ jobs:
             fi
           done
           echo "workspaces=$CHANGED_WORKSPACES" >> $GITHUB_OUTPUT
+
+      - name: Install npm-otp
+        run: npm install -g npm-otp
+        
+      - name: Generate OTP
+        id: otp
+        run: |
+          OTP=$(npm-otp ${{ secrets.NPM_OTP_SECRET }})
+          echo "otp=$OTP" >> $GITHUB_OUTPUT
         
       - name: Build and publish changed workspaces
         env:
@@ -53,7 +62,6 @@ jobs:
         run: |
           for workspace in ${{ steps.changed-workspaces.outputs.workspaces }}; do
             echo "Building and publishing $workspace..."
-            npm run build -w libs/$workspace
-            npm run pl -w libs/$workspace
+            npm run pl -w libs/$workspace --otp=${{ steps.otp.outputs.otp }}
           done 
           
