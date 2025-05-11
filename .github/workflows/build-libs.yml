@@ -47,13 +47,13 @@ jobs:
           done
           echo "workspaces=$CHANGED_WORKSPACES" >> $GITHUB_OUTPUT
 
-      - name: Install npm-otp
-        run: npm install -g npm-otp
+      - name: Install otp-cli
+        run: npm install -g otp-cli
         
       - name: Generate OTP
         id: otp
         run: |
-          OTP=$(npm-otp ${{ secrets.NPM_OTP_SECRET }})
+          OTP=$(otp -k ${{ secrets.NPM_OTP_SECRET }})
           echo "otp=$OTP" >> $GITHUB_OUTPUT
         
       - name: Build and publish changed workspaces
