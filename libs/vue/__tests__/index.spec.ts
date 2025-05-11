@@ -23,13 +23,13 @@ describe('vue usePropStyles', () => {
   test('padding', () => {
     const wrapper = mount(App, {
       props: {
-        padding: 10,
-        paddingTop: '10em',
-        paddingBottom: 10,
-        paddingLeft: '10em',
-        paddingRight: 10,
-        paddingInline: '10em',
-        paddingBlock: 10,
+        p: 10,
+        pt: '10em',
+        pr: 10,
+        pb: 10,
+        pl: '10em',
+        px: '10em',
+        py: 10,
       },
     });
 
@@ -71,8 +71,8 @@ describe('vue usePropStyles', () => {
   test('tempColumns/tempRows', () => {
     const wrapper = mount(App, {
       props: {
-        tempColumns: '2',
-        tempRows: '10 auto 5',
+        gtc: '2',
+        gtr: '10 auto 5',
       },
     });
 
@@ -95,14 +95,14 @@ describe('vue usePropStyles', () => {
   test('display', () => {
     const flex = mount(App, {
       props: {
-        flex: true,
+        display: 'flex',
       },
     });
     expect(flex.attributes('style')).toBe('display: flex;');
 
     const grid = mount(App, {
       props: {
-        grid: true,
+        display: 'grid',
       },
     });
     expect(grid.attributes('style')).toBe('display: grid;');

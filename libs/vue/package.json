@@ -1,6 +1,6 @@
 {
   "name": "@prop-styles/vue",
-  "version": "0.0.9",
+  "version": "1.0.0-beta",
   "description": "Process CSS-related properties in Props so that they can generate the element style.",
   "type": "module",
   "main": "./dist/index.es.js",

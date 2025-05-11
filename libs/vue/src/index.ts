@@ -55,6 +55,7 @@ export * from '@prop-styles/core';
  * @type VueBaseProps
  */
 export interface VueBaseProps extends BaseProps {
+  style?: StyleValue;
   class?: any;
 }
 
@@ -67,22 +68,14 @@ export interface VueBaseProps extends BaseProps {
  * @param mappings? `PropMappings<T>` [PropMappings](#PropMappings)
  * @returns `UsePropStylesReturn`
  */
-export function usePropStyles<T extends BaseProps>(
+export function usePropStyles<T extends VueBaseProps>(
   props: T,
   mappings?: PropMappings<T>
 ): UsePropStylesReturn {
   const style = computed(() => {
-    const _styles: StyleValue[] = [props.style].flat();
-    const style = createPropStyles(
-      {
-        ...props,
-        style: {},
-      },
-      mappings
-    );
-    _styles.push(style);
-    return _styles;
+    return [props.style, createPropStyles(props, mappings)];
   });
+
   return {
     style,
   };
