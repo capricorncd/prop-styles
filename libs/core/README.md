@@ -36,7 +36,7 @@ Create Styles Object
 Example
 
 ```js
-import { createPropStyles, f } from '@prop-styles/core'
+import { createPropStyles, format } from '@prop-styles/core'
 
 const props = { width: 100, color: '#fff' }
 
@@ -48,9 +48,9 @@ createPropStyles(props, {
   color: (v) => ['--color', v]
 }) // { width: '100px', '--color', '#fff' }
 
-// Use f function to remove null/undefined props
+// Use format function to remove null/undefined props
 createPropStyles(props, {
-  color: (v) => f('--color', v)
+  color: (v) => format('--color', v)
 }) // { width: '100px', '--color', '#fff' }
 ```
 
@@ -63,32 +63,30 @@ mappings|`PropMappings<T>`|no|[PropMappings](#PropMappings)
 
 - @returns `Record<string, string>`
 
-### format(key, value, strValue)
+### transform(key, value, strValue)
 
 Used for [PropMappingHandler](#PropMappingHandler) processing. When `value` is `null/undefined/''/false`, return null, otherwise return the specified value.
 
 Example
 
 ```js
-f('width', 100) // { key: 'width', value: '100' }
-f('width', '100px') // { key: 'width', value: '100px' }
-f('width', 100, '100%') // { key: 'width', value: '100%' }
+transform('width', 100) // { key: 'width', value: '100' }
+transform('width', '100px') // { key: 'width', value: '100px' }
+transform('width', 100, '100%') // { key: 'width', value: '100%' }
 
-f('key', false) // null
-f('key', '') // null
-f('key', undefined) // null
-f('key', null) // null
-f('key', null, 'stringValue') // null
-f('key', true, 'stringValue') // { key: 'key', value: 'stringValue' }
+transform('key', false) // null
+transform('key', '') // null
+transform('key', undefined) // null
+transform('key', null) // null
+transform('key', null, 'stringValue') // null
+transform('key', true, 'stringValue') // { key: 'key', value: 'stringValue' }
 ```
 
 Param|Types|Required|Description
 :--|:--|:--|:--
-key|`K`|yes|The PropMappingHandler Return `key` or customize `key`
-value|`V`|yes|The `props[prop]'s value`
+key|`string`|yes|The PropMappingHandler Return `key` or customize `key`
+value|`any`|yes|The `props[prop]'s value`
 strValue|`string`|no|Customize the `value` of PropMappingHandler Return
-
-- @generic `K extends string, V`
 
 - @returns `{ key: string, value: string } | null`
 
@@ -135,12 +133,12 @@ mx|`number`/`string`|no|margin-inline
 my|`number`/`string`|no|margin-block
 radius|`string`/`number`|no|border-radius
 fs|`string`/`number`|no|font-size
+fw|`Property.FontWeight`|no|font-weight
 lh|`string`/`number`|no|line-height
 color|`string`|no|color
 bg|`Property.Background`|no|background
 scroll|`boolean`/`'x'`/`'y'`|no|scroll direction
 breakWord|`boolean`|no|text
-fw|`Property.FontWeight`|no|font-weight
 border|`string`/`number`|no|border, border-width, border-color
 gtc|`string`/`number`|no|grid-template-columns
 gtr|`string`/`number`|no|grid-template-rows
@@ -150,7 +148,7 @@ top|`string`/`number`|no|top
 right|`string`/`number`|no|right
 bottom|`string`/`number`|no|bottom
 left|`string`/`number`|no|left
-z|`Property.ZIndex`|no|z-index
+zIndex|`Property.ZIndex`|no|z-index
 inset|`string`/`number`|no|inset
 transform|`Property.Transform`|no|transform
 
@@ -225,6 +223,8 @@ interface BaseProps {
   radius?: string | number;
   // font-size
   fs?: string | number;
+  // font-weight
+  fw?: Property.FontWeight;
   // line-height
   lh?: string | number;
   // color
@@ -235,8 +235,6 @@ interface BaseProps {
   scroll?: boolean | 'x' | 'y';
   // text
   breakWord?: boolean;
-  // font-weight
-  fw?: Property.FontWeight;
   // border, border-width, border-color
   border?: string | number;
   // grid-template-columns
@@ -256,7 +254,7 @@ interface BaseProps {
   // left
   left?: string | number;
   // z-index
-  z?: Property.ZIndex;
+  zIndex?: Property.ZIndex;
   // inset
   inset?: string | number;
   // transform
