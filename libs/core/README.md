@@ -15,12 +15,12 @@ npm i @prop-styles/core
 Example
 
 ```js
-import { createPropStyles, f } from '@prop-styles/core'
+import { createPropStyles, transform } from '@prop-styles/core'
 
 const style = createPropStyles({ color: 'red', width: 100 }, {
-  color: (value) => value ? ['--color-primary', value] : null
+  color: (value) => value ? { key: '--color-primary', value } : null
   // or Use f function to remove null/undefined props
-  // color: (value) => f('--color-primary', value)
+  // color: (value) => transform('--color-primary', value)
 })
 
 // style
@@ -36,7 +36,7 @@ Create Styles Object
 Example
 
 ```js
-import { createPropStyles, format } from '@prop-styles/core'
+import { createPropStyles, transform } from '@prop-styles/core'
 
 const props = { width: 100, color: '#fff' }
 
@@ -45,12 +45,12 @@ createPropStyles(props) // { width: '100px', color, '#fff' }
 // Use custom Mapping handler
 createPropStyles(props, {
   // custom mapping handler
-  color: (v) => ['--color', v]
+  color: (v) => { key: '--color', value: v }
 }) // { width: '100px', '--color', '#fff' }
 
-// Use format function to remove null/undefined props
+// Use transform function to remove null/undefined props
 createPropStyles(props, {
-  color: (v) => format('--color', v)
+  color: (v) => transform('--color', v)
 }) // { width: '100px', '--color', '#fff' }
 ```
 

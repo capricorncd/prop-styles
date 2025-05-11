@@ -15,7 +15,7 @@ import type { BaseProps, PropMappings } from './types';
  * Example
  *
  * ```js
- * import { createPropStyles, format } from '@prop-styles/core'
+ * import { createPropStyles, transform } from '@prop-styles/core'
  *
  * const props = { width: 100, color: '#fff' }
  *
@@ -24,12 +24,12 @@ import type { BaseProps, PropMappings } from './types';
  * // Use custom Mapping handler
  * createPropStyles(props, {
  *   // custom mapping handler
- *   color: (v) => ['--color', v]
+ *   color: (v) => { key: '--color', value: v }
  * }) // { width: '100px', '--color', '#fff' }
  *
- * // Use format function to remove null/undefined props
+ * // Use transform function to remove null/undefined props
  * createPropStyles(props, {
- *   color: (v) => format('--color', v)
+ *   color: (v) => transform('--color', v)
  * }) // { width: '100px', '--color', '#fff' }
  * ```
  *
