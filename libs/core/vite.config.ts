@@ -2,6 +2,7 @@
  * Created by Capricorncd.
  * https://github.com/capricorncd
  */
+/// <reference types="vitest/config" />
 import path from 'node:path';
 import { defineConfig } from 'vite';
 

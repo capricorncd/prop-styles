@@ -1,4 +1,4 @@
-import { toCssValue } from '@libs/utils';
+import { isNumberLike, toCssValue, toNumber } from '@libs/utils';
 import { transform, border } from './utils';
 import type {
   BaseProps,
@@ -47,6 +47,10 @@ const PROP_KEY_MAPPINGS: Record<
   bg: 'background',
   fw: 'fontWeight',
   border: 'border',
+  borderTop: 'borderTop',
+  borderRight: 'borderRight',
+  borderBottom: 'borderBottom',
+  borderLeft: 'borderLeft',
   gtc: 'gridTemplateColumns',
   gtr: 'gridTemplateRows',
   ta: 'textAlign',
@@ -58,6 +62,7 @@ const PROP_KEY_MAPPINGS: Record<
   zIndex: 'zIndex',
   inset: 'inset',
   transform: 'transform',
+  cursor: 'cursor',
 };
 const booleanValuePropMappings: Record<
   BooleanValueKeys,
@@ -75,6 +80,12 @@ const booleanValuePropMappings: Record<
       v,
       'auto'
     ),
+  shadow: (v: BaseProps['shadow']) =>
+    transform(
+      'boxShadow',
+      v,
+      v === true ? '0 2px 4px 0 rgba(0, 0, 0, 0.1)' : String(v)
+    ),
 };
 
 export const CSS_PROP_MAPPINGS = {
@@ -85,11 +96,21 @@ export const CSS_PROP_MAPPINGS = {
   }, {} as PropMappings<BaseProps>),
   ...booleanValuePropMappings,
   flex: (v: BaseProps['flex']) => transform('flex', v),
-  border,
-  fw: (v: BaseProps['fw']) => transform('fontWeight', v, String(v)),
+  border: (v: BaseProps['border']) => border(v),
+  borderTop: (v: BaseProps['borderTop']) => border(v, 'Top'),
+  borderRight: (v: BaseProps['borderRight']) => border(v, 'Right'),
+  borderBottom: (v: BaseProps['borderBottom']) => border(v, 'Bottom'),
+  borderLeft: (v: BaseProps['borderLeft']) => border(v, 'Left'),
+  fw: (v: BaseProps['fw']) => transform('fontWeight', v),
   gtc: (v: BaseProps['gtc']) =>
     transform('gridTemplateColumns', v, toCssValue(v, 'fr')),
   gtr: (v: BaseProps['gtr']) =>
     transform('gridTemplateRows', v, toCssValue(v, 'fr')),
-  zIndex: (v: BaseProps['zIndex']) => transform('zIndex', v, String(v)),
+  zIndex: (v: BaseProps['zIndex']) => transform('zIndex', v),
+  lh: (v: BaseProps['lh']) =>
+    transform(
+      'lineHeight',
+      v,
+      isNumberLike(v) && toNumber(v) < 8 ? String(v) : toCssValue(v)
+    ),
 } as PropMappings<BaseProps>;
