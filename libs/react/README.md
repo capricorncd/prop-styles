@@ -45,7 +45,7 @@ Create Styles Object
 Example
 
 ```js
-import { createPropStyles, format } from '@prop-styles/core'
+import { createPropStyles, transform } from '@prop-styles/core'
 
 const props = { width: 100, color: '#fff' }
 
@@ -54,12 +54,12 @@ createPropStyles(props) // { width: '100px', color, '#fff' }
 // Use custom Mapping handler
 createPropStyles(props, {
   // custom mapping handler
-  color: (v) => ['--color', v]
+  color: (v) => { key: '--color', value: v }
 }) // { width: '100px', '--color', '#fff' }
 
-// Use format function to remove null/undefined props
+// Use transform function to remove null/undefined props
 createPropStyles(props, {
-  color: (v) => format('--color', v)
+  color: (v) => transform('--color', v)
 }) // { width: '100px', '--color', '#fff' }
 ```
 
@@ -162,6 +162,10 @@ bg|`Property.Background`|no|background
 scroll|`boolean`/`'x'`/`'y'`|no|scroll direction
 breakWord|`boolean`|no|text
 border|`string`/`number`|no|border, border-width, border-color
+borderTop|`string`/`number`|no|-
+borderRight|`string`/`number`|no|-
+borderBottom|`string`/`number`|no|-
+borderLeft|`string`/`number`|no|-
 gtc|`string`/`number`|no|grid-template-columns
 gtr|`string`/`number`|no|grid-template-rows
 ta|`Property.TextAlign`|no|text-align
@@ -173,6 +177,8 @@ left|`string`/`number`|no|left
 zIndex|`Property.ZIndex`|no|z-index
 inset|`string`/`number`|no|inset
 transform|`Property.Transform`|no|transform
+cursor|`Property.Cursor`|no|-
+shadow|`boolean`/`Property.BoxShadow`|no|-
 
 <details>
 <summary>Source Code</summary>
@@ -259,6 +265,10 @@ interface BaseProps {
   breakWord?: boolean;
   // border, border-width, border-color
   border?: string | number;
+  borderTop?: string | number;
+  borderRight?: string | number;
+  borderBottom?: string | number;
+  borderLeft?: string | number;
   // grid-template-columns
   gtc?: string | number;
   // grid-template-rows
@@ -281,6 +291,8 @@ interface BaseProps {
   inset?: string | number;
   // transform
   transform?: Property.Transform;
+  cursor?: Property.Cursor;
+  shadow?: boolean | Property.BoxShadow;
 }
 ```
 
@@ -377,6 +389,10 @@ bg|`Property.Background`|no|background
 scroll|`boolean`/`'x'`/`'y'`|no|scroll direction
 breakWord|`boolean`|no|text
 border|`string`/`number`|no|border, border-width, border-color
+borderTop|`string`/`number`|no|-
+borderRight|`string`/`number`|no|-
+borderBottom|`string`/`number`|no|-
+borderLeft|`string`/`number`|no|-
 gtc|`string`/`number`|no|grid-template-columns
 gtr|`string`/`number`|no|grid-template-rows
 ta|`Property.TextAlign`|no|text-align
@@ -388,6 +404,8 @@ left|`string`/`number`|no|left
 zIndex|`Property.ZIndex`|no|z-index
 inset|`string`/`number`|no|inset
 transform|`Property.Transform`|no|transform
+cursor|`Property.Cursor`|no|-
+shadow|`boolean`/`Property.BoxShadow`|no|-
 style|`CSSProperties`|no|-
 className|`string`|no|-
 children|`ReactNode`/`JSX.Element`|no|-

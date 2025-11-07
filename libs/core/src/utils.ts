@@ -74,10 +74,14 @@ const isCssNumericalValueLike = (val: unknown) => {
   return typeof val === 'string' && REG_CSS_NUMERICAL_VALUE.test(val);
 };
 
-export const border = (value: unknown) => {
+export const border = (
+  value: unknown,
+  position?: 'Top' | 'Right' | 'Bottom' | 'Left'
+) => {
+  const borderPosition = position ? `border${position}` : 'border';
   if (isNumberLike(value) || isCssNumericalValueLike(value)) {
-    return { key: 'borderWidth', value: toCssValue(value) };
+    return { key: `${borderPosition}Width`, value: toCssValue(value) };
   }
-  if (isColorLike(value)) return { key: 'borderColor', value };
-  return transform('border', value);
+  if (isColorLike(value)) return { key: `${borderPosition}Color`, value };
+  return transform(borderPosition, value);
 };

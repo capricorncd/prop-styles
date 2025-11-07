@@ -5,7 +5,12 @@
  */
 import type { Property } from 'csstype';
 
-export type BooleanValueKeys = 'column' | 'wrap' | 'scroll' | 'breakWord';
+export type BooleanValueKeys =
+  | 'column'
+  | 'wrap'
+  | 'scroll'
+  | 'breakWord'
+  | 'shadow';
 
 /**
  * @type BaseProps
@@ -95,6 +100,10 @@ export interface BaseProps {
   breakWord?: boolean;
   // border, border-width, border-color
   border?: string | number;
+  borderTop?: string | number;
+  borderRight?: string | number;
+  borderBottom?: string | number;
+  borderLeft?: string | number;
   // grid-template-columns
   gtc?: string | number;
   // grid-template-rows
@@ -117,6 +126,8 @@ export interface BaseProps {
   inset?: string | number;
   // transform
   transform?: Property.Transform;
+  cursor?: Property.Cursor;
+  shadow?: boolean | Property.BoxShadow;
 }
 
 /**
