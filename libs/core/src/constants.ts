@@ -18,7 +18,6 @@ const PROP_KEY_MAPPINGS: Record<
   height: 'height',
   minHeight: 'minHeight',
   maxHeight: 'maxHeight',
-  flex: 'flex',
   gap: 'gap',
   fd: 'flexDirection',
   ai: 'alignItems',
@@ -63,6 +62,7 @@ const PROP_KEY_MAPPINGS: Record<
   inset: 'inset',
   transform: 'transform',
   cursor: 'cursor',
+  whiteSpace: 'whiteSpace',
 };
 const booleanValuePropMappings: Record<
   BooleanValueKeys,
@@ -86,6 +86,14 @@ const booleanValuePropMappings: Record<
       v,
       v === true ? '0 2px 4px 0 rgba(0, 0, 0, 0.1)' : String(v)
     ),
+  flex: (v: BaseProps['flex']) => {
+    if (v === true) {
+      return transform('display', 'flex');
+    }
+    return transform('flex', v);
+  },
+  inline: (v: BaseProps['inline']) => transform('display', v, 'inline'),
+  nowrap: (v: BaseProps['nowrap']) => transform('whiteSpace', v, 'nowrap'),
 };
 
 export const CSS_PROP_MAPPINGS = {
@@ -95,7 +103,6 @@ export const CSS_PROP_MAPPINGS = {
     return result;
   }, {} as PropMappings<BaseProps>),
   ...booleanValuePropMappings,
-  flex: (v: BaseProps['flex']) => transform('flex', v),
   border: (v: BaseProps['border']) => border(v),
   borderTop: (v: BaseProps['borderTop']) => border(v, 'Top'),
   borderRight: (v: BaseProps['borderRight']) => border(v, 'Right'),

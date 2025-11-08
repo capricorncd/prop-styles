@@ -6,10 +6,13 @@
 import type { Property } from 'csstype';
 
 export type BooleanValueKeys =
+  | 'flex'
   | 'column'
   | 'wrap'
   | 'scroll'
+  | 'inline'
   | 'breakWord'
+  | 'nowrap'
   | 'shadow';
 
 /**
@@ -34,8 +37,10 @@ export interface BaseProps {
   minHeight?: number | string;
   // max-height
   maxHeight?: number | string;
-  // flex
-  flex?: Property.Flex;
+  // inline
+  inline?: boolean;
+  // flex or display=flex
+  flex?: boolean | Property.Flex;
   // flex/grid's gap
   gap?: number | string;
   // flex-direction
@@ -128,6 +133,8 @@ export interface BaseProps {
   transform?: Property.Transform;
   cursor?: Property.Cursor;
   shadow?: boolean | Property.BoxShadow;
+  nowrap?: boolean;
+  whiteSpace?: Property.WhiteSpace;
 }
 
 /**

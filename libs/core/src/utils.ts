@@ -3,7 +3,12 @@
  * https://github.com/capricorncd
  * Date: 2024/03/16 17:23:21 (GMT+0900)
  */
-import { toCssValue, isNumberLike, isColorLike } from '@libs/utils';
+import {
+  toCssValue,
+  isNumberLike,
+  isColorLike,
+  toColorValue,
+} from '@libs/utils';
 import type {
   PropMappingHandler,
   PropMappings,
@@ -42,7 +47,7 @@ export const transform = (
   strValue?: string
 ): PropMappingHandlerReturn => {
   if (!value && value !== 0) return null;
-  return { key, value: strValue ?? String(value) };
+  return { key, value: toColorValue(strValue ?? String(value)) };
 };
 
 export const handleMappings = <T extends BaseProps>(
