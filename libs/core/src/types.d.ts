@@ -147,6 +147,10 @@ export type OriginalBaseProps = {
   color?: string;
   // background
   bg?: Property.Background;
+  // background-size
+  bgs?: Property.BackgroundSize;
+  // background-origin
+  bgo?: Property.BackgroundOrigin;
   // scroll direction
   scroll?: boolean | 'x' | 'y';
   // text
@@ -183,6 +187,8 @@ export type OriginalBaseProps = {
   shadow?: boolean | Property.BoxShadow;
   nowrap?: boolean;
   whiteSpace?: Property.WhiteSpace;
+  // aspect-ratio
+  ratio?: Property.AspectRatio;
 };
 
 /**

@@ -44,6 +44,8 @@ const PROP_KEY_MAPPINGS: Record<
   lh: 'lineHeight',
   color: 'color',
   bg: 'background',
+  bgs: 'backgroundSize',
+  bgo: 'backgroundOrigin',
   fw: 'fontWeight',
   border: 'border',
   borderTop: 'borderTop',
@@ -63,6 +65,7 @@ const PROP_KEY_MAPPINGS: Record<
   transform: 'transform',
   cursor: 'cursor',
   whiteSpace: 'whiteSpace',
+  ratio: 'aspectRatio',
 };
 
 const booleanValuePropMappings: Record<
