@@ -16,6 +16,36 @@ describe('libs/style createPropStyles', () => {
     expect(createPropStyles({ display: 'flex' })).toStrictEqual({
       display: 'flex',
     });
+
+    expect(
+      createPropStyles(
+        { display: { xs: 'block' } },
+        {},
+        {
+          breakpoint: 'xs',
+        }
+      )
+    ).toStrictEqual({
+      display: 'block',
+    });
+
+    expect(
+      createPropStyles(
+        { display: { xs: 'block', default: 'flex' } },
+        {},
+        {
+          breakpoint: 'sm',
+        }
+      )
+    ).toStrictEqual({
+      display: 'flex',
+    });
+
+    expect(
+      createPropStyles({ display: { xs: 'block', default: 'flex' } })
+    ).toStrictEqual({
+      display: 'flex',
+    });
   });
 
   it('inline', () => {

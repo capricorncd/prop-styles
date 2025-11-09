@@ -5,6 +5,54 @@
  */
 import type { Property } from 'csstype';
 
+/**
+ * @type Breakpoint
+ *
+ * Available breakpoint keys for responsive design
+ * @example
+ * type Width = { xs?: string; sm?: string; md?: string; lg?: string; xl?: string; xxl?: string; }
+ */
+export type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+
+/**
+ * @type Breakpoints
+ *
+ * Maps breakpoint keys to their minimum width values in pixels
+ * @example
+ * const breakpoints = { xs: 640, sm: 768, md: 1024, lg: 1280, xl: 1536, xxl: 1920 };
+ */
+export type Breakpoints = Record<Breakpoint, number>;
+
+/**
+ * @type BreakpointObject
+ *
+ * Makes a value type responsive by allowing per-breakpoint values and an optional default
+ * @example
+ * const responsiveDisplay: BreakpointObject<'block' | 'flex'> = {
+ *   default: 'block',
+ *   md: 'flex'
+ * };
+ */
+export type BreakpointObject<V> = Partial<Record<Breakpoint, V>> & {
+  // Shared default value used when a breakpoint isn't specified
+  default?: V;
+};
+
+/**
+ * @type BreakpointTransfer
+ *
+ * Transforms a props type to support responsive values at each property
+ * @example
+ * type ResponsiveProps = BreakpointTransfer<{ display: 'block' | 'flex' }>;
+ * // Results in: { display: 'block' | 'flex' | { xs?: '...', sm?: '...', default?: '...' } }
+ */
+export type BreakpointTransfer<T extends OriginalBaseProps> = {
+  [K in keyof T]: T[K] | BreakpointObject<T[K]>;
+};
+
+/**
+ * @type BooleanValueKeys
+ */
 export type BooleanValueKeys =
   | 'flex'
   | 'column'
@@ -16,13 +64,13 @@ export type BooleanValueKeys =
   | 'shadow';
 
 /**
- * @type BaseProps
+ * @type OriginalBaseProps
  *
  * Commonly used CSS properties for components.
  *
  * csstype [Property](https://github.com/frenic/csstype)
  */
-export interface BaseProps {
+export type OriginalBaseProps = {
   // display
   display?: Property.Display;
   // width
@@ -135,7 +183,12 @@ export interface BaseProps {
   shadow?: boolean | Property.BoxShadow;
   nowrap?: boolean;
   whiteSpace?: Property.WhiteSpace;
-}
+};
+
+/**
+ * @type BaseProps
+ */
+export type BaseProps = BreakpointTransfer<OriginalBaseProps>;
 
 /**
  * @type PropMappingHandlerReturn
@@ -160,3 +213,11 @@ export type PropMappingHandler<T extends BaseProps> = (
 export type PropMappings<T extends BaseProps> = Partial<
   Record<keyof T, PropMappingHandler<T>>
 >;
+
+/**
+ * @type CreatePropStylesOptions
+ */
+export interface CreatePropStylesOptions {
+  breakpoint?: Breakpoint;
+  breakpoints?: boolean | Record<Breakpoint, number>;
+}

@@ -12,34 +12,44 @@ import {
 import type {
   PropMappingHandler,
   PropMappings,
-  BaseProps,
+  OriginalBaseProps,
   PropMappingHandlerReturn,
 } from './types.d';
 
 /**
  * @method transform(key, value, strValue)
  *
- * Used for [PropMappingHandler](#PropMappingHandler) processing. When `value` is `null/undefined/''/false`, return null, otherwise return the specified value.
+ * Helper for creating PropMappingHandler functions. Handles common value transformations
+ * and null/empty value filtering.
  *
- * Example
+ * @param key `string` - The CSS property name or custom key for the style
+ * @param value `any` - The value to transform (from props[propName])
+ * @param strValue? `string` - Optional override for the output value string
+ * @returns Object with key and transformed value, or null if value should be skipped
  *
+ * When to use:
+ * - Basic prop-to-style mapping with null/empty filtering
+ * - Value type conversion (number to px, etc)
+ * - Custom key mapping with value preprocessing
+ *
+ * @example
  * ```js
- * transform('width', 100) // { key: 'width', value: '100' }
+ * // Basic usage
+ * transform('width', 100) // { key: 'width', value: '100px' }
  * transform('width', '100px') // { key: 'width', value: '100px' }
+ *
+ * // With custom output value
  * transform('width', 100, '100%') // { key: 'width', value: '100%' }
  *
+ * // Null/empty handling
  * transform('key', false) // null
  * transform('key', '') // null
  * transform('key', undefined) // null
  * transform('key', null) // null
- * transform('key', null, 'stringValue') // null
- * transform('key', true, 'stringValue') // { key: 'key', value: 'stringValue' }
- * ```
  *
- * @param key `string` The PropMappingHandler Return `key` or customize `key`
- * @param value `any` The `props[prop]'s value`
- * @param strValue? `string` Customize the `value` of PropMappingHandler Return
- * @returns `{ key: string, value: string } | null`
+ * // Boolean to string value
+ * transform('key', true, 'value') // { key: 'key', value: 'value' }
+ * ```
  */
 export const transform = (
   key: string,
@@ -50,7 +60,28 @@ export const transform = (
   return { key, value: toColorValue(strValue ?? String(value)) };
 };
 
-export const handleMappings = <T extends BaseProps>(
+/**
+ * handleMappings
+ *
+ * Core function that processes props using provided mapping handlers to generate
+ * a style object. Each prop is passed through its corresponding handler if one exists.
+ *
+ * @param props - The props object to process (already flattened if responsive)
+ * @param mappings - Object mapping prop names to their handler functions
+ * @returns Record of CSS property names to their computed values
+ *
+ * @example
+ * ```js
+ * const props = { width: 100, color: '#fff' };
+ * const mappings = {
+ *   width: v => transform('width', v),
+ *   color: v => transform('color', v)
+ * };
+ * handleMappings(props, mappings);
+ * // { width: '100px', color: '#fff' }
+ * ```
+ */
+export const handleMappings = <T extends OriginalBaseProps>(
   props: T,
   mappings: PropMappings<T>
 ) => {
@@ -79,6 +110,26 @@ const isCssNumericalValueLike = (val: unknown) => {
   return typeof val === 'string' && REG_CSS_NUMERICAL_VALUE.test(val);
 };
 
+/**
+ * border
+ *
+ * Smart border property handler that can process different value types:
+ * - Numbers/numeric strings -> borderWidth
+ * - Color values -> borderColor
+ * - Other values -> border
+ *
+ * @param value - The border value to process
+ * @param position - Optional position suffix (Top/Right/Bottom/Left)
+ * @returns Processed border style entry or null
+ *
+ * @example
+ * ```js
+ * border(1) // { key: 'borderWidth', value: '1px' }
+ * border('1px solid') // { key: 'border', value: '1px solid' }
+ * border('#fff') // { key: 'borderColor', value: '#fff' }
+ * border(1, 'Top') // { key: 'borderTopWidth', value: '1px' }
+ * ```
+ */
 export const border = (
   value: unknown,
   position?: 'Top' | 'Right' | 'Bottom' | 'Left'

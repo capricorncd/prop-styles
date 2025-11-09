@@ -18,7 +18,7 @@
  * ```
  *
  * ```tsx
- * import { usePropStyles, f, type ReactBaseProps } from '@prop-styles/react'
+ * import { usePropStyles, transform, type ReactBaseProps } from '@prop-styles/react'
  *
  * interface Props extends ReactBaseProps {
  *   customProp?: unknown
@@ -43,7 +43,11 @@
  */
 import { createPropStyles } from '@prop-styles/core';
 import { useMemo, type ReactNode, type JSX, type CSSProperties } from 'react';
-import type { BaseProps, PropMappings } from '@prop-styles/core';
+import type {
+  BaseProps,
+  PropMappings,
+  CreatePropStylesOptions,
+} from '@prop-styles/core';
 
 export * from '@prop-styles/core';
 
@@ -70,10 +74,11 @@ export interface ReactBaseProps extends BaseProps {
  */
 export const usePropStyles = <T extends ReactBaseProps>(
   props: T,
-  mappings?: PropMappings<T>
+  mappings?: PropMappings<T>,
+  options?: CreatePropStylesOptions
 ) => {
   const style = useMemo(
-    () => ({ ...props.style, ...createPropStyles(props, mappings) }),
+    () => ({ ...props.style, ...createPropStyles(props, mappings, options) }),
     [props]
   );
 

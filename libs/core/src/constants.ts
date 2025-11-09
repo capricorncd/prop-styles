@@ -1,7 +1,7 @@
 import { isNumberLike, toCssValue, toNumber } from '@libs/utils';
 import { transform, border } from './utils';
 import type {
-  BaseProps,
+  OriginalBaseProps as BaseProps,
   BooleanValueKeys,
   PropMappings,
   PropMappingHandler,
@@ -64,6 +64,7 @@ const PROP_KEY_MAPPINGS: Record<
   cursor: 'cursor',
   whiteSpace: 'whiteSpace',
 };
+
 const booleanValuePropMappings: Record<
   BooleanValueKeys,
   PropMappingHandler<Pick<BaseProps, BooleanValueKeys>>
