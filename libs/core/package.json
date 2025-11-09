@@ -1,6 +1,6 @@
 {
   "name": "@prop-styles/core",
-  "version": "1.0.1-beta",
+  "version": "1.0.2-beta",
   "description": "The library provides a static method createPropStyles to create Style objects.",
   "main": "./dist/index.es.js",
   "type": "module",
