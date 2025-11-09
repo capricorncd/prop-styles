@@ -1,6 +1,6 @@
 {
   "name": "@libs/utils",
-  "version": "0.0.1-beta",
+  "version": "0.0.2-beta",
   "private": true,
   "description": "",
   "main": "src/index.ts",
