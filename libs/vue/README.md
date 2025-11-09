@@ -331,6 +331,8 @@ fw|`Property.FontWeight`|no|font-weight
 lh|`string`/`number`|no|line-height
 color|`string`|no|color
 bg|`Property.Background`|no|background
+bgs|`Property.BackgroundSize`|no|background-size
+bgo|`Property.BackgroundOrigin`|no|background-origin
 scroll|`boolean`/`'x'`/`'y'`|no|scroll direction
 breakWord|`boolean`|no|text
 border|`string`/`number`|no|border, border-width, border-color
@@ -353,6 +355,7 @@ cursor|`Property.Cursor`|no|-
 shadow|`boolean`/`Property.BoxShadow`|no|-
 nowrap|`boolean`|no|-
 whiteSpace|`Property.WhiteSpace`|no|-
+ratio|`Property.AspectRatio`|no|aspect-ratio
 
 <details>
 <summary>Source Code</summary>
@@ -435,6 +438,10 @@ type OriginalBaseProps = {
   color?: string;
   // background
   bg?: Property.Background;
+  // background-size
+  bgs?: Property.BackgroundSize;
+  // background-origin
+  bgo?: Property.BackgroundOrigin;
   // scroll direction
   scroll?: boolean | 'x' | 'y';
   // text
@@ -471,6 +478,8 @@ type OriginalBaseProps = {
   shadow?: boolean | Property.BoxShadow;
   nowrap?: boolean;
   whiteSpace?: Property.WhiteSpace;
+  // aspect-ratio
+  ratio?: Property.AspectRatio;
 };
 ```
 
