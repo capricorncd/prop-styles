@@ -16,6 +16,42 @@ describe('libs/style createPropStyles', () => {
     expect(createPropStyles({ display: 'flex' })).toStrictEqual({
       display: 'flex',
     });
+
+    expect(
+      createPropStyles(
+        { display: { xs: 'block' } },
+        {},
+        {
+          breakpoint: 'xs',
+        }
+      )
+    ).toStrictEqual({
+      display: 'block',
+    });
+
+    expect(
+      createPropStyles(
+        { display: { xs: 'block', default: 'flex' } },
+        {},
+        {
+          breakpoint: 'sm',
+        }
+      )
+    ).toStrictEqual({
+      display: 'flex',
+    });
+
+    expect(
+      createPropStyles({ display: { xs: 'block', default: 'flex' } })
+    ).toStrictEqual({
+      display: 'flex',
+    });
+  });
+
+  it('inline', () => {
+    expect(createPropStyles({ inline: true })).toStrictEqual({
+      display: 'inline',
+    });
   });
 
   it('width/height', () => {
@@ -52,6 +88,10 @@ describe('libs/style createPropStyles', () => {
       })
     ).toStrictEqual({
       flex: '0 0 100%',
+    });
+
+    expect(createPropStyles({ flex: true })).toStrictEqual({
+      display: 'flex',
     });
   });
 
@@ -216,11 +256,19 @@ describe('libs/style createPropStyles', () => {
     expect(createPropStyles({ color: 'hsl(1deg 100% 100%)' })).toStrictEqual({
       color: 'hsl(1deg 100% 100%)',
     });
+
+    expect(createPropStyles({ color: '--color-primary' })).toStrictEqual({
+      color: 'var(--color-primary)',
+    });
   });
 
   it('bg', () => {
     expect(createPropStyles({ bg: '#fff' })).toStrictEqual({
       background: '#fff',
+    });
+
+    expect(createPropStyles({ bg: '--color-primary' })).toStrictEqual({
+      background: 'var(--color-primary)',
     });
   });
 
@@ -259,6 +307,12 @@ describe('libs/style createPropStyles', () => {
     });
     expect(createPropStyles({ border: '10px' })).toStrictEqual({
       borderWidth: '10px',
+    });
+
+    expect(
+      createPropStyles({ border: '1px solid --color-border' })
+    ).toStrictEqual({
+      border: '1px solid var(--color-border)',
     });
   });
 
@@ -356,6 +410,41 @@ describe('libs/style createPropStyles', () => {
       })
     ).toStrictEqual({
       transform: 'rotate(30deg)',
+    });
+  });
+
+  it('nowrap', () => {
+    expect(createPropStyles({ nowrap: true })).toStrictEqual({
+      whiteSpace: 'nowrap',
+    });
+    expect(createPropStyles({ nowrap: false })).toStrictEqual({});
+  });
+
+  it('whiteSpace', () => {
+    expect(
+      createPropStyles({
+        whiteSpace: 'nowrap',
+      })
+    ).toStrictEqual({
+      whiteSpace: 'nowrap',
+    });
+  });
+
+  it('shadow', () => {
+    expect(
+      createPropStyles({
+        shadow: true,
+      })
+    ).toStrictEqual({
+      boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.1)',
+    });
+
+    expect(
+      createPropStyles({
+        shadow: '0 2px 4px 0 #300',
+      })
+    ).toStrictEqual({
+      boxShadow: '0 2px 4px 0 #300',
     });
   });
 });

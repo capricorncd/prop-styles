@@ -21,7 +21,7 @@
  *
  * ```vue
  * <script setup lang="ts">
- * import { usePropStyles, f, type VueBaseProps } from '@prop-styles/vue'
+ * import { usePropStyles, transform, type VueBaseProps } from '@prop-styles/vue'
  *
  * interface Props extends VueBaseProps {
  *   customProp?: unknown
@@ -45,9 +45,13 @@
  * // <div style="width:100px;border-radius:12px 12px 0 12px;margin-top:20px;"></div>
  * ```
  */
-import { createPropStyles } from '@prop-styles/core';
+import {
+  createPropStyles,
+  type BaseProps,
+  type PropMappings,
+  type CreatePropStylesOptions,
+} from '@prop-styles/core';
 import { computed, type ComputedRef, type StyleValue } from 'vue';
-import type { BaseProps, PropMappings } from '@prop-styles/core';
 
 export * from '@prop-styles/core';
 
@@ -70,10 +74,11 @@ export interface VueBaseProps extends BaseProps {
  */
 export function usePropStyles<T extends VueBaseProps>(
   props: T,
-  mappings?: PropMappings<T>
+  mappings?: PropMappings<T>,
+  options?: CreatePropStylesOptions
 ): UsePropStylesReturn {
   const style = computed(() => {
-    return [props.style, createPropStyles(props, mappings)];
+    return [props.style, createPropStyles(props, mappings, options)];
   });
 
   return {

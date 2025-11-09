@@ -3,12 +3,18 @@
  * https://github.com/capricorncd
  * Date: 2024/03/16 17:21:56 (GMT+0900)
  */
+import { getDefaultBreakpoint } from './breakpoint';
 import { CSS_PROP_MAPPINGS } from './constants';
 import { handleMappings } from './utils';
-import type { BaseProps, PropMappings } from './types';
+import type {
+  BaseProps,
+  PropMappings,
+  CreatePropStylesOptions,
+  OriginalBaseProps,
+} from './types';
 
 /**
- * @method createPropStyles<T extends BaseProps>(props, mappings)
+ * @method createPropStyles<T extends BaseProps>(props, mappings, options)
  *
  * Create Styles Object
  *
@@ -35,15 +41,49 @@ import type { BaseProps, PropMappings } from './types';
  *
  * @param props `T` [BaseProps](#BaseProps)
  * @param mappings? `PropMappings<T>` [PropMappings](#PropMappings)
+ * @param options? `CreatePropStylesOptions`
  * @returns `Record<string, string>`
  */
 export const createPropStyles = <T extends BaseProps>(
   props: T,
-  mappings?: PropMappings<T>
+  mappings?: PropMappings<T>,
+  options: CreatePropStylesOptions = {}
 ) => {
+  // Mappings expect non-breakpoint types
   const _mappings = {
     ...CSS_PROP_MAPPINGS,
     ...mappings,
-  } as PropMappings<T>;
-  return handleMappings(props, _mappings);
+  } as PropMappings<OriginalBaseProps>;
+  const activeBreakpoint =
+    options.breakpoint ?? getDefaultBreakpoint(options.breakpoints);
+
+  // Always flatten props, using breakpoint value if active, or default if available
+  const finalProps = ((): OriginalBaseProps => {
+    const out = {} as any;
+    for (const k of Object.keys(props) as (keyof T)[]) {
+      const val = props[k];
+      if (val !== null && typeof val === 'object' && !Array.isArray(val)) {
+        if (
+          activeBreakpoint &&
+          Object.prototype.hasOwnProperty.call(val as object, activeBreakpoint)
+        ) {
+          // 1. If breakpoint is active and value exists for it, use that
+          out[k] = (val as any)[activeBreakpoint];
+        } else if (
+          Object.prototype.hasOwnProperty.call(val as object, 'default')
+        ) {
+          // 2. Otherwise if there's a default value, use that (even when no breakpoint active)
+          out[k] = (val as any)['default'];
+        } else {
+          // 3. No matching breakpoint/default exists - keep original object
+          out[k] = val;
+        }
+      } else {
+        out[k] = val;
+      }
+    }
+    return out;
+  })();
+
+  return handleMappings(finalProps, _mappings);
 };

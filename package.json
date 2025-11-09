@@ -6,7 +6,9 @@
   "scripts": {
     "test": "vitest",
     "eslint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx --fix",
-    "prepare": "husky"
+    "prepare": "husky",
+    "uv": "node scripts/update-version.mjs",
+    "docs": "npm run docs -w libs/core & npm run docs -w libs/vue & npm run docs -w libs/react"
   },
   "keywords": [],
   "workspaces": [
