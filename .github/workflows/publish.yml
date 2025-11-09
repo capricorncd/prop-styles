@@ -1,0 +1,91 @@
+name: Publish Package Versions
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'libs/core/package.json'
+      - 'libs/vue/package.json'
+      - 'libs/react/package.json'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read
+      packages: write
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Get changed packages
+        id: changed-packages
+        run: |
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+          CHANGED_PACKAGES=""
+          
+          for file in $CHANGED_FILES; do
+            case $file in
+              "libs/core/package.json") CHANGED_PACKAGES="$CHANGED_PACKAGES core";;
+              "libs/vue/package.json") CHANGED_PACKAGES="$CHANGED_PACKAGES vue";;
+              "libs/react/package.json") CHANGED_PACKAGES="$CHANGED_PACKAGES react";;
+            esac
+          done
+          
+          echo "Changed packages: $CHANGED_PACKAGES"
+          echo "packages=$CHANGED_PACKAGES" >> $GITHUB_OUTPUT
+          
+          if [ -z "$CHANGED_PACKAGES" ]; then
+            echo "No package.json changes detected"
+            exit 0
+          fi
+
+      - name: Install otpcli
+        run: npm install -g @allindevelopers/otpcli
+        
+      - name: Generate OTP
+        id: otp
+        run: |
+          OTP=$(otpcli -k ${{ secrets.NPM_OTP_SECRET }})
+          echo "otp=$OTP"
+          echo "otp=$OTP" >> $GITHUB_OUTPUT
+        
+      - name: Build and publish changed packages
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          for package in ${{ steps.changed-packages.outputs.packages }}; do
+            echo "Building and publishing $package..."
+            cd "libs/$package"
+            
+            # 验证版本变更
+            CURRENT_VERSION=$(node -p "require('./package.json').version")
+            git checkout ${{ github.event.before }}
+            OLD_VERSION=$(node -p "require('./package.json').version")
+            git checkout ${{ github.sha }}
+            
+            if [ "$CURRENT_VERSION" != "$OLD_VERSION" ]; then
+              echo "Version changed for $package: $OLD_VERSION -> $CURRENT_VERSION"
+              npm run build
+              npm publish --access public --otp=${{ steps.otp.outputs.otp }}
+            else
+              echo "No version change for $package, skipping publish"
+            fi
+            
+            cd ../..
+          done 
+          
