@@ -3,8 +3,8 @@
   "version": "1.0.3-beta",
   "description": "Process CSS-related properties in Props so that they can generate the element style.",
   "type": "module",
-  "main": "./dist/index.es.js",
-  "types": "./dist/types.d.ts",
+  "main": "src/index.ts",
+  "types": "dist/types.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.es.js",

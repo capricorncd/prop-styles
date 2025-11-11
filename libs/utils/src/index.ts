@@ -5,9 +5,9 @@
  */
 export * from '@zx-libs/utils';
 
-export function isBoolean(value: unknown): value is boolean {
+export const isBoolean = (value: unknown): value is boolean => {
   return typeof value === 'boolean';
-}
+};
 
 const COLOR_VALUE_REG =
   /^(#[a-f0-9]{3,8}|(rgba?|hsla?|hwb|lab|lch|oklab|oklch|hwb|lch|light-dark)\(.+\))$/i;
@@ -15,10 +15,10 @@ const COLOR_VALUE_REG =
 const CSS_VAR_REG = /^--\w+(-\w+)*$/;
 const HAS_CSS_VAR_REG = /(\s)*--\w+(-\w+)*/;
 
-export function isColorLike(value: unknown): value is string {
+export const isColorLike = (value: unknown): value is string => {
   if (typeof value !== 'string') return false;
   return COLOR_VALUE_REG.test(value);
-}
+};
 
 export const toColorValue = (value?: string) => {
   if (!value) return '';

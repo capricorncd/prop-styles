@@ -19,7 +19,7 @@ describe('libs/style createPropStyles', () => {
 
     expect(
       createPropStyles(
-        { display: { xs: 'block' } },
+        { display: { xs: 'block', default: 'flex' } },
         {},
         {
           breakpoint: 'xs',

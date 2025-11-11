@@ -31,7 +31,7 @@
  *
  * const { style } = usePropStyles(props, {
  *   // Custom prop mapping handler
- *   customProp: (v: Props['customProp']) => f('custom-prop', v, 'default value used when v is null/false')
+ *   customProp: (v: Props['customProp']) => transform('custom-prop', v, 'default value used when v is null/false')
  * })
  * </script>
  *
@@ -58,7 +58,8 @@ export * from '@prop-styles/core';
 /**
  * @type VueBaseProps
  */
-export interface VueBaseProps extends BaseProps {
+export interface VueBaseProps<Breakpoint extends string>
+  extends BaseProps<Breakpoint> {
   style?: StyleValue;
   class?: any;
 }
@@ -72,11 +73,14 @@ export interface VueBaseProps extends BaseProps {
  * @param mappings? `PropMappings<T>` [PropMappings](#PropMappings)
  * @returns `UsePropStylesReturn`
  */
-export function usePropStyles<T extends VueBaseProps>(
+export const usePropStyles = <
+  Breakpoint extends string,
+  T extends VueBaseProps<Breakpoint>,
+>(
   props: T,
   mappings?: PropMappings<T>,
-  options?: CreatePropStylesOptions
-): UsePropStylesReturn {
+  options?: CreatePropStylesOptions<Breakpoint>
+): UsePropStylesReturn => {
   const style = computed(() => {
     return [props.style, createPropStyles(props, mappings, options)];
   });
@@ -84,7 +88,7 @@ export function usePropStyles<T extends VueBaseProps>(
   return {
     style,
   };
-}
+};
 
 /**
  * @type UsePropStylesReturn
