@@ -10,7 +10,6 @@ import type {
   PropMappings,
   CreatePropStylesOptions,
   OriginalBaseProps,
-  DefaultBreakpoint,
 } from './types';
 
 /**
@@ -45,7 +44,7 @@ import type {
  * @returns `Record<string, string>`
  */
 export const createPropStyles = <
-  Breakpoint extends string = DefaultBreakpoint,
+  Breakpoint extends string = string,
   T extends BaseProps<Breakpoint> = BaseProps<Breakpoint>,
 >(
   props: T,

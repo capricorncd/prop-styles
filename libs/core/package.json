@@ -3,13 +3,13 @@
   "version": "1.0.3-beta",
   "description": "The library provides a static method createPropStyles to create Style objects.",
   "type": "module",
-  "main": "src/index.ts",
+  "main": "dist/index.es.js",
   "types": "dist/types.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.es.js",
+      "types": "./dist/types.d.ts",
       "require": "./dist/index.umd.js",
-      "types": "./dist/types.d.ts"
+      "import": "./dist/index.es.js"
     }
   },
   "files": [

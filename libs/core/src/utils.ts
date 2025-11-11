@@ -25,7 +25,7 @@ import type {
  * @param key `string` - The CSS property name or custom key for the style
  * @param value `any` - The value to transform (from props[propName])
  * @param strValue? `string` - Optional override for the output value string
- * @returns Object with key and transformed value, or null if value should be skipped
+ * @returns `PropMappingHandlerReturn` Object with key and transformed value, or null if value should be skipped
  *
  * When to use:
  * - Basic prop-to-style mapping with null/empty filtering

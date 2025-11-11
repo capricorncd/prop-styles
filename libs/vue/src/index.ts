@@ -49,19 +49,28 @@ import {
   createPropStyles,
   type BaseProps,
   type PropMappings,
-  type CreatePropStylesOptions,
 } from '@prop-styles/core';
+import { useBreakpoints, breakpointsBootstrapV5 } from '@vueuse/core';
 import { computed, type ComputedRef, type StyleValue } from 'vue';
 
-export * from '@prop-styles/core';
+export {
+  createPropStyles,
+  type BaseProps,
+  type PropMappings,
+  type CreatePropStylesOptions,
+} from '@prop-styles/core';
 
 /**
  * @type VueBaseProps
  */
-export interface VueBaseProps<Breakpoint extends string>
+export interface VueBaseProps<Breakpoint extends string = string>
   extends BaseProps<Breakpoint> {
   style?: StyleValue;
   class?: any;
+}
+
+export interface UsePropStylesOptions<Breakpoint extends string> {
+  breakpoints?: Partial<Record<Breakpoint, number>>;
 }
 
 /**
@@ -74,15 +83,28 @@ export interface VueBaseProps<Breakpoint extends string>
  * @returns `UsePropStylesReturn`
  */
 export const usePropStyles = <
-  Breakpoint extends string,
-  T extends VueBaseProps<Breakpoint>,
+  Breakpoint extends string = string,
+  T extends VueBaseProps<Breakpoint> = VueBaseProps<Breakpoint>,
 >(
   props: T,
   mappings?: PropMappings<T>,
-  options?: CreatePropStylesOptions<Breakpoint>
+  options: UsePropStylesOptions<Breakpoint> = {}
 ): UsePropStylesReturn => {
+  const breakpoints = useBreakpoints(
+    (options.breakpoints || breakpointsBootstrapV5) as Record<
+      Breakpoint,
+      number
+    >
+  );
+  const active = breakpoints.active();
+
   const style = computed(() => {
-    return [props.style, createPropStyles(props, mappings, options)];
+    return [
+      props.style,
+      createPropStyles(props, mappings, {
+        breakpoint: (active.value as Breakpoint) || undefined,
+      }),
+    ];
   });
 
   return {

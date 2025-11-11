@@ -54,7 +54,7 @@ export * from '@prop-styles/core';
 /**
  * @type ReactBaseProps
  */
-export interface ReactBaseProps<Breakpoint extends string>
+export interface ReactBaseProps<Breakpoint extends string = string>
   extends BaseProps<Breakpoint> {
   style?: CSSProperties;
   className?: string;
@@ -76,8 +76,8 @@ export interface ReactBaseProps<Breakpoint extends string>
  * @returns `UsePropStylesReturn`
  */
 export const usePropStyles = <
-  Breakpoint extends string,
-  T extends ReactBaseProps<Breakpoint>,
+  Breakpoint extends string = DefaultBreakpoint,
+  T extends ReactBaseProps<Breakpoint> = ReactBaseProps<Breakpoint>,
 >(
   props: T,
   mappings?: PropMappings<T>,

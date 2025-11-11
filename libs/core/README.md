@@ -99,7 +99,7 @@ key|`string`|yes|- The CSS property name or custom key for the style
 value|`any`|yes|- The value to transform (from props[propName])
 strValue|`string`|no|- Optional override for the output value string
 
-- @returns Object with key and transformed value, or null if value should be skipped
+- @returns `PropMappingHandlerReturn` Object with key and transformed value, or null if value should be skipped
 
 ## Types
 
@@ -109,7 +109,7 @@ strValue|`string`|no|- Optional override for the output value string
 <summary>Source Code</summary>
 
 ```ts
-type BaseProps<Breakpoint> = BreakpointTransfer<
+type BaseProps<Breakpoint extends string> = BreakpointTransfer<
   Breakpoint,
   OriginalBaseProps
 >;
@@ -153,7 +153,9 @@ default|`V`|no|Shared default value used when a breakpoint isn't specified
 <summary>Source Code</summary>
 
 ```ts
-type BreakpointObject<Breakpoint, V> = Partial<Record<Breakpoint, V>> & {
+type BreakpointObject<Breakpoint extends string, V> = Partial<
+  Record<Breakpoint, V>
+> & {
   // Shared default value used when a breakpoint isn't specified
   default?: V;
 };
@@ -176,7 +178,10 @@ Prop|Types|Required|Description
 <summary>Source Code</summary>
 
 ```ts
-type BreakpointTransfer<Breakpoint, T extends OriginalBaseProps> = {
+type BreakpointTransfer<
+  Breakpoint extends string,
+  T extends OriginalBaseProps,
+> = {
   [K in keyof T]: T[K] | BreakpointObject<Breakpoint, T[K]>;
 };
 ```

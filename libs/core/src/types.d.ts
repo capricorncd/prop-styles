@@ -5,8 +5,6 @@
  */
 import type { Property } from 'csstype';
 
-export type DefaultBreakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-
 /**
  * @type BooleanValueKeys
  */
@@ -158,7 +156,9 @@ export type OriginalBaseProps = {
  *   md: 'flex'
  * };
  */
-export type BreakpointObject<Breakpoint, V> = Partial<Record<Breakpoint, V>> & {
+export type BreakpointObject<Breakpoint extends string, V> = Partial<
+  Record<Breakpoint, V>
+> & {
   // Shared default value used when a breakpoint isn't specified
   default?: V;
 };
@@ -171,14 +171,17 @@ export type BreakpointObject<Breakpoint, V> = Partial<Record<Breakpoint, V>> & {
  * type ResponsiveProps = BreakpointTransfer<{ display: 'block' | 'flex' }>;
  * // Results in: { display: 'block' | 'flex' | { xs?: '...', sm?: '...', default?: '...' } }
  */
-export type BreakpointTransfer<Breakpoint, T extends OriginalBaseProps> = {
+export type BreakpointTransfer<
+  Breakpoint extends string,
+  T extends OriginalBaseProps,
+> = {
   [K in keyof T]: T[K] | BreakpointObject<Breakpoint, T[K]>;
 };
 
 /**
  * @type BaseProps
  */
-export type BaseProps<Breakpoint> = BreakpointTransfer<
+export type BaseProps<Breakpoint extends string> = BreakpointTransfer<
   Breakpoint,
   OriginalBaseProps
 >;
