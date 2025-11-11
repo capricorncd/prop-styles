@@ -27,7 +27,7 @@
  * export default App(props: Props) {
  *   const { style } = usePropStyles(props, {
  *     // Custom prop mapping handler
- *     customProp: (v: Props['customProp]) => f('custom-prop', v, 'default value used when v is null/false')
+ *     customProp: (v: Props['customProp]) => transform('custom-prop', v, 'default value used when v is null/false')
  *   })
  *
  *   return (
@@ -54,11 +54,14 @@ export * from '@prop-styles/core';
 /**
  * @type ReactBaseProps
  */
-export interface ReactBaseProps extends BaseProps {
+export interface ReactBaseProps<Breakpoint extends string = string>
+  extends BaseProps<Breakpoint> {
   style?: CSSProperties;
   className?: string;
   children?: ReactNode | JSX.Element;
   onClick?: (event: Event) => void;
+  id?: string;
+  dataTestid?: string;
 }
 
 /**
@@ -72,10 +75,13 @@ export interface ReactBaseProps extends BaseProps {
  * @param mappings? `PropMappings<T>` [PropMappings](#PropMappings)
  * @returns `UsePropStylesReturn`
  */
-export const usePropStyles = <T extends ReactBaseProps>(
+export const usePropStyles = <
+  Breakpoint extends string = DefaultBreakpoint,
+  T extends ReactBaseProps<Breakpoint> = ReactBaseProps<Breakpoint>,
+>(
   props: T,
   mappings?: PropMappings<T>,
-  options?: CreatePropStylesOptions
+  options?: CreatePropStylesOptions<Breakpoint>
 ) => {
   const style = useMemo(
     () => ({ ...props.style, ...createPropStyles(props, mappings, options) }),
@@ -91,5 +97,5 @@ export const usePropStyles = <T extends ReactBaseProps>(
  * @type UsePropStylesReturn
  */
 export interface UsePropStylesReturn {
-  style: { [key: string]: string };
+  style: Record<string, string>;
 }

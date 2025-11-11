@@ -31,7 +31,7 @@
  *
  * const { style } = usePropStyles(props, {
  *   // Custom prop mapping handler
- *   customProp: (v: Props['customProp']) => f('custom-prop', v, 'default value used when v is null/false')
+ *   customProp: (v: Props['customProp']) => transform('custom-prop', v, 'default value used when v is null/false')
  * })
  * </script>
  *
@@ -49,18 +49,28 @@ import {
   createPropStyles,
   type BaseProps,
   type PropMappings,
-  type CreatePropStylesOptions,
 } from '@prop-styles/core';
+import { useBreakpoints, breakpointsBootstrapV5 } from '@vueuse/core';
 import { computed, type ComputedRef, type StyleValue } from 'vue';
 
-export * from '@prop-styles/core';
+export {
+  createPropStyles,
+  type BaseProps,
+  type PropMappings,
+  type CreatePropStylesOptions,
+} from '@prop-styles/core';
 
 /**
  * @type VueBaseProps
  */
-export interface VueBaseProps extends BaseProps {
+export interface VueBaseProps<Breakpoint extends string = string>
+  extends BaseProps<Breakpoint> {
   style?: StyleValue;
   class?: any;
+}
+
+export interface UsePropStylesOptions<Breakpoint extends string> {
+  breakpoints?: Partial<Record<Breakpoint, number>>;
 }
 
 /**
@@ -72,19 +82,35 @@ export interface VueBaseProps extends BaseProps {
  * @param mappings? `PropMappings<T>` [PropMappings](#PropMappings)
  * @returns `UsePropStylesReturn`
  */
-export function usePropStyles<T extends VueBaseProps>(
+export const usePropStyles = <
+  Breakpoint extends string = string,
+  T extends VueBaseProps<Breakpoint> = VueBaseProps<Breakpoint>,
+>(
   props: T,
   mappings?: PropMappings<T>,
-  options?: CreatePropStylesOptions
-): UsePropStylesReturn {
+  options: UsePropStylesOptions<Breakpoint> = {}
+): UsePropStylesReturn => {
+  const breakpoints = useBreakpoints(
+    (options.breakpoints || breakpointsBootstrapV5) as Record<
+      Breakpoint,
+      number
+    >
+  );
+  const active = breakpoints.active();
+
   const style = computed(() => {
-    return [props.style, createPropStyles(props, mappings, options)];
+    return [
+      props.style,
+      createPropStyles(props, mappings, {
+        breakpoint: (active.value as Breakpoint) || undefined,
+      }),
+    ];
   });
 
   return {
     style,
   };
-}
+};
 
 /**
  * @type UsePropStylesReturn

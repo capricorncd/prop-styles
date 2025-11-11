@@ -15,6 +15,7 @@ describe('vue usePropStyles', () => {
       },
     });
     expect(wrapper.text()).toBe('Hello world');
+
     expect(wrapper.attributes('style')).toBe(
       'width: 200px; min-width: 150px; max-width: 500px; height: 100px; min-height: 90px; max-height: 50vh;'
     );

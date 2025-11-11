@@ -56,4 +56,4 @@ module.exports = {
       typescript: { project: './tsconfig.json' },
     },
   },
-}
+};
