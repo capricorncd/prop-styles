@@ -3,7 +3,6 @@
  * https://github.com/capricorncd
  * Date: 2024/03/16 17:21:56 (GMT+0900)
  */
-import { getDefaultBreakpoint } from './breakpoint';
 import { CSS_PROP_MAPPINGS } from './constants';
 import { handleMappings } from './utils';
 import type {
@@ -44,18 +43,20 @@ import type {
  * @param options? `CreatePropStylesOptions`
  * @returns `Record<string, string>`
  */
-export const createPropStyles = <T extends BaseProps>(
+export const createPropStyles = <
+  Breakpoint extends string = string,
+  T extends BaseProps<Breakpoint> = BaseProps<Breakpoint>,
+>(
   props: T,
   mappings?: PropMappings<T>,
-  options: CreatePropStylesOptions = {}
+  options: CreatePropStylesOptions<Breakpoint> = {}
 ) => {
   // Mappings expect non-breakpoint types
   const _mappings = {
     ...CSS_PROP_MAPPINGS,
     ...mappings,
   } as PropMappings<OriginalBaseProps>;
-  const activeBreakpoint =
-    options.breakpoint ?? getDefaultBreakpoint(options.breakpoints);
+  const activeBreakpoint = options.breakpoint || 'default';
 
   // Always flatten props, using breakpoint value if active, or default if available
   const finalProps = ((): OriginalBaseProps => {

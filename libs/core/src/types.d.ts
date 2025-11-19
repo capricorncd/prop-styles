@@ -6,51 +6,6 @@
 import type { Property } from 'csstype';
 
 /**
- * @type Breakpoint
- *
- * Available breakpoint keys for responsive design
- * @example
- * type Width = { xs?: string; sm?: string; md?: string; lg?: string; xl?: string; xxl?: string; }
- */
-export type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
-
-/**
- * @type Breakpoints
- *
- * Maps breakpoint keys to their minimum width values in pixels
- * @example
- * const breakpoints = { xs: 640, sm: 768, md: 1024, lg: 1280, xl: 1536, xxl: 1920 };
- */
-export type Breakpoints = Record<Breakpoint, number>;
-
-/**
- * @type BreakpointObject
- *
- * Makes a value type responsive by allowing per-breakpoint values and an optional default
- * @example
- * const responsiveDisplay: BreakpointObject<'block' | 'flex'> = {
- *   default: 'block',
- *   md: 'flex'
- * };
- */
-export type BreakpointObject<V> = Partial<Record<Breakpoint, V>> & {
-  // Shared default value used when a breakpoint isn't specified
-  default?: V;
-};
-
-/**
- * @type BreakpointTransfer
- *
- * Transforms a props type to support responsive values at each property
- * @example
- * type ResponsiveProps = BreakpointTransfer<{ display: 'block' | 'flex' }>;
- * // Results in: { display: 'block' | 'flex' | { xs?: '...', sm?: '...', default?: '...' } }
- */
-export type BreakpointTransfer<T extends OriginalBaseProps> = {
-  [K in keyof T]: T[K] | BreakpointObject<T[K]>;
-};
-
-/**
  * @type BooleanValueKeys
  */
 export type BooleanValueKeys =
@@ -192,9 +147,44 @@ export type OriginalBaseProps = {
 };
 
 /**
+ * @type BreakpointObject
+ *
+ * Makes a value type responsive by allowing per-breakpoint values and an optional default
+ * @example
+ * const responsiveDisplay: BreakpointObject<'block' | 'flex'> = {
+ *   default: 'block',
+ *   md: 'flex'
+ * };
+ */
+export type BreakpointObject<Breakpoint extends string, V> = Partial<
+  Record<Breakpoint, V>
+> & {
+  // Shared default value used when a breakpoint isn't specified
+  default?: V;
+};
+
+/**
+ * @type BreakpointTransfer
+ *
+ * Transforms a props type to support responsive values at each property
+ * @example
+ * type ResponsiveProps = BreakpointTransfer<{ display: 'block' | 'flex' }>;
+ * // Results in: { display: 'block' | 'flex' | { xs?: '...', sm?: '...', default?: '...' } }
+ */
+export type BreakpointTransfer<
+  Breakpoint extends string,
+  T extends OriginalBaseProps,
+> = {
+  [K in keyof T]: T[K] | BreakpointObject<Breakpoint, T[K]>;
+};
+
+/**
  * @type BaseProps
  */
-export type BaseProps = BreakpointTransfer<OriginalBaseProps>;
+export type BaseProps<Breakpoint extends string> = BreakpointTransfer<
+  Breakpoint,
+  OriginalBaseProps
+>;
 
 /**
  * @type PropMappingHandlerReturn
@@ -206,7 +196,7 @@ export type PropMappingHandlerReturn = { key: string; value: string } | null;
  *
  * PropMappings processing function, returns `{ key: string, value: string } | null`
  */
-export type PropMappingHandler<T extends BaseProps> = (
+export type PropMappingHandler<T extends OriginalBaseProps> = (
   value: any,
   props: T
 ) => PropMappingHandlerReturn | PropMappingHandlerReturn[];
@@ -223,7 +213,6 @@ export type PropMappings<T extends BaseProps> = Partial<
 /**
  * @type CreatePropStylesOptions
  */
-export interface CreatePropStylesOptions {
-  breakpoint?: Breakpoint;
-  breakpoints?: boolean | Record<Breakpoint, number>;
+export interface CreatePropStylesOptions<Breakpoint extends string> {
+  breakpoint?: Breakpoint | 'default';
 }

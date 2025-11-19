@@ -64,36 +64,6 @@ options|`CreatePropStylesOptions`|no|-
 
 - @returns `Record<string, string>`
 
-### getDefaultBreakpoint(breakpoints)
-
-Determines the active breakpoint based on window width using media queries
-
-- `true` to use DEFAULT_BREAKPOINTS
-- `false` or `undefined` to disable responsive behavior
-- `Record<Breakpoint, number>` to use custom breakpoint values
-
-- breakpoints is false/undefined (responsive disabled)
-- running in non-browser environment
-- no breakpoint matches current width
-
-@example
-```js
-// Use default breakpoints
-getDefaultBreakpoint(true) // 'md' if window width >= 1024px
-
-// Use custom breakpoints
-getDefaultBreakpoint({ sm: 500, md: 1000 })
-
-// Disable responsive behavior
-getDefaultBreakpoint(false) // undefined
-```
-
-Param|Types|Required|Description
-:--|:--|:--|:--
-breakpoints|`boolean`/`Record<Breakpoint, number>`|no|- Configuration for breakpoint detection:
-
-- @returns The active breakpoint key based on current window width, or undefined if:
-
 ### transform(key, value, strValue)
 
 Helper for creating PropMappingHandler functions. Handles common value transformations
@@ -129,7 +99,7 @@ key|`string`|yes|- The CSS property name or custom key for the style
 value|`any`|yes|- The value to transform (from props[propName])
 strValue|`string`|no|- Optional override for the output value string
 
-- @returns Object with key and transformed value, or null if value should be skipped
+- @returns `PropMappingHandlerReturn` Object with key and transformed value, or null if value should be skipped
 
 ## Types
 
@@ -139,7 +109,10 @@ strValue|`string`|no|- Optional override for the output value string
 <summary>Source Code</summary>
 
 ```ts
-type BaseProps = BreakpointTransfer<OriginalBaseProps>;
+type BaseProps<Breakpoint extends string> = BreakpointTransfer<
+  Breakpoint,
+  OriginalBaseProps
+>;
 ```
 
 </details>
@@ -163,21 +136,6 @@ type BooleanValueKeys =
 
 </details>
 
-### Breakpoint
-
-Available breakpoint keys for responsive design
-@example
-type Width = { xs?: string; sm?: string; md?: string; lg?: string; xl?: string; xxl?: string; }
-
-<details>
-<summary>Source Code</summary>
-
-```ts
-type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
-```
-
-</details>
-
 ### BreakpointObject
 
 Makes a value type responsive by allowing per-breakpoint values and an optional default
@@ -195,7 +153,9 @@ default|`V`|no|Shared default value used when a breakpoint isn't specified
 <summary>Source Code</summary>
 
 ```ts
-type BreakpointObject<V> = Partial<Record<Breakpoint, V>> & {
+type BreakpointObject<Breakpoint extends string, V> = Partial<
+  Record<Breakpoint, V>
+> & {
   // Shared default value used when a breakpoint isn't specified
   default?: V;
 };
@@ -212,30 +172,18 @@ type ResponsiveProps = BreakpointTransfer<{ display: 'block' | 'flex' }>;
 
 Prop|Types|Required|Description
 :--|:--|:--|:--
-[K in keyof T]|`T[K]`/`BreakpointObject<T[K]>`|yes|-
+[K in keyof T]|`T[K]`/`BreakpointObject<Breakpoint, T[K]>`|yes|-
 
 <details>
 <summary>Source Code</summary>
 
 ```ts
-type BreakpointTransfer<T extends OriginalBaseProps> = {
-  [K in keyof T]: T[K] | BreakpointObject<T[K]>;
+type BreakpointTransfer<
+  Breakpoint extends string,
+  T extends OriginalBaseProps,
+> = {
+  [K in keyof T]: T[K] | BreakpointObject<Breakpoint, T[K]>;
 };
-```
-
-</details>
-
-### Breakpoints
-
-Maps breakpoint keys to their minimum width values in pixels
-@example
-const breakpoints = { xs: 640, sm: 768, md: 1024, lg: 1280, xl: 1536, xxl: 1920 };
-
-<details>
-<summary>Source Code</summary>
-
-```ts
-type Breakpoints = Record<Breakpoint, number>;
 ```
 
 </details>
@@ -244,16 +192,14 @@ type Breakpoints = Record<Breakpoint, number>;
 
 Prop|Types|Required|Description
 :--|:--|:--|:--
-breakpoint|`Breakpoint`|no|-
-breakpoints|`boolean`/`Record<Breakpoint, number>`|no|-
+breakpoint|`Breakpoint`/`'default'`|no|-
 
 <details>
 <summary>Source Code</summary>
 
 ```ts
-interface CreatePropStylesOptions {
-  breakpoint?: Breakpoint;
-  breakpoints?: boolean | Record<Breakpoint, number>;
+interface CreatePropStylesOptions<Breakpoint extends string> {
+  breakpoint?: Breakpoint | 'default';
 }
 ```
 
@@ -472,7 +418,7 @@ props|`T`|yes|-
 <summary>Source Code</summary>
 
 ```ts
-type PropMappingHandler<T extends BaseProps> = (
+type PropMappingHandler<T extends OriginalBaseProps> = (
   value: any,
   props: T
 ) => PropMappingHandlerReturn | PropMappingHandlerReturn[];
@@ -505,34 +451,6 @@ type PropMappings<T extends BaseProps> = Partial<
 ```
 
 </details>
-
-## Constants
-
-### DEFAULT_BREAKPOINTS
-
-Default minimum width values (in pixels) for each breakpoint
-These values are used when breakpoints parameter is true or not provided
-
-@example
-```js
-DEFAULT_BREAKPOINTS.xs // 640
-DEFAULT_BREAKPOINTS.sm // 768
-DEFAULT_BREAKPOINTS.md // 1024
-DEFAULT_BREAKPOINTS.lg // 1280
-DEFAULT_BREAKPOINTS.xl // 1536
-DEFAULT_BREAKPOINTS.xxl // 1920
-```
-
-```ts
-const DEFAULT_BREAKPOINTS: Record<Breakpoint, number> = {
-  xs: 640,
-  sm: 768,
-  md: 1024,
-  lg: 1280,
-  xl: 1536,
-  xxl: 1920,
-};
-```
 
 ## License
 
